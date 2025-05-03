@@ -55,7 +55,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Ventanas\Perfiles\vtPerfilArtista.xaml.cs">
+      <DependentUpon>vtPerfilArtista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfiles\vtPerfilUsuario.xaml.cs">
+      <DependentUpon>vtPerfilUsuario.xaml</DependentUpon>
+    </Compile>
+    <Page Include="VentanaPrincipal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,12 +69,55 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="VentanaPrincipal.xaml.cs">
+      <DependentUpon>VentanaPrincipal.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Ventanas\Busqueda\vtBusqueda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Inicio\vtInicioSesion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Inicio\vtRegistroCuenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Menu\vtMenuAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Menu\vtMenuPrincipal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfiles\vtPerfilArtista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfiles\vtPerfilUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ventanas\Busqueda\vtBusqueda.xaml.cs">
+      <DependentUpon>vtBusqueda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Inicio\vtInicioSesion.xaml.cs">
+      <DependentUpon>vtInicioSesion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Inicio\vtRegistroCuenta.xaml.cs">
+      <DependentUpon>vtRegistroCuenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Menu\vtMenuAdmin.xaml.cs">
+      <DependentUpon>vtMenuAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Menu\vtMenuPrincipal.xaml.cs">
+      <DependentUpon>vtMenuPrincipal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,5 +143,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

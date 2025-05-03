@@ -13,16 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ClienteMusAPI
+namespace ClienteMusAPI.Ventanas.Menu
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para vtMenuAdmin.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class vtMenuAdmin : Page
     {
-        public MainWindow()
+        public vtMenuAdmin()
         {
             InitializeComponent();
+        }
+
+        private void Click_Volver(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
