@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ClienteMusAPI.Ventanas.Inicio"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1280"
+      d:DesignHeight="650" d:DesignWidth="1280"
       Title="MusAPI - Iniciar sesión">
 
     <Grid Background="White" Margin="0,0,0,0">
@@ -15,15 +15,17 @@
            FontSize="40"
            FontWeight="Bold"
            Margin="0,0,0,40"
+                   Foreground="#205781"
            />
             <!-- Descripcion de la ventana -->
             <Label Content="nomas el inicio de sesion" HorizontalAlignment="Center" VerticalAlignment="Top" 
            FontSize="26"
            Margin="0,0,0,40"
+                   Foreground="#205781"
            />
             <!-- Botones de navegación -->
-            <Button Content="Iniciar sesión" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_IniciarSesion"/>
-            <Button Content="Registrar nueva cuenta (CU-1)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_RegistrarCuenta"/>
+            <Button Content="Iniciar sesión" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_IniciarSesion" Background="#98D2C0"/>
+            <Button Content="Registrar nueva cuenta (CU-1)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_RegistrarCuenta" Background="#98D2C0"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -1,13 +1,27 @@
-﻿<NavigationWindow x:Class="ClienteMusAPI.VentanaPrincipal"
+﻿<Window x:Class="ClienteMusAPI.VentanaPrincipal"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:local="clr-namespace:ClienteMusAPI"
-                ShowsNavigationUI="False"
-                Title="MusAPI"
-                Height="720"
-                Width="1280"
                 WindowState="Maximized"
-                Source="Ventanas/Inicio/vtInicioSesion.xaml">
-</NavigationWindow>
+                Title="MusAPI" Height="720" Width="1280">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!-- Label fijo (parte estática) -->
+
+        <Grid Background="#4F959D" VerticalAlignment="Bottom" Height="70" Grid.Row="1">
+            <Label Content="Reproductor fijo" 
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            FontSize="26" FontWeight="UltraBold" Foreground="White"/>
+        </Grid>
+
+        <!-- Frame para navegar entre páginas (parte dinámica) -->
+        <Frame x:Name="MarcoPrincipal" NavigationUIVisibility="Hidden" Grid.Row="0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch" />
+    </Grid>
+</Window>

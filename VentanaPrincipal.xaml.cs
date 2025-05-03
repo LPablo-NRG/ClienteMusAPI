@@ -18,11 +18,13 @@ namespace ClienteMusAPI
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    public partial class VentanaPrincipal : NavigationWindow
+    public partial class VentanaPrincipal : Window
     {
         public VentanaPrincipal()
         {
             InitializeComponent();
+            MarcoPrincipal.Navigate(new Uri("/Ventanas/Inicio/vtInicioSesion.xaml", UriKind.Relative));
         }
+
     }
 }
