@@ -34,5 +34,10 @@ namespace ClienteMusAPI.Ventanas.Inicio
         {
             NavigationService.Navigate(new Uri("/Ventanas/Menu/vtMenuPrincipal.xaml", UriKind.Relative));
         }
+
+        private void Click_Salir(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }

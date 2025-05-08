@@ -44,5 +44,15 @@ namespace ClienteMusAPI.Ventanas.Menu
         {
             NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilUsuario.xaml", UriKind.Relative));
         }
+
+        private void Click_CerrarSesion(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Click_Salir(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }

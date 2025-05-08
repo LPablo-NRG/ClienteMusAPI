@@ -8,7 +8,7 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="MusAPI - Menú principal">
 
-    <Grid Margin="0,0,0,0">
+    <Grid Background="White" Margin="0,0,0,0">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
             <!-- Label del título -->
             <Label Content="Menú Principal" HorizontalAlignment="Center" VerticalAlignment="Top" 
@@ -28,6 +28,12 @@
             <Button Content="Ver Perfil - artista" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_VerPerfilArtista" />
             <Button Content="Ver Perfil - usuario" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_VerPerfilUsuario" />
             <Button Content="Menú admins - admin" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_MenuAdmin"/>
+            <Button Style="{StaticResource BotonGenerico}"
+                    Content="Cerrar Sesión"
+                    Click="Click_CerrarSesion"/>
+            <Button Style="{StaticResource BotonGenerico}"
+                    Content="Salir"
+                    Click="Click_Salir"/>
         </StackPanel>
     </Grid>
 </Page>
