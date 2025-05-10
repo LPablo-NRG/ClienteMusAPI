@@ -29,7 +29,8 @@
             <Button Content="Editar Perfil (CU-2) - " Width="250" Height="50" Margin="0,0,0,10" FontSize="14"/>
             <Button Content="Editar contenido (CU-7)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14"/>
             <Button Content="Ver estadísticas de contenido (CU-8)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14"/>
-            <Button Content="ver estadísticas de consumo (CU-9)" Width="250" Height="50" Margin="0,0,0,20" FontSize="14"/>
+            <Button Content="ver estadísticas de consumo (CU-9)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14"/>
+            <Button Content="Subir Canción (CU-6) - artista" Width="250" Height="50" Margin="0,0,0,20" FontSize="14" />
 
             <Label Content="Si es un perfil ajeno:" HorizontalAlignment="Center" VerticalAlignment="Top" 
                 FontSize="14"

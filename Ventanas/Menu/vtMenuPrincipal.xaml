@@ -8,32 +8,157 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="MusAPI - Menú principal">
 
-    <Grid Background="White" Margin="0,0,0,0">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
-            <!-- Label del título -->
-            <Label Content="Menú Principal" HorizontalAlignment="Center" VerticalAlignment="Top" 
-           FontSize="40"
-           FontWeight="Bold"
-           Margin="0,0,0,40"
-           />
-            <!-- Descripcion de la ventana -->
-            <Label Content="ventana principal, desde aquí se ven listas y albumes guardados, solo deber haber un botón de ver perfil " HorizontalAlignment="Center" VerticalAlignment="Top" 
-           FontSize="26"
-           Margin="0,0,0,40"
-           />
+    <Grid Background="White" Height="720">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="#4F959D" VerticalAlignment="Top"
+              Height="80" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Width="200" Grid.Column="0">
+                <Button 
+                    Width="40" Height="40"
+                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="10,0,100,0"
+                    Click="Click_CerrarSesion"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Cursor="Hand">
+                    <Image Source="..\..\Recursos\Iconos\iconoSalir.png" FlowDirection="RightToLeft" />
+                </Button>
+            </Grid> 
+
+            <Grid Grid.Column="1" VerticalAlignment="Center">
+
+                <TextBox x:Name="tbBusqueda" 
+             Height="40"
+             VerticalAlignment="Center"
+             HorizontalAlignment="Stretch"
+             FontSize="18" Text="hola"
+             VerticalContentAlignment="Center" Foreground="#205781"  
+             BorderBrush="#98D2C0" BorderThickness="2"
+             />
+
+                <Button Background="Transparent" BorderBrush="Transparent" Cursor="Hand"
+                    Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Click="Click_BuscarContenido">
+                    <Image  Source="..\..\Recursos\Iconos\iconoLupa.png" />
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="2" Width="200">
+                <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent"
+                        VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Margin="100,0,10,0" Cursor="Hand"
+                        Click="Click_VerPerfilUsuario">
+                    <Image  Source="..\..\Recursos\Iconos\iconoPerfil.png" />
+                </Button>
+            </Grid> 
+            
+        </Grid>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
             <!-- Botones de navegación -->
-            <Button Content="Buscar contenido (CU-3)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_BuscarContenido"/>
             <Button Content="Crear Lista de reproducción (CU-4)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" />
-            <Button Content="Subir Canción (CU-6) - artista" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" />
-            <Button Content="Ver Perfil - artista" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_VerPerfilArtista" />
-            <Button Content="Ver Perfil - usuario" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_VerPerfilUsuario" />
-            <Button Content="Menú admins - admin" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_MenuAdmin"/>
-            <Button Style="{StaticResource BotonGenerico}"
-                    Content="Cerrar Sesión"
-                    Click="Click_CerrarSesion"/>
-            <Button Style="{StaticResource BotonGenerico}"
-                    Content="Salir"
-                    Click="Click_Salir"/>
+            <Button Content="Menú admins - admin" Width="250" Height="50" Margin="0,0,0,50" FontSize="14" Click="Click_MenuAdmin"/>
+             
         </StackPanel>
+
+        <Grid x:Name="Album" Margin="0,0,0,0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                
+                <!-- Ejemplo de albumes guardados por el usaurios-->
+                <Label Content="álbumes" FontSize="40" HorizontalAlignment="Center"/>
+                <Grid Height="50" Margin="0,10,0,10" Background="LightGray" Width="600">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Album - Artista" FontSize="14" VerticalAlignment="Center" Grid.Column="0"/>
+                    <Button Content="Ver Detalles" Width="100" Height="30" FontSize="12" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Button Content="Reproducir" Width="100" Height="30" FontSize="12" Grid.Column="2" Margin="10,0,10,0"/>
+                </Grid>
+                <Grid Height="50" Margin="0,10,0,10" Background="LightGray" Width="600">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Album - Artista" FontSize="14" VerticalAlignment="Center" Grid.Column="0"/>
+                    <Button Content="Ver Detalles" Width="100" Height="30" FontSize="12" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Button Content="Reproducir" Width="100" Height="30" FontSize="12" Grid.Column="2" Margin="10,0,10,0"/>
+                </Grid>
+                <Grid Height="50" Margin="0,10,0,10" Background="LightGray" Width="600">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Album - Artista" FontSize="14" VerticalAlignment="Center" Grid.Column="0"/>
+                    <Button Content="Ver Detalles" Width="100" Height="30" FontSize="12" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Button Content="Reproducir" Width="100" Height="30" FontSize="12" Grid.Column="2" Margin="10,0,10,0"/>
+                </Grid>
+
+            </StackPanel>
+
+            <!-- Ejemplo de listas guardadas por el usaurios-->
+            <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Label Content="Listas" FontSize="40" HorizontalAlignment="Center"/>
+                <Grid Height="50" Margin="0,10,0,10" Background="LightGray" Width="600">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Canciones Guardads" FontSize="14" VerticalAlignment="Center" Grid.Column="0"/>
+                    <Button Content="Ver Detalles" Width="100" Height="30" FontSize="12" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Button Content="Reproducir" Width="100" Height="30" FontSize="12" Grid.Column="2" Margin="10,0,10,0"/>
+                </Grid>
+                <Grid Height="50" Margin="0,10,0,10" Background="LightGray" Width="600">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Playlist pa llorar" FontSize="14" VerticalAlignment="Center" Grid.Column="0"/>
+                    <Button Content="Ver Detalles" Width="100" Height="30" FontSize="12" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Button Content="Reproducir" Width="100" Height="30" FontSize="12" Grid.Column="2" Margin="10,0,10,0"/>
+                </Grid>
+                <Grid Height="50" Margin="0,10,0,10" Background="LightGray" Width="600">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Canciones para iniciar el día" FontSize="14" VerticalAlignment="Center" Grid.Column="0"/>
+                    <Button Content="Ver Detalles" Width="100" Height="30" FontSize="12" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Button Content="Reproducir" Width="100" Height="30" FontSize="12" Grid.Column="2" Margin="10,0,10,0"/>
+                </Grid>
+
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Page>

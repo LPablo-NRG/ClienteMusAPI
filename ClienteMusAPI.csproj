@@ -144,7 +144,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Recursos\MusAPI.wav">
+    <Resource Include="Recursos\Iconos\iconoLupa.png" />
+    <Resource Include="Recursos\Iconos\iconoRegresar.png" />
+    <Resource Include="Recursos\Iconos\iconoPerfil.png" />
+    <Resource Include="Recursos\Iconos\iconoReproducir.png" />
+    <Resource Include="Recursos\Iconos\iconoSiguiente.png" />
+    <Resource Include="Recursos\Iconos\iconoPausa.png" />
+    <Resource Include="Recursos\Iconos\iconoVolumen.png" />
+    <Resource Include="Recursos\Iconos\iconoSalir.png" />
+    <Resource Include="Recursos\Imagenes\MusAPI_Logo.png" />
+    <Content Include="Recursos\Sonidos\MusAPI.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

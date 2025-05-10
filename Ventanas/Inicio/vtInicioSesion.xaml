@@ -14,66 +14,80 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label x:Name="MusAPI_Logo" Margin="0,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Mus" Foreground="#98D2C0" FontWeight="DemiBold" 
-                               FontSize="100" FontStyle="Italic"
-                               
-                               />
-                    <TextBlock Text="API" Foreground="#205781" FontWeight="Bold" 
-                               FontSize="100" FontStyle="Italic"
-                               />
-                </StackPanel>
-                <Label.RenderTransform>
-                    <TranslateTransform x:Name="LabelTransform" X="0"/>
-                </Label.RenderTransform>
-                <Label.Effect>
-                <DropShadowEffect ShadowDepth="5" 
-                          Color="Black" 
-                          Opacity=".2" 
-                          BlurRadius="10"/>
-                </Label.Effect>
-                <Label.Triggers>
+            <Image Source="/Recursos/Imagenes/MusAPI_Logo.png" Name="Logo">
+                <Image.RenderTransform>
+                    <TranslateTransform X="0"/>
+                </Image.RenderTransform>
+                <Image.Triggers>
                     <EventTrigger RoutedEvent="Loaded">
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation
-                        Storyboard.TargetName="MusAPI_Logo"
-                        Storyboard.TargetProperty="Opacity"
-                        From="0" To="1" 
-                        Duration="0:0:2.5" />
+                            Storyboard.TargetName="Logo"
+                            Storyboard.TargetProperty="Opacity"
+                            From="0" To="1" 
+                            Duration="0:0:2.5" />
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
+                </Image.Triggers>
+            </Image>
 
-                </Label.Triggers>
-            </Label>
         </Grid>
-        <Grid Grid.Column="1">
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#98D2C0" Offset="0.5"/>
+        <Grid Grid.Column="1" x:Name="RootGrid">
+            <Grid.Resources>
+                <!-- Declaro el brush con Key (no Name) -->
+                <LinearGradientBrush x:Key="MovingBrush"
+                           StartPoint="0,0" EndPoint="1,1">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TranslateTransform />
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#98D2C0" Offset="0.0"/>
                     <GradientStop Color="#205781" Offset="1.0"/>
                 </LinearGradientBrush>
+            </Grid.Resources>
+
+            <!-- Aplico el brush como fondo -->
+            <Grid.Background>
+                <StaticResource ResourceKey="MovingBrush"/>
             </Grid.Background>
+
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!--
+              TargetName = el nombre de tu Grid
+              TargetProperty = ruta desde Background hasta el TranslateTransform.X
+            -->
+                            <DoubleAnimation
+              Storyboard.TargetName="RootGrid"
+              Storyboard.TargetProperty="(Background)
+                                         .(LinearGradientBrush.RelativeTransform)
+                                         .(TranslateTransform.X)"
+              From="0" To="1"
+              Duration="0:0:5"
+              RepeatBehavior="Forever"
+              AutoReverse="True"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                
-                
-                
+
+
+
                 <!-- Label del título -->
-                <Label Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Top" 
-           FontSize="50"
-           FontWeight="bold"
-           Margin="0,0,0,40"
-                   Foreground="#205781"
-                   FontFamily="lucida sans"
-                       
-           />
+                <Label x:Name="label" Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   FontSize="60" 
+                   FontWeight="bold"
+                   Margin="0,0,0,40"
+                   Foreground="#205781" FontFamily="Century Gothic" />
                 <!-- campos -->
                 <Label Content="Usuario" HorizontalAlignment="Center" VerticalAlignment="Top" 
                        FontSize="20" 
                        FontWeight="DemiBold"
-                       Foreground="#205781"
+                       Foreground="#205781" 
                        />
                 <TextBox x:Name="txtUsuario" Width="300" Height="30" Margin="0,0,0,10" 
                              FontSize="16" 
@@ -99,9 +113,9 @@ BorderThickness="2"
 BorderThickness="2"
                              />
 
-                
-                
-                
+
+
+
                 <!-- Botones de navegación -->
                 <Button Style="{StaticResource BotonGenerico}" Content="Iniciar sesión"
                         Margin="0,40,0,10" 

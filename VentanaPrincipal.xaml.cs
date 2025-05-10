@@ -25,7 +25,7 @@ namespace ClienteMusAPI
 
         private void VentanaPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
-            player.Open(new Uri("pack://siteoforigin:,,,/Recursos/MusAPI.wav"));
+            player.Open(new Uri("pack://siteoforigin:,,,/Recursos/Sonidos/MusAPI.wav"));
             MarcoPrincipal.Navigate(new Uri("/Ventanas/Inicio/vtInicioSesion.xaml", UriKind.Relative));
             
             player.Play();

@@ -34,5 +34,15 @@ namespace ClienteMusAPI.Ventanas.Busqueda
         {
             NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilArtista.xaml", UriKind.Relative));
         }
+
+        private void Click_VerPerfilUsuario(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilUsuario.xaml", UriKind.Relative));
+        }
+
+        private void Click_BuscarContenido(object sender, RoutedEventArgs e)
+        {
+            //TODO: Implementar la lógica de búsqueda
+        }
     }
 }
