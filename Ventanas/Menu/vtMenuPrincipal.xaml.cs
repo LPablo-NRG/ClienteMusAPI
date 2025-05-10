@@ -1,4 +1,5 @@
 ﻿using System;
+using ClienteMusAPI.UserControls;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,18 @@ namespace ClienteMusAPI.Ventanas.Menu
         public vtMenuPrincipal()
         {
             InitializeComponent();
+
+            sp_albumes.Children.Add(new Contenido("Lista"));
+            sp_albumes.Children.Add(new Contenido("Album"));
+            sp_albumes.Children.Add(new Contenido("Artista"));
+            sp_albumes.Children.Add(new Contenido());
+            sp_albumes.Children.Add(new Contenido("Cancion"));
+
+            sp_listas.Children.Add(new Contenido());
+            sp_listas.Children.Add(new Contenido("Cancion"));
+            sp_listas.Children.Add(new Contenido("Lista"));
+            sp_listas.Children.Add(new Contenido("Album"));
+            sp_listas.Children.Add(new Contenido("Artista"));
         }
 
         private void Click_MenuAdmin(object sender, RoutedEventArgs e)
@@ -54,5 +67,6 @@ namespace ClienteMusAPI.Ventanas.Menu
         {
             App.Current.Shutdown();
         }
+
     }
 }

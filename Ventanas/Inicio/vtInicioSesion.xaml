@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ClienteMusAPI.Ventanas.Inicio"
       mc:Ignorable="d" 
-      d:DesignHeight="650" d:DesignWidth="1280"
+      d:DesignHeight="720" d:DesignWidth="1280"
       Title="MusAPI - Iniciar sesión">
 
     <Grid Background="White" Margin="0,0,0,0">

@@ -20,10 +20,18 @@ namespace ClienteMusAPI.Ventanas.Inicio
     /// </summary>
     public partial class vtInicioSesion : Page
     {
+        //VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
         public vtInicioSesion()
         {
             InitializeComponent();
+            this.Loaded += vtInicioSesion_Loaded;
         } 
+
+        private void vtInicioSesion_Loaded(object sender, RoutedEventArgs e)
+        {
+            VentanaPrincipal vt = (VentanaPrincipal)Application.Current.MainWindow;
+            vt.Reproductor.Visibility = Visibility.Collapsed;
+        }
 
         private void Click_RegistrarCuenta(object sender, RoutedEventArgs e)
         {
@@ -32,6 +40,9 @@ namespace ClienteMusAPI.Ventanas.Inicio
 
         private void Click_IniciarSesion(object sender, RoutedEventArgs e)
         {
+            VentanaPrincipal vt = (VentanaPrincipal)Application.Current.MainWindow;
+            vt.Reproductor.Visibility = Visibility.Visible;
+
             NavigationService.Navigate(new Uri("/Ventanas/Menu/vtMenuPrincipal.xaml", UriKind.Relative));
         }
 

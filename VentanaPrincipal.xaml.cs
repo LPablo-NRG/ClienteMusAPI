@@ -22,7 +22,6 @@ namespace ClienteMusAPI
     {
         private MediaPlayer player = new MediaPlayer();
 
-
         private void VentanaPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
             player.Open(new Uri("pack://siteoforigin:,,,/Recursos/Sonidos/MusAPI.wav"));
