@@ -40,12 +40,14 @@ namespace ClienteMusAPI.UserControls
                     txb_Nombre.Text = "Lista de Reproducción";
                     txb_Autor.Visibility = Visibility.Collapsed;
                     btn_Guardar.Visibility = Visibility.Collapsed;
+                    img_foto.Source = new BitmapImage(new Uri("../Recursos/Iconos/iconoListaDeReproduccion.png", UriKind.Relative));
                     break;
                 case "Artista":
                     txb_Nombre.Text = "Artista";
                     txb_Autor.Visibility = Visibility.Collapsed;
                     btn_Guardar.Visibility = Visibility.Collapsed;
                     btn_Reproducir.Visibility = Visibility.Collapsed;
+                    img_foto.Source = new BitmapImage(new Uri("../Recursos/Iconos/iconoPerfil.png", UriKind.Relative));
                     break;
 
             }

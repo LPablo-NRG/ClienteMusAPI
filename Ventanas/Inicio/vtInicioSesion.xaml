@@ -95,8 +95,7 @@
                              FontFamily="lucida sans"
                              VerticalContentAlignment="Center"
                              Foreground="#205781"
-                         BorderBrush="#4F959D"
-BorderThickness="2"
+                         BorderBrush="#4F959D" BorderThickness="2"
                              />
 
                 <Label Content="Contraseña" HorizontalAlignment="Center" VerticalAlignment="Top" 
