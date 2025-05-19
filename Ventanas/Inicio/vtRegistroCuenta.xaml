@@ -22,7 +22,7 @@
            Margin="0,0,0,40"
            />
             <!-- Botones de navegación -->
-            <Button Content="Registrar" Width="250" Height="50" Margin="0,0,0,10" FontSize="14"/>
+            <Button Content="Registrar" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Registrar_Click"/>
             <Button Content="Cancelar" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_Cancelar"/>
         </StackPanel>
     </Grid>
