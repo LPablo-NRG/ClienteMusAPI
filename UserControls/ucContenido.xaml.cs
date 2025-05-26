@@ -18,16 +18,18 @@ namespace ClienteMusAPI.UserControls
     /// <summary>
     /// Lógica de interacción para Contenido.xaml
     /// </summary>
-    public partial class Contenido : UserControl
+    public partial class ucContenido : UserControl
     {
-        public Contenido()
+        String tipo;
+        public ucContenido()
         {
             InitializeComponent();
             img_foto.Source = null;
         }
-        public Contenido(String tipo)
+        public ucContenido(String tipo)
         {
             InitializeComponent();
+            this.tipo = tipo;
             switch (tipo)
             {
                 case "Album":
@@ -55,7 +57,42 @@ namespace ClienteMusAPI.UserControls
 
         private void Click_VerDetalles(object sender, RoutedEventArgs e)
         {
+            switch (tipo)
+            {
+                case "Album":
+                    NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Contenido/vtAlbum.xaml", UriKind.Relative));
+                    break;
+                case "Cancion":
+                    // Buscar el contenedor llamado "ContenedorGeneral"
+                    DependencyObject parent = this;
+                    while (parent != null && !(parent is Window))
+                    {
+                        parent = VisualTreeHelper.GetParent(parent);
+                    }
 
+                    if (parent is Window window)
+                    {
+                        var contenedor = (window as VentanaPrincipal)?.Contenido;
+                        if (contenedor != null)
+                        {
+                            ucVentanaDetalles detalles = new ucVentanaDetalles();
+                            detalles.btn_Cerrar.Click += (object sender2, RoutedEventArgs e2) =>
+                            {
+                                contenedor.Children.Remove(detalles);
+                            };
+                            contenedor.Children.Add(new ucVentanaDetalles());
+                        }
+                    }
+                    break;
+
+                case "Lista":
+                    NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Contenido/vtListaDeReproduccion.xaml", UriKind.Relative));
+                    break;
+                case "Artista":
+                    NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Perfiles/vtPerfilArtista.xaml", UriKind.Relative));    
+                    break;
+
+            }
         }
 
         private void Click_Guardar(object sender, RoutedEventArgs e)

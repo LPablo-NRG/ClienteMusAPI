@@ -24,17 +24,34 @@ namespace ClienteMusAPI.Ventanas.Menu
         public vtMenuPrincipal()
         {
             InitializeComponent();
-            sp_albumes.Children.Add(new Contenido("Album"));
-            sp_albumes.Children.Add(new Contenido("Album"));
-            sp_albumes.Children.Add(new Contenido("Album"));
+            sp_albumes.Children.Add(new ucContenido("Album"));
+            sp_albumes.Children.Add(new ucContenido("Album"));
+            sp_albumes.Children.Add(new ucContenido("Album"));
 
 
-            sp_listas.Children.Add(new Contenido("Lista"));
-            sp_listas.Children.Add(new Contenido("Lista"));
-            sp_listas.Children.Add(new Contenido("Lista"));
-            sp_listas.Children.Add(new Contenido("Lista"));
-            sp_listas.Children.Add(new Contenido("Lista"));
-            sp_listas.Children.Add(new Contenido("Lista"));
+            sp_listas.Children.Add(new ucContenido("Lista"));
+            sp_listas.Children.Add(new ucContenido("Lista"));
+            sp_listas.Children.Add(new ucContenido("Lista"));
+            sp_listas.Children.Add(new ucContenido("Lista"));
+            sp_listas.Children.Add(new ucContenido("Lista"));
+            sp_listas.Children.Add(new ucContenido("Lista"));
+
+            ucContenido twenty = new ucContenido("Artista");
+            twenty.txb_Nombre.Text = "Twenty One Pilots";
+            ucContenido muse = new ucContenido("Artista");
+            muse.txb_Nombre.Text = "Muse";
+            ucContenido idkh = new ucContenido("Artista");
+            idkh.txb_Nombre.Text = "I Don't Know How But They Found Me";
+
+            sp_Artistas.Children.Add(twenty);
+            sp_Artistas.Children.Add(muse);
+            sp_Artistas.Children.Add(idkh);
+            sp_Artistas.Children.Add(new ucContenido("Artista"));
+            sp_Artistas.Children.Add(new ucContenido("Artista"));
+            sp_Artistas.Children.Add(new ucContenido("Artista"));
+            sp_Artistas.Children.Add(new ucContenido("Artista"));
+            sp_Artistas.Children.Add(new ucContenido("Artista"));
+            sp_Artistas.Children.Add(new ucContenido("Artista"));
         }
 
         private void Click_MenuAdmin(object sender, RoutedEventArgs e)
@@ -62,9 +79,28 @@ namespace ClienteMusAPI.Ventanas.Menu
             NavigationService.GoBack();
         }
 
+        private void Click_CrearListaDeReproduccion(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private void Click_Salir(object sender, RoutedEventArgs e)
         {
             App.Current.Shutdown();
+        }
+
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scrollViewer = sender as ScrollViewer;
+            if (scrollViewer != null)
+            {
+                // Desplazar horizontalmente según el delta del mouse
+                double offset = scrollViewer.HorizontalOffset - e.Delta;
+                scrollViewer.ScrollToHorizontalOffset(offset);
+
+                // Marcar el evento como manejado para evitar desplazamiento vertical predeterminado
+                e.Handled = true;
+            }
         }
 
     }

@@ -6,12 +6,20 @@
              StartupUri="VentanaPrincipal.xaml">
     <Application.Resources>
         
-        <system:Double x:Key="OpacityConstante">0.7</system:Double>
+        <system:Double x:Key="OpacityConstante">0.3</system:Double>
 
         <SolidColorBrush x:Key="ColorLetrasHEX">#1b1b1b</SolidColorBrush>
         <SolidColorBrush x:Key="ColorLetrasAzulHEX">#205781</SolidColorBrush>
+        <SolidColorBrush x:Key="ColorLetrasAmarilloHEX">#ffd166</SolidColorBrush>
 
-        <Color x:Key="ColorFondoHEX">#bfe3d8</Color>
+        <Color x:Key="ColorFondoHEX">white</Color>
+        <Color x:Key="ColorFondoAmarillaHEX">#ffd166</Color>
+        <!--
+        Amarillo: ffd166
+        Azul Claro: bfe3d8
+        Azul Oscuro: 205781
+        Gris Letras: 1b1b1b
+        -->
 
         <Style x:Key="BotonGenerico" TargetType="Button">
             <Setter Property="FontSize" Value="20"/>

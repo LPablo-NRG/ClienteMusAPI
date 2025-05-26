@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClienteMusAPI.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,56 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         public vtPerfilArtista()
         {
             InitializeComponent();
+            sp_albumes.Children.Add(new ucContenido("Album"));
+            sp_albumes.Children.Add(new ucContenido("Album"));
+            sp_albumes.Children.Add(new ucContenido("Album"));
+
+
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_sencillos.Children.Add(new ucContenido("Cancion"));
         }
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Click_VerEstadisticas(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Click_EditarPerfil(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Click_SubirContenido(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Click_SeguirArtista(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Click_EvaluarArtista(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Click_VerChat(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

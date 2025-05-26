@@ -63,8 +63,17 @@
     <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Servicios\ClienteAPI.cs" />
     <Compile Include="Servicios\UsuarioServicio.cs" />
-    <Compile Include="UserControls\Contenido.xaml.cs">
-      <DependentUpon>Contenido.xaml</DependentUpon>
+    <Compile Include="UserControls\ucContenido.xaml.cs">
+      <DependentUpon>ucContenido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucVentanaDetalles.xaml.cs">
+      <DependentUpon>ucVentanaDetalles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Contenido\vtAlbum.xaml.cs">
+      <DependentUpon>vtAlbum.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Contenido\vtListaDeReproduccion.xaml.cs">
+      <DependentUpon>vtListaDeReproduccion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Perfiles\vtPerfilArtista.xaml.cs">
       <DependentUpon>vtPerfilArtista.xaml</DependentUpon>
@@ -72,7 +81,11 @@
     <Compile Include="Ventanas\Perfiles\vtPerfilUsuario.xaml.cs">
       <DependentUpon>vtPerfilUsuario.xaml</DependentUpon>
     </Compile>
-    <Page Include="UserControls\Contenido.xaml">
+    <Page Include="UserControls\ucContenido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucVentanaDetalles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,6 +102,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Ventanas\Busqueda\vtBusqueda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Contenido\vtAlbum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Contenido\vtListaDeReproduccion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,6 +192,15 @@
     <Resource Include="Recursos\Imagenes\MusAPI_Logo.png" />
     <Resource Include="Recursos\Iconos\iconoListaDeReproduccion.png" />
     <Resource Include="Recursos\Iconos\iconoDisco.png" />
+    <Resource Include="Recursos\Iconos\iconoMas.png" />
+    <Resource Include="Recursos\Iconos\iconoEditar.png" />
+    <Resource Include="Recursos\Iconos\iconoEstadisticas.png" />
+    <Resource Include="Recursos\Iconos\iconoChat.png" />
+    <Resource Include="Recursos\Iconos\iconoEstrellaCompleta.png" />
+    <Resource Include="Recursos\Iconos\iconoEstrellaVacia.png" />
+    <Resource Include="Recursos\Iconos\iconoEvaluar.png" />
+    <Resource Include="Recursos\Iconos\iconoConfiguracion.png" />
+    <Resource Include="Recursos\Iconos\iconoFlecha.png" />
     <Content Include="Recursos\Sonidos\MusAPI.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

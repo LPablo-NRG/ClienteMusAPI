@@ -1,12 +1,12 @@
-﻿<Page x:Class="ClienteMusAPI.Ventanas.Perfiles.vtPerfilArtista"
+﻿<Page x:Class="ClienteMusAPI.Ventanas.Contenido.vtAlbum"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ClienteMusAPI.Ventanas.Perfiles"
+      xmlns:local="clr-namespace:ClienteMusAPI.Ventanas.Contenido"
       mc:Ignorable="d" 
-            d:DesignHeight="720" d:DesignWidth="1280"
-      Title="MusAPI - Perfil Artista">
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="MusAPI - Album">
 
     <Grid Background="Transparent" Margin="0,0,0,0">
         <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -31,40 +31,33 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Rectangle Fill="Black" Width="200" Height="200" Margin="20,0,20,0" Opacity=".1" Grid.Column="0" HorizontalAlignment="Right"/>
-                                    <Image x:Name="img_foto" Width="200" Height="200" Source="..\..\Recursos\Iconos\iconoPerfil.png" Grid.Column="0" Margin="20,0,20,0" HorizontalAlignment="Right"/>
+                                    <Image x:Name="img_foto" Width="200" Height="200" Source="..\..\Recursos\Iconos\iconoDisco.png" Grid.Column="0" Margin="20,0,20,0" HorizontalAlignment="Right"/>
                                     <Button Grid.Column="0"
-    Width="40" Height="40"
-    VerticalAlignment="Top" HorizontalAlignment="Left"
-    Margin="10,0,100,0"
-    Click="Click_Volver"
-    Background="Transparent"
-    BorderBrush="Transparent"
-    Cursor="Hand">
+                                            Width="40" Height="40"
+                                            VerticalAlignment="Top" HorizontalAlignment="Left"
+                                            Margin="10,0,100,0"
+                                            Click="Click_Volver"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand">
                                         <Image Source="..\..\Recursos\Iconos\iconoRegresar.png"/>
                                     </Button>
                                 </Grid>
 
                                 <Grid Grid.Column="1">
                                     <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="0,10,0,0">
-                                        <TextBlock x:Name="txb_Nombre" Text="Nombre del Artista" FontSize="36" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,2"
+                                        <TextBlock x:Name="txb_Nombre" Text="Nombre del Album" FontSize="36" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,2"
 FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
-                                        <TextBlock x:Name="txb_Usuario" Text="@nombre_de_usuario" FontSize="18" VerticalAlignment="Center" 
+                                        <TextBlock x:Name="txb_Artista" Text="Artista: " FontSize="18" VerticalAlignment="Center" 
 Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
-                                        <TextBlock x:Name="txb_Descripcion" Text="Descripción del artista" FontSize="18" VerticalAlignment="Center"
-Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="txb_Fecha" Text="Fecha de publicacion: " FontSize="18" VerticalAlignment="Center"
+Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="txb_Duracion" Text="Duración: " FontSize="18" VerticalAlignment="Center"
+Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" TextWrapping="Wrap"/>
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right">
                                         <StackPanel x:Name="sp_MenuArtista" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Visible" Margin="0,0,0,10">
-                                            <Button Grid.Column="0"
-                                                    Width="40" Height="40"
-                                                    VerticalAlignment="Top" HorizontalAlignment="Right"
-                                                    Margin="10,0,10,0"
-                                                    Click="Click_SubirContenido"
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoMas.png" Width="30"/>
-                                            </Button>
+                                            
                                             <Button Grid.Column="0"
                                                     Width="40" Height="40"
                                                     VerticalAlignment="Top" HorizontalAlignment="Right"
@@ -79,7 +72,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" T
                                                     Width="40" Height="40"
                                                     VerticalAlignment="Top" HorizontalAlignment="Right"
                                                     Margin="10,0,10,0"
-                                                    Click="Click_EditarPerfil"
+                                                    Click="Click_EditarAlbum"
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
@@ -91,37 +84,18 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" T
                                                     Width="40" Height="40"
                                                     VerticalAlignment="Top" HorizontalAlignment="Right"
                                                     Margin="10,0,10,0"
-                                                    Click="Click_SeguirArtista"
+                                                    Click="Click_GuardarAlbum"
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
                                                 <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png" Width="30"/>
                                             </Button>
-                                            <Button Grid.Column="0"
-                                                    Width="40" Height="40"
-                                                    VerticalAlignment="Top" HorizontalAlignment="Right"
-                                                    Margin="10,0,10,0"
-                                                    Click="Click_VerChat"
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoChat.png" Width="30"/>
-                                            </Button>
-                                            <Button Grid.Column="0"
-                                                Width="40" Height="40"
-                                                VerticalAlignment="Top" HorizontalAlignment="Right"
-                                                Margin="10,0,10,0"
-                                                Click="Click_EvaluarArtista"
-                                                Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEvaluar.png" Width="25"/>
-                                            </Button>
+                                            
                                         </StackPanel>
                                     </StackPanel>
-                                    
+
                                 </Grid>
-                                
+
                             </Grid>
                         </Grid>
                     </Border>
@@ -129,35 +103,14 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" T
 
                     <Grid Grid.Row="2" VerticalAlignment="Stretch">
 
-                        <Grid x:Name="Album" Grid.Row="1" VerticalAlignment="Top">
+                        <Grid Grid.Row="1" VerticalAlignment="Top">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border CornerRadius="10" Grid.Column="0" Margin="20,10,20,10">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
-                                </Border.Background>
-                                <Grid Grid.Column="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-
-                                    <Label Content="Álbumes" FontSize="36" HorizontalAlignment="Center"
-                                           Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
-                                           FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
-                                    <Border CornerRadius="10"  Grid.Column="0"  Margin="40,00,40,10" Grid.Row="1">
-                                        <Grid Background="Transparent">
-                                            <StackPanel x:Name="sp_albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
-                                            </StackPanel>
-                                        </Grid>
-
-                                    </Border>
-                                </Grid>
-                            </Border>
                             <Border CornerRadius="10" Grid.Column="1" Margin="20,10,20,10">
                                 <Border.Background>
                                     <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
@@ -167,11 +120,11 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" T
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Label Content="Sencillos" FontSize="36" HorizontalAlignment="Center"
+                                    <Label Content="Canciones" FontSize="36" HorizontalAlignment="Center"
                                             Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
                                             FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
                                     <Border CornerRadius="10" Grid.Column="2" Margin="40,00,40,10" Grid.Row="1">
-                                        <StackPanel x:Name="sp_sencillos" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">
+                                        <StackPanel x:Name="sp_Canciones" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">
 
                                         </StackPanel>
                                     </Border>
@@ -182,7 +135,8 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" T
                 </Grid>
             </StackPanel>
         </ScrollViewer>
-        
-        
+
+
     </Grid>
+
 </Page>

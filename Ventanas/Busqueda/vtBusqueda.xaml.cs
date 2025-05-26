@@ -24,12 +24,21 @@ namespace ClienteMusAPI.Ventanas.Busqueda
         public vtBusqueda()
         {
             InitializeComponent();
+            ucContenido twenty = new ucContenido("Artista");
+            twenty.txb_Nombre.Text = "Twenty One Pilots";
+            ucContenido muse = new ucContenido("Artista");
+            muse.txb_Nombre.Text = "Muse";
+            ucContenido idkh = new ucContenido("Artista");
+            idkh.txb_Nombre.Text = "I Don't Know How But They Found Me";
 
-            sp_Resultados.Children.Add(new Contenido());
-            sp_Resultados.Children.Add(new Contenido("Cancion"));
-            sp_Resultados.Children.Add(new Contenido("Lista"));
-            sp_Resultados.Children.Add(new Contenido("Album"));
-            sp_Resultados.Children.Add(new Contenido("Artista"));
+            sp_Resultados.Children.Add(twenty);
+            sp_Resultados.Children.Add(muse);
+            sp_Resultados.Children.Add(idkh);
+            sp_Resultados.Children.Add(new ucContenido());
+            sp_Resultados.Children.Add(new ucContenido("Cancion"));
+            sp_Resultados.Children.Add(new ucContenido("Lista"));
+            sp_Resultados.Children.Add(new ucContenido("Album"));
+            sp_Resultados.Children.Add(new ucContenido("Artista"));
 
         }
 

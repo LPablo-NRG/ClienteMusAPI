@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0" CornerRadius="10" BorderBrush="Black" BorderThickness="0"  
-                    Margin="20,10,20,10" VerticalAlignment="Center" Padding="10">
+                    Margin="20,10,20,0" VerticalAlignment="Center" Padding="10">
                 <Border.Background>
                     <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
                 </Border.Background>
@@ -57,86 +57,122 @@
                         </Button>
                     </Grid>
 
-                    <Grid Grid.Column="2" >
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                        <Button Grid.Column="0"
+        Width="40" Height="40"
+        VerticalAlignment="Top" HorizontalAlignment="Right"
+        Margin="10,0,0,0"
+        Click="Click_MenuAdmin"
+        Background="Transparent"
+        BorderBrush="Transparent"
+        Cursor="Hand">
+                            <Image Source="..\..\Recursos\Iconos\iconoConfiguracion.png" Width="30"/>
+                        </Button>
                         <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent"
-                            VerticalAlignment="Center" HorizontalAlignment="Right"
-                            Margin="10,0,10,0" Cursor="Hand"
-                            Click="Click_VerPerfilUsuario">
+    VerticalAlignment="Center" HorizontalAlignment="Right"
+    Margin="10,0,10,0" Cursor="Hand"
+    Click="Click_VerPerfilUsuario">
                             <Image  Source="..\..\Recursos\Iconos\iconoPerfil.png" />
                         </Button>
-                    </Grid>
+                    </StackPanel>
 
                 </Grid>
             </Border>
 
             <Grid Grid.Row="1" VerticalAlignment="Stretch">
 
-                <Border CornerRadius="10" Grid.Column="1" Margin="20,10,20,10">
-                    <Border.Background>
-                        <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
-                    </Border.Background>
-                    <Grid x:Name="Album" Grid.Row="1" VerticalAlignment="Top">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Label Content="Álbumes" FontSize="36" HorizontalAlignment="Center"
-                                   Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
-                                   FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
-                            <Border CornerRadius="10"  Grid.Column="0"  Margin="40,00,40,10" Grid.Row="1">
-                                <Grid Background="Transparent">
-                                    <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="20,5,20,20" Style="{StaticResource PlantillaScrollViewer}" >
-                                        <StackPanel x:Name="sp_albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                </Grid>
-
-                            </Border>
-                        </Grid>
-
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Label Content="Listas" FontSize="36" HorizontalAlignment="Center"
-                                    Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
-                                    FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
-                            <Border CornerRadius="10" Grid.Column="2" Margin="40,00,40,10" Grid.Row="1">
-                                <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="20,5,20,20" FlowDirection="RightToLeft" Style="{StaticResource PlantillaScrollViewer}">
-                                    <StackPanel x:Name="sp_listas" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">
-
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </Grid>
-                    </Grid>
-                </Border>
-
-            </Grid>
-
-            <Grid Grid.Row="2" Margin="0,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Style="{StaticResource BotonGenerico}" Content="Crear Lista de reproducción"
-                        Margin="0,0,5,0" Grid.Column="1"
-         
-                        />
-                <Button Style="{StaticResource BotonGenerico}" Content="Menú admins - admin"
-                        Margin="5,0,0,0" Grid.Column="0"
-                        Click="Click_MenuAdmin"
-                        />
+
+                <Border CornerRadius="10" Grid.Column="0" Margin="20,10,5,10">
+                    <Border.Background>
+                        <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
+                    </Border.Background>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Álbumes" FontSize="36" HorizontalAlignment="Center"
+           Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
+           FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
+                        <Border CornerRadius="10"  Grid.Column="0"  Margin="40,00,40,10" Grid.Row="1">
+                            <Grid Background="Transparent">
+                                <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="20,5,20,20" Style="{StaticResource PlantillaScrollViewer}" >
+                                    <StackPanel x:Name="sp_albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border CornerRadius="10" Grid.Column="1" Margin="5,10,20,10">
+                    <Border.Background>
+                        <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
+                    </Border.Background>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Label Content="Listas" FontSize="36" HorizontalAlignment="Center"
+Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
+FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
+                            <Button Grid.Column="0"
+        Width="40" Height="40"
+        VerticalAlignment="Center" HorizontalAlignment="Right"
+        Margin="10,0,10,0"
+        Click="Click_CrearListaDeReproduccion"
+        Background="Transparent"
+        BorderBrush="Transparent"
+        Cursor="Hand">
+                                <Image Source="..\..\Recursos\Iconos\iconoMas.png" Width="30"/>
+                            </Button>
+                        </Grid>
+                        
+                        <Border CornerRadius="10" Grid.Column="2" Margin="40,00,40,10" Grid.Row="1">
+                            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="20,5,20,20" FlowDirection="RightToLeft" Style="{StaticResource PlantillaScrollViewer}">
+                                <StackPanel x:Name="sp_listas" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">
+
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </Border>
             </Grid>
+
+            <Border Grid.Row="2" CornerRadius="10" BorderBrush="Black" BorderThickness="0"  
+        Margin="20,0,20,0" VerticalAlignment="Center" Padding="5">
+                <Border.Background>
+                    <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
+                </Border.Background>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Artistas: " FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center"
+Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
+FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0"/>
+                    <Border CornerRadius="10"  Grid.Column="1"  Margin="0,00,0,0" Grid.Row="1">
+                        <Grid Background="Transparent">
+                            <ScrollViewer  Margin="0,0,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" >
+                                <StackPanel x:Name="sp_Artistas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" >
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
+                    <Image Source="..\..\Recursos\Iconos\iconoFlecha.png" Width="30" Margin="5,0,0,0" Grid.Column="2" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
 
         </Grid>
     </Grid>
