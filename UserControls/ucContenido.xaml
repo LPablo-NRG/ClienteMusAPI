@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ClienteMusAPI.UserControls"
              mc:Ignorable="d">
     
-    <Border CornerRadius="10" BorderThickness="0"
+    <Border x:Name="Contenido" CornerRadius="10" BorderThickness="0" HorizontalAlignment="Stretch"
         Padding="0" Margin="5,5,5,5" >
         <Border.Background>
             <SolidColorBrush Color="White" Opacity="{StaticResource OpacityConstante}" />
@@ -20,11 +20,12 @@
             </Grid.ColumnDefinitions>
             <Rectangle Fill="Black" Width="64" Height="64" Margin="10,0,10,0" Opacity=".1"/>
             <Image x:Name="img_foto" Source="..\Recursos\Iconos\iconoDisco.png" Grid.Column="0" Width="64" Height="64" Margin="10,0,10,0"/>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock x:Name="txb_Nombre" Text="Album/Cancion/Artista/Lista" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,2"
-                           TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
+            <StackPanel x:Name="sp_Texto" Grid.Column="1" VerticalAlignment="Center" MaxWidth="250" HorizontalAlignment="Left">
+                <TextBlock x:Name="txb_Nombre" Text="Album/Cancion/Artista/Lista nombre de ejemplo" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,2"
+                           TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Left"
                            FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
                 <TextBlock x:Name="txb_Autor" Text="- Artista" FontSize="18" VerticalAlignment="Center" 
+                           TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Left"
                            Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
             </StackPanel>
 

@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0" CornerRadius="10" BorderBrush="Black" BorderThickness="0"  
-                    Margin="20,10,20,0" VerticalAlignment="Center" Padding="10">
+                    Margin="20,10,20,10" VerticalAlignment="Center" Padding="10">
                 <Border.Background>
                     <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
                 </Border.Background>
@@ -47,10 +47,10 @@
 
                     <Grid Grid.Column="1" VerticalAlignment="Center">
 
-                        <TextBox x:Name="tbBusqueda" Text="Buscar..."
+                        <TextBox x:Name="tbBusqueda" Text="Buscar..." FontFamily="{StaticResource FuentePrincipal}" 
                              Style="{StaticResource TextBoxRedondeado}" />
 
-                        <Button Background="Transparent" BorderBrush="Transparent" Cursor="Hand"
+                        <Button Background="Transparent" BorderBrush="Transparent" Cursor="Hand" 
                                     Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right"
                                         Click="Click_BuscarContenido">
                             <Image  Source="..\..\Recursos\Iconos\iconoLupa.png" />
@@ -86,7 +86,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border CornerRadius="10" Grid.Column="0" Margin="20,10,5,10">
+                <Border CornerRadius="10" Grid.Column="0" Margin="20,10,10,10">
                     <Border.Background>
                         <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
                     </Border.Background>
@@ -96,13 +96,13 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Álbumes" FontSize="36" HorizontalAlignment="Center"
-           Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
+                        <Label Content="Álbumes" FontSize="{StaticResource TamanoFuenteTitulo}" HorizontalAlignment="Center"
+           Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{StaticResource FuentePrincipal}" 
            FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
                         <Border CornerRadius="10"  Grid.Column="0"  Margin="40,00,40,10" Grid.Row="1">
                             <Grid Background="Transparent">
                                 <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="20,5,20,20" Style="{StaticResource PlantillaScrollViewer}" >
-                                    <StackPanel x:Name="sp_albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+                                    <StackPanel x:Name="sp_albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top"  >
                                     </StackPanel>
                                 </ScrollViewer>
                             </Grid>
@@ -111,7 +111,7 @@
                     </Grid>
                 </Border>
 
-                <Border CornerRadius="10" Grid.Column="1" Margin="5,10,20,10">
+                <Border CornerRadius="10" Grid.Column="1" Margin="10,10,20,10">
                     <Border.Background>
                         <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
                     </Border.Background>
@@ -121,8 +121,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid>
-                            <Label Content="Listas" FontSize="36" HorizontalAlignment="Center"
-Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
+                            <Label Content="Listas" FontSize="{StaticResource TamanoFuenteTitulo}" HorizontalAlignment="Center"
+Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{StaticResource FuentePrincipal}"  
 FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
                             <Button Grid.Column="0"
         Width="40" Height="40"
@@ -148,7 +148,7 @@ FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
             </Grid>
 
             <Border Grid.Row="2" CornerRadius="10" BorderBrush="Black" BorderThickness="0"  
-        Margin="20,0,20,0" VerticalAlignment="Center" Padding="5">
+        Margin="20,10,20,0" VerticalAlignment="Center" Padding="5">
                 <Border.Background>
                     <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
                 </Border.Background>
@@ -158,8 +158,8 @@ FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Artistas: " FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center"
-Foreground="{StaticResource ColorLetrasHEX}" FontFamily="Century Gothic" 
+                    <Label Content="Artistas: " FontSize="{StaticResource TamanoFuenteTitulo}" HorizontalAlignment="Left" VerticalAlignment="Center"
+Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{StaticResource FuentePrincipal}"  
 FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0"/>
                     <Border CornerRadius="10"  Grid.Column="1"  Margin="0,00,0,0" Grid.Row="1">
                         <Grid Background="Transparent">

@@ -24,6 +24,22 @@ namespace ClienteMusAPI.Ventanas.Menu
         public vtMenuPrincipal()
         {
             InitializeComponent();
+            ucContenido trench = new ucContenido("Album");
+            trench.txb_Nombre.Text = "Trench";
+            ucContenido ssi = new ucContenido("Album");
+            ssi.txb_Nombre.Text = "Sadness Sorrow Imathgination Experiment";
+            ucContenido blurry = new ucContenido("Album");
+            blurry.txb_Nombre.Text = "Blurryface";
+            ucContenido htbahb = new ucContenido("Album");
+            htbahb.txb_Nombre.Text = "How to be a human being";
+            ucContenido thenewabnormal = new ucContenido("Album");
+            thenewabnormal.txb_Nombre.Text = "The New Abnormal";
+
+            sp_albumes.Children.Add(trench);
+            sp_albumes.Children.Add(ssi);
+            sp_albumes.Children.Add(blurry);
+            sp_albumes.Children.Add(htbahb);
+            sp_albumes.Children.Add(thenewabnormal);
             sp_albumes.Children.Add(new ucContenido("Album"));
             sp_albumes.Children.Add(new ucContenido("Album"));
             sp_albumes.Children.Add(new ucContenido("Album"));
