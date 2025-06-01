@@ -1,4 +1,5 @@
 ﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Modelo;
 using ClienteMusAPI.Servicios;
 using System;
@@ -16,73 +17,35 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ClienteMusAPI.Ventanas.Inicio
+namespace ClienteMusAPI.Ventanas.Perfiles
 {
     /// <summary>
-    /// Lógica de interacción para vtRegistrarCuenta.xaml
+    /// Lógica de interacción para vtEditarPerfil.xaml
     /// </summary>
-    public partial class vtRegistroCuenta : Page
+    public partial class vtEditarPerfil : Page
     {
         private SolidColorBrush colorBordeCorrecto = (SolidColorBrush)(new BrushConverter().ConvertFrom("#4F959D"));
-        private readonly UsuarioServicio usuarioServicio;
-        public vtRegistroCuenta()
+        private UsuarioServicio usuarioServicio = new UsuarioServicio();
+        public vtEditarPerfil()
         {
             InitializeComponent();
-            usuarioServicio = new UsuarioServicio();
+            CargarDatos();
+        }
+
+        private void CargarDatos()
+        {
             CargarPaises();
-        }
-        
-
-        private void Click_Cancelar(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
-
-        private void Click_Registrar(object sender, RoutedEventArgs e)
-        {
-            if (ValidarCampos())
-            {
-                RegistrarUsuario();
-            }
-            else
-            {
-                MessageBox.Show("Llene los campos correctamente.");
-            }
-        }
-
-        private async void RegistrarUsuario()
-        {
-            var usuario = new UsuarioDTO
-            {
-                nombre = txb_Usuario.Text,
-                correo = txb_Correo.Text,
-                nombreUsuario = txb_Usuario.Text,
-                contrasenia = pwb_Contrasenia.Password,
-                pais = cb_pais.SelectedValue.ToString(),
-                esAdmin = false,
-                esArtista = false
-            };
-            bool exito = await usuarioServicio.RegistrarUsuarioAsync(usuario);
-
-            if (exito)
-            {
-                MessageBox.Show("Usuario registrado correctamente.");
-            }
-            else
-            {
-                MessageBox.Show("Error al registrar usuario.");
-            }
+            txb_Nombre.Text = SesionUsuario.NombreUsuario;
+            cb_pais.SelectedValue = SesionUsuario.Pais;
         }
 
         private bool ValidarCampos()
         {
             bool nombreValido = NombreEsValido();
-            bool contraseniaValida = ContraseniaEsValida();
-            bool correoValido = CorreoEsValido();
             if (cb_pais.SelectedItem != null)
             {
                 cb_pais.BorderBrush = colorBordeCorrecto;
-                if (nombreValido && contraseniaValida && correoValido)
+                if (nombreValido)
                 {
                     return true;
                 }
@@ -94,92 +57,59 @@ namespace ClienteMusAPI.Ventanas.Inicio
             return false;
         }
 
-        public bool NombreEsValido()
+        private bool NombreEsValido()
         {
-            string nombre = txb_Usuario.Text.Trim();
-            if ((nombre.Length >= 3) && (nombre.Length <= 30))
+            if (string.IsNullOrWhiteSpace(txb_Nombre.Text.Trim()))
             {
-                foreach (char c in nombre)
-                {
-                    if (!char.IsLetterOrDigit(c) && c != '_' && c != '.')
-                    {
-                        txb_Usuario.BorderBrush = Brushes.Crimson;
-                        return false;
-                    }
-                }
-                txb_Usuario.BorderBrush = colorBordeCorrecto;
+                txb_Nombre.BorderBrush = Brushes.Crimson;
+                return false;
+            }
+            else
+            {
+                txb_Nombre.BorderBrush = colorBordeCorrecto;
                 return true;
             }
-            else
-            {
-                txb_Usuario.BorderBrush = Brushes.Crimson;
-                return false;
-            }
         }
 
-        public bool ContraseniaEsValida()
+        private void Click_Confirmar(object sender, RoutedEventArgs e)
         {
-            string contrasenia = pwb_Contrasenia.Password.Trim();
-            if ((contrasenia.Length >= 8) && (contrasenia.Length <= 100))
+            if (ValidarCampos())
             {
-                int contNumero = 0, contMayuscula = 0, contMinuscula = 0;
-                foreach (char c in contrasenia)
-                {
-                    if (char.IsNumber(c))
-                    {
-                        contNumero++;
-                    }
-                    else if (char.IsUpper(c))
-                    {
-                        contMayuscula++;
-                    }
-                    else if (char.IsLower(c))
-                    {
-                        contMinuscula++;
-                    }
-                }
-                if (contNumero > 0 && contMayuscula > 0 && contMinuscula > 0)
-                {
-                    pwb_Contrasenia.BorderBrush = colorBordeCorrecto;
-                    return true;    
-                }
-                else
-                {
-                    pwb_Contrasenia.BorderBrush = Brushes.Crimson;
-                    return false;
-                }
+                EditarPerfil();
             }
             else
             {
-                pwb_Contrasenia.BorderBrush = Brushes.Crimson;
-                return false;
+                MessageBox.Show("Llene los campos correctamente.");
             }
         }
 
-        public bool CorreoEsValido()
+        private async void EditarPerfil()
         {
-            string correo = txb_Correo.Text.Trim();
-            try
+            var edicionPerfil = new EdicionPerfilDTO
             {
-                var addr = new System.Net.Mail.MailAddress(correo);
-                if (addr.Address == correo)
-                {
-                    txb_Correo.BorderBrush = colorBordeCorrecto;
-                    return true;
-                }
-                else
-                {
-                    txb_Correo.BorderBrush = Brushes.Crimson;
-                    return false;
-                }
+                nombre = txb_Nombre.Text.Trim(),
+                nombreUsuario = txb_Nombre.Text.Trim(),
+                pais = cb_pais.SelectedValue.ToString(),
+                foto = null,
+                descripcion = null
+            };
+
+            bool exito = await usuarioServicio.EditarPerfilAsync(edicionPerfil);
+
+            if (exito)
+            {
+                MessageBox.Show("Usuario registrado correctamente.");
             }
-            catch
+            else
             {
-                txb_Correo.BorderBrush = Brushes.Crimson;
-                return false;
+                MessageBox.Show("Error al registrar usuario.");
             }
         }
 
+        private void Click_Volver(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
 
         private void CargarPaises()
         {
@@ -381,6 +311,5 @@ namespace ClienteMusAPI.Ventanas.Inicio
 
             cb_pais.ItemsSource = paisesOrdenados;
         }
-
     }
 }

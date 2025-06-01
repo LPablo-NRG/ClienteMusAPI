@@ -11,6 +11,7 @@
         <SolidColorBrush x:Key="ColorLetrasHEX">#1b1b1b</SolidColorBrush>
         <SolidColorBrush x:Key="ColorLetrasAzulHEX">#205781</SolidColorBrush>
         <SolidColorBrush x:Key="ColorLetrasAmarilloHEX">#ffd166</SolidColorBrush>
+        <SolidColorBrush x:Key="ColorBordeAzul">#4F959D</SolidColorBrush>
 
         <Color x:Key="ColorFondoHEX">white</Color>
         <Color x:Key="ColorFondoAmarillaHEX">#ffd166</Color>
@@ -55,7 +56,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
 
         <Style x:Key="PlantillaScrollBar" TargetType="ScrollBar">
             <Setter Property="Width" Value="4"/>
@@ -146,6 +146,143 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <Style x:Key="ComboBoxTransparente" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{StaticResource ColorLetrasHEX}" />
+            <Setter Property="FontFamily" Value="{StaticResource FuentePrincipal}" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="BorderBrush" Value="{StaticResource ColorLetrasHEX}" />
+            <Setter Property="BorderThickness" Value="1" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="Border"
+                    Background="Transparent"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="4"
+                    Padding="4">
+                                <ContentPresenter
+                    Margin="4,0,30,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Content="{TemplateBinding SelectionBoxItem}"
+                    ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                    RecognizesAccessKey="True"/>
+                            </Border>
+
+                            <ToggleButton
+                Grid.Column="2"
+                Focusable="false"
+                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                ClickMode="Press"
+                Background="Transparent"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="0"
+                HorizontalAlignment="Right"
+                Margin="0"
+                Width="20">
+                                <Path HorizontalAlignment="Center" VerticalAlignment="Center" 
+                      Data="M 0 0 L 4 4 L 8 0 Z"
+                      Fill="{TemplateBinding Foreground}"/>
+                            </ToggleButton>
+
+                            <Popup x:Name="PART_Popup"
+                   Placement="Bottom"
+                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   PopupAnimation="Slide">
+                                <Grid MaxHeight="200"
+                      Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                                    <ScrollViewer Margin="4"
+                                  SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ComboBoxGenerico" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{StaticResource ColorLetrasAzulHEX}" />
+            <Setter Property="FontFamily" Value="{StaticResource FuentePrincipal}" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="BorderBrush" Value="{StaticResource ColorBordeAzul}" />
+            <Setter Property="BorderThickness" Value="2" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="Border"
+                                    Background="White"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"
+                                    Padding="4">
+                                <ContentPresenter
+                                        Margin="4,0,30,0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Content="{TemplateBinding SelectionBoxItem}"
+                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                        RecognizesAccessKey="True"/>
+                            </Border>
+
+                            <ToggleButton
+                                    Grid.Column="2"
+                                    Focusable="false"
+                                    IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                    ClickMode="Press"
+                                    Background="Transparent"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="0"
+                                    HorizontalAlignment="Right"
+                                    Margin="0"
+                                    Width="20">
+                                <Path HorizontalAlignment="Center" VerticalAlignment="Center" 
+              Data="M 0 0 L 4 4 L 8 0 Z"
+              Fill="{TemplateBinding Foreground}"/>
+                            </ToggleButton>
+
+                            <Popup x:Name="PART_Popup"
+                                   Placement="Bottom"
+                                   HorizontalAlignment="Right"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid MaxHeight="200" Width="{TemplateBinding Width}"
+                                      Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                                    <ScrollViewer  Margin="4"
+                          SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" 
+                            KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

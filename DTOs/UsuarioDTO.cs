@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace ClienteMusAPI.Modelo
 {
-    public class Usuario
+    public class UsuarioDTO
     {
         [JsonIgnore]
         public int idUsuario {  get; set; }
         public string nombre { get; set; }
         public string correo { get; set; }
         public string nombreUsuario { get; set; }
+        public string contrasenia { get; set; }
         public string pais { get; set; }
         public bool esAdmin { get; set; }
         public bool esArtista { get; set; }

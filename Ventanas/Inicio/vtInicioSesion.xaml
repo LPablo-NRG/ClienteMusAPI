@@ -9,11 +9,12 @@
       Title="MusAPI - Iniciar sesión">
 
     <Grid Background="White" Margin="0,0,0,0">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="/Recursos/Imagenes/MusAPI_Logo.png" Name="Logo">
                 <Image.RenderTransform>
                     <TranslateTransform X="0"/>
@@ -34,7 +35,7 @@
             </Image>
 
         </Grid>
-        <Grid Grid.Column="1" x:Name="RootGrid">
+        <Grid Grid.Column="0" x:Name="RootGrid">
             <Grid.Resources>
                 <!-- Declaro el brush con Key (no Name) -->
                 <LinearGradientBrush x:Key="MovingBrush"
@@ -78,18 +79,18 @@
 
 
                 <!-- Label del título -->
-                <Label x:Name="label" Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                   FontSize="60" 
+                <Label Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   FontSize="55" 
                    FontWeight="bold"
                    Margin="0,0,0,40"
                    Foreground="#205781" FontFamily="Century Gothic" />
                 <!-- campos -->
-                <Label Content="Usuario" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                <Label Content="Correo" HorizontalAlignment="Center" VerticalAlignment="Top" 
                        FontSize="20" 
                        FontWeight="DemiBold"
                        Foreground="#205781" 
                        />
-                <TextBox x:Name="txtUsuario" Width="300" Height="30" Margin="0,0,0,10" 
+                <TextBox x:Name="txb_Correo" Width="300" Height="30" Margin="0,0,0,10" 
                              FontSize="16" 
                              Background="White"
                              FontFamily="lucida sans"
@@ -103,7 +104,7 @@
                        FontWeight="DemiBold"
                        Foreground="#205781"
                        />
-                <PasswordBox x:Name="txtContrasena" Width="300" Height="30" Margin="0,0,0,10" 
+                <PasswordBox x:Name="pwb_Contrasenia" Width="300" Height="30" Margin="0,0,0,0" 
                              FontSize="16" 
                              Background="White"
                              Foreground="#205781"
@@ -119,16 +120,19 @@ BorderThickness="2"
                 <Button Style="{StaticResource BotonGenerico}" Content="Iniciar sesión"
                         Margin="0,40,0,10" 
                         Click="Click_IniciarSesion" 
+                        Width="250"
                         />
 
-                <Button Style="{StaticResource BotonGenerico}" Content="Registrar nueva cuenta (CU-1)"
-                        Margin="0,0,0,10" 
+                <Button Style="{StaticResource BotonGenerico}" Content="Registrarse"
+                        Margin="0,20,0,10" 
                         Click="Click_RegistrarCuenta" 
+                        Width="250"
                         />
 
                 <Button Style="{StaticResource BotonGenerico}" Content="Salir" 
-                        Margin="0,40,0,10" 
+                        Margin="0,60,0,10" 
                         Click="Click_Salir"
+                        Width="250"
                         />
 
             </StackPanel>

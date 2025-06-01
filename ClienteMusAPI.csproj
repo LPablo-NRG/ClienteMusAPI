@@ -60,7 +60,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Modelo\Usuario.cs" />
+    <Compile Include="Clases\Pais.cs" />
+    <Compile Include="Clases\SesionUsuario.cs" />
+    <Compile Include="DTOs\CancionDTO.cs" />
+    <Compile Include="DTOs\EdicionPerfilDTO.cs" />
+    <Compile Include="DTOs\LoginRequest.cs" />
+    <Compile Include="DTOs\PerfilArtistaDTO.cs" />
+    <Compile Include="DTOs\UsuarioDTO.cs" />
     <Compile Include="Servicios\ClienteAPI.cs" />
     <Compile Include="Servicios\UsuarioServicio.cs" />
     <Compile Include="UserControls\ucContenido.xaml.cs">
@@ -74,6 +80,15 @@
     </Compile>
     <Compile Include="Ventanas\Contenido\vtListaDeReproduccion.xaml.cs">
       <DependentUpon>vtListaDeReproduccion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Contenido\vtSubirCancion.xaml.cs">
+      <DependentUpon>vtSubirCancion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfiles\vtCrearPerfilArtista.xaml.cs">
+      <DependentUpon>vtCrearPerfilArtista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfiles\vtEditarPerfil.xaml.cs">
+      <DependentUpon>vtEditarPerfil.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Perfiles\vtPerfilArtista.xaml.cs">
       <DependentUpon>vtPerfilArtista.xaml</DependentUpon>
@@ -113,6 +128,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ventanas\Contenido\vtSubirCancion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\Inicio\vtInicioSesion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +145,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Menu\vtMenuPrincipal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfiles\vtCrearPerfilArtista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfiles\vtEditarPerfil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

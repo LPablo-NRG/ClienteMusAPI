@@ -20,5 +20,14 @@ namespace ClienteMusAPI.Servicios
         }
 
         public static HttpClient HttpClient => httpCliente;
+
+        public static void EstablecerToken(string token)
+        {
+            if (httpCliente.DefaultRequestHeaders.Contains("Authorization"))
+                httpCliente.DefaultRequestHeaders.Remove("Authorization");
+
+            httpCliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+
     }
 }
