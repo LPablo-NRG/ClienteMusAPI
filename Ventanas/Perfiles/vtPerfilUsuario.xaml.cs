@@ -45,7 +45,8 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_EditarPerfil(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtEditarPerfil.xaml", UriKind.Relative));
+            vtEditarPerfil vtEditarPerfil = new vtEditarPerfil(true);
+            NavigationService.Navigate(vtEditarPerfil);
         }
 
         private void Click_CrearPerfilArtista(object sender, RoutedEventArgs e)

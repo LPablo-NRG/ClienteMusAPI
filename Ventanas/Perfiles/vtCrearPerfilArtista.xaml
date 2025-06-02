@@ -95,7 +95,7 @@ Cursor="Hand">
                                          Foreground="{StaticResource ColorLetrasHEX}" 
                                          BorderBrush="#4F959D" BorderThickness="2"
                                          />
-                                    <Label x:Name="lbl_ErrorUsuario" Foreground="{StaticResource ColorLetrasHEX}" Content="Este es el nombre público de tu perfil" HorizontalContentAlignment="Center" FontSize="14" Visibility="Visible"/>
+                                    <Label Foreground="{StaticResource ColorLetrasHEX}" Content="Este es el nombre público de tu perfil" HorizontalContentAlignment="Center" FontSize="14" Visibility="Visible"/>
 
                                     <!-- Botones de navegación -->
                                     <Button Style="{StaticResource BotonGenerico}" Content="Confirmar"

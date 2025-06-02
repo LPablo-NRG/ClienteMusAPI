@@ -4,6 +4,7 @@ using ClienteMusAPI.Modelo;
 using ClienteMusAPI.Servicios;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,13 @@ namespace ClienteMusAPI.Ventanas.Perfiles
     {
         private SolidColorBrush colorBordeCorrecto = (SolidColorBrush)(new BrushConverter().ConvertFrom("#4F959D"));
         private UsuarioServicio usuarioServicio = new UsuarioServicio();
-        public vtEditarPerfil()
+        private EdicionPerfilDTO edicionPerfil = new EdicionPerfilDTO();
+        private bool esArtista;
+
+        public vtEditarPerfil(bool esArtista)
         {
             InitializeComponent();
+            this.esArtista = esArtista;
             CargarDatos();
         }
 
@@ -37,6 +42,15 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             CargarPaises();
             txb_Nombre.Text = SesionUsuario.NombreUsuario;
             cb_pais.SelectedValue = SesionUsuario.Pais;
+            if (esArtista)
+            {
+                sp_Pais.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                sp_Descripcion.Visibility = Visibility.Collapsed;
+                sp_Foto.Visibility = Visibility.Collapsed;
+            }
         }
 
         private bool ValidarCampos()
@@ -83,17 +97,37 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             }
         }
 
+        private void Click_SubirFoto(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.png) | *.jpg; *.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                FileInfo informacionFoto = new FileInfo(openFileDialog.FileName);
+                const long tamanioMaximo = 10 * 1024 * 1024;
+
+                if (informacionFoto.Length > tamanioMaximo)
+                {
+                    MessageBox.Show("La imagen supera el tamaño máximo.");
+                    return;
+                }
+
+                BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+                img_foto.Source = bitmap;
+                edicionPerfil.foto = informacionFoto.FullName;
+                Console.WriteLine("Foto seleccionada: " + edicionPerfil.foto);
+            }
+        }
+
         private async void EditarPerfil()
         {
-            var edicionPerfil = new EdicionPerfilDTO
-            {
-                nombre = txb_Nombre.Text.Trim(),
-                nombreUsuario = txb_Nombre.Text.Trim(),
-                pais = cb_pais.SelectedValue.ToString(),
-                foto = null,
-                descripcion = null
-            };
-
+            edicionPerfil.nombre = txb_Nombre.Text.Trim();
+            edicionPerfil.pais = cb_pais.SelectedValue.ToString();
+            edicionPerfil.nombreUsuario = SesionUsuario.NombreUsuario;
+            if (SesionUsuario.EsArtista) {
+                edicionPerfil.descripcion = txb_Descripcion.Text.Trim();
+            }
+            
             bool exito = await usuarioServicio.EditarPerfilAsync(edicionPerfil);
 
             if (exito)
@@ -310,6 +344,6 @@ namespace ClienteMusAPI.Ventanas.Perfiles
                 .ToList();
 
             cb_pais.ItemsSource = paisesOrdenados;
-        }
+        } 
     }
 }

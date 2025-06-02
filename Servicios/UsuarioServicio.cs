@@ -151,7 +151,7 @@ namespace ClienteMusAPI.Servicios
 
                 var form = new MultipartFormDataContent();
 
-                form.Add(new StringContent(perfil.idUsuario.ToString()), "idUsuario");
+                form.Add(new StringContent(SesionUsuario.IdUsuario.ToString()), "idUsuario");
                 form.Add(new StringContent(perfil.descripcion), "descripcion");
 
                 if (!string.IsNullOrWhiteSpace(perfil.foto) && File.Exists(perfil.foto))
