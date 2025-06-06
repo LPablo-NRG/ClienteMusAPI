@@ -143,43 +143,43 @@ namespace ClienteMusAPI.Servicios
                 return false;
             }
         }
-        
+
         public async Task<bool> CrearPerfilArtistaAsync(PerfilArtistaDTO perfil)
         {
             try
             {
-
                 var form = new MultipartFormDataContent();
 
-                form.Add(new StringContent(SesionUsuario.IdUsuario.ToString()), "idUsuario");
-                form.Add(new StringContent(perfil.descripcion), "descripcion");
+                form.Add(new StringContent(perfil.IdUsuario.ToString()), "idUsuario");
+                form.Add(new StringContent(perfil.Descripcion ?? ""), "descripcion");
 
-                if (!string.IsNullOrWhiteSpace(perfil.foto) && File.Exists(perfil.foto))
+                if (!string.IsNullOrEmpty(perfil.FotoPath) && File.Exists(perfil.FotoPath))
                 {
-                    var fileBytes = File.ReadAllBytes(perfil.foto);
-                    var fileContent = new ByteArrayContent(fileBytes);
-                    fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    form.Add(fileContent, "foto", Path.GetFileName(perfil.foto));
+                    var fotoBytes = File.ReadAllBytes(perfil.FotoPath);
+                    var byteArrayContent = new ByteArrayContent(fotoBytes);
+                    byteArrayContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                    form.Add(byteArrayContent, "foto", Path.GetFileName(perfil.FotoPath));
                 }
 
-                var response = await ClienteAPI.HttpClient.PostAsync("usuarios/crear-perfilArtista", form);
-                var responseContent = await response.Content.ReadAsStringAsync();
+                HttpResponseMessage response = await ClienteAPI.HttpClient.PostAsync("usuarios/crear-perfilArtista", form);
+                string responseContent = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Error al crear perfil: {response.StatusCode}\n{responseContent}");
+                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
                     return false;
                 }
 
-                MessageBox.Show("Perfil de artista creado con éxito!");
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error inesperado: {ex.Message}");
+                MessageBox.Show($"Excepción: {ex.Message}");
                 return false;
             }
         }
+
+
 
     }
 }

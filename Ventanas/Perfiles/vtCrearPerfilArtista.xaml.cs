@@ -1,4 +1,5 @@
-﻿using ClienteMusAPI.DTOs;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Servicios;
 using System;
 using System.Collections.Generic;
@@ -45,40 +46,37 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private async void CrearPerfil()
         {
-            perfilArtistaDTO.descripcion = txb_Descripcion.Text;
+            perfilArtistaDTO.IdUsuario = SesionUsuario.IdUsuario;
+            perfilArtistaDTO.Descripcion = txb_Descripcion.Text;
+
             bool exito = await usuarioServicio.CrearPerfilArtistaAsync(perfilArtistaDTO);
 
             if (exito)
             {
-                MessageBox.Show("Usuario registrado correctamente.");
+                MessageBox.Show("Perfil de artista creado exitosamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.GoBack();
             }
             else
             {
-                MessageBox.Show("Error al registrar usuario.");
+                MessageBox.Show("No se pudo crear el perfil de artista.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void Click_SubirFoto(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.png) | *.jpg; *.png";
-            if (openFileDialog.ShowDialog() == true)
+            var fileDialog = new Microsoft.Win32.OpenFileDialog();
+            fileDialog.Filter = "Imágenes (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+
+            bool? result = fileDialog.ShowDialog();
+
+            if (result == true)
             {
-                FileInfo informacionFoto = new FileInfo(openFileDialog.FileName);
-                const long tamanioMaximo = 10 * 1024 * 1024;
-
-                if (informacionFoto.Length > tamanioMaximo)
-                {
-                    MessageBox.Show("La imagen supera el tamaño máximo.");
-                    return;
-                }
-
-                BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
-                img_foto.Source = bitmap;
-                perfilArtistaDTO.foto = informacionFoto.FullName;
-                Console.WriteLine("Foto seleccionada: " + perfilArtistaDTO.foto);
+                perfilArtistaDTO.FotoPath = fileDialog.FileName;
+                img_foto.Source = new BitmapImage(new Uri(perfilArtistaDTO.FotoPath));
             }
         }
+
 
 
         private void Click_Volver(object sender, RoutedEventArgs e)

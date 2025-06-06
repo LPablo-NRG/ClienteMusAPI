@@ -8,8 +8,8 @@ namespace ClienteMusAPI.DTOs
 {
     public class PerfilArtistaDTO
     {
-        public int idUsuario { get; set; }
-        public string descripcion { get; set; }
-        public string foto { get; set; }
+        public int IdUsuario { get; set; }
+        public string Descripcion { get; set; }
+        public string FotoPath { get; set; }
     }
 }
