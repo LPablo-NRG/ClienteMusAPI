@@ -69,8 +69,11 @@
                                                FontSize="20" 
                                                FontWeight="DemiBold"
                                                Foreground="{StaticResource ColorLetrasHEX}" 
-                                               FontFamily="{StaticResource FuentePrincipal}"
-       />
+                                               FontFamily="{StaticResource FuentePrincipal}" />
+                                        <Label Content="(Solo se muestra desde tu perfil de artista)" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                               FontSize="16" 
+                                               Foreground="{StaticResource ColorLetrasHEX}" 
+                                               FontFamily="{StaticResource FuentePrincipal}" />
                                         <Grid>
                                             <Rectangle Fill="Black" Width="200" Height="200" Margin="10,0,10,0" Opacity=".1"/>
                                             <Image Source="..\..\Recursos\Iconos\iconoPerfil.png" Width="200" Height="200" Margin="10,0,10,0"/>

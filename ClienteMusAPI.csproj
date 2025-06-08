@@ -60,8 +60,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clases\Constantes.cs" />
     <Compile Include="Clases\Pais.cs" />
     <Compile Include="Clases\SesionUsuario.cs" />
+    <Compile Include="DTOs\BusquedaCancionDTO.cs" />
+    <Compile Include="DTOs\BusquedaArtistaDTO.cs" />
     <Compile Include="DTOs\CancionDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
     <Compile Include="DTOs\LoginRequest.cs" />

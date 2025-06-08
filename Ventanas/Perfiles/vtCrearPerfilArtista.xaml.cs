@@ -65,15 +65,23 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_SubirFoto(object sender, RoutedEventArgs e)
         {
-            var fileDialog = new Microsoft.Win32.OpenFileDialog();
-            fileDialog.Filter = "Imágenes (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
-
-            bool? result = fileDialog.ShowDialog();
-
-            if (result == true)
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Imágenes (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+            if (openFileDialog.ShowDialog() == true)
             {
-                perfilArtistaDTO.FotoPath = fileDialog.FileName;
-                img_foto.Source = new BitmapImage(new Uri(perfilArtistaDTO.FotoPath));
+                FileInfo informacionFoto = new FileInfo(openFileDialog.FileName);
+                const long tamanioMaximo = 10 * 1024 * 1024;
+
+                if (informacionFoto.Length > tamanioMaximo)
+                {
+                    MessageBox.Show("La imagen supera el tamaño máximo.");
+                    return;
+                }
+
+                BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+                img_foto.Source = bitmap;
+                perfilArtistaDTO.FotoPath = openFileDialog.FileName;
+                Console.WriteLine("Foto seleccionada: " + perfilArtistaDTO.FotoPath);
             }
         }
 

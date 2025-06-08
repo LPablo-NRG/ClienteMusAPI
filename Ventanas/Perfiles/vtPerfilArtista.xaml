@@ -31,7 +31,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Rectangle Fill="Black" Width="200" Height="200" Margin="20,0,20,0" Opacity=".1" Grid.Column="0" HorizontalAlignment="Right"/>
-                                    <Image x:Name="img_foto" Width="200" Height="200" Source="..\..\Recursos\Iconos\iconoPerfil.png" Grid.Column="0" Margin="20,0,20,0" HorizontalAlignment="Right"/>
+                                    <Image x:Name="img_foto" Width="200" Height="200" Source="..\..\Recursos\Iconos\iconoPerfil.png" Grid.Column="0" Margin="20,0,20,0" HorizontalAlignment="Right" Stretch="Fill"/>
                                     <Button Grid.Column="0"
     Width="40" Height="40"
     VerticalAlignment="Top" HorizontalAlignment="Left"

@@ -23,13 +23,32 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         public vtPerfilUsuario()
         {
             InitializeComponent();
+            this.Loaded += Page_Loaded;
+        }
+
+        //al cargar la página, se cargan los datos del usuario
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             CargarDatos();
+            CargarListas();
         }
 
         private void CargarDatos()
         {
+            btn_CrearPerfilArtista.Visibility = Visibility.Collapsed;
+            btn_VerPerfilArtista.Visibility = Visibility.Collapsed;
+
+            if (Clases.SesionUsuario.EsArtista == true)
+            {
+                btn_VerPerfilArtista.Visibility = Visibility.Visible;
+
+            }
+            else //TODO: if (si el id del usuario es el id de nuestra sesion)
+            {
+                btn_CrearPerfilArtista.Visibility = Visibility.Visible;
+            }
             txb_Nombre.Text = Clases.SesionUsuario.Nombre;
-            txb_Usuario.Text = Clases.SesionUsuario.NombreUsuario;
+            txb_Usuario.Text = "@"+Clases.SesionUsuario.NombreUsuario;
 
         }
 
@@ -45,7 +64,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_EditarPerfil(object sender, RoutedEventArgs e)
         {
-            vtEditarPerfil vtEditarPerfil = new vtEditarPerfil(true);
+            vtEditarPerfil vtEditarPerfil = new vtEditarPerfil();
             NavigationService.Navigate(vtEditarPerfil);
         }
 
@@ -57,6 +76,12 @@ namespace ClienteMusAPI.Ventanas.Perfiles
                 // Aquí se podría navegar a una página para crear el perfil de artista
                 NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtCrearPerfilArtista.xaml", UriKind.Relative));
             }
+        }
+
+        private void Click_VerPerfilArtista(object sender, RoutedEventArgs e)
+        {
+            vtPerfilArtista vtPerfilArtista = new vtPerfilArtista(Clases.SesionUsuario.IdUsuario);
+            NavigationService.Navigate(vtPerfilArtista);
         }
 
         private void Click_Volver(object sender, RoutedEventArgs e)

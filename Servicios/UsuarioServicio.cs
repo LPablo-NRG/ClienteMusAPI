@@ -1,9 +1,11 @@
 ﻿using ClienteMusAPI.Clases;
 using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Modelo;
+using ClienteMusAPI.Ventanas.Perfiles;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -170,6 +172,8 @@ namespace ClienteMusAPI.Servicios
                     return false;
                 }
 
+                SesionUsuario.EsArtista = true;
+
                 return true;
             }
             catch (Exception ex)
@@ -179,7 +183,46 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
+        public async Task<BusquedaArtistaDTO> ObtenerPerfilArtistaAsync(int idArtista)
+        {
+            try
+            { 
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"usuarios/artista/{idArtista}");
+                string responseContent = await response.Content.ReadAsStringAsync();
 
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+                 
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+                 
+                var perfil = new BusquedaArtistaDTO
+                {
+                    idArtista = datos["idArtista"]?.ToObject<int>() ?? 0,
+                    nombre = datos["nombre"]?.ToString() ?? "",
+                    nombreUsuario = datos["nombreUsuario"]?.ToString() ?? "",
+                    descripcion = datos["descripcion"]?.ToString() ?? "",
+                    urlFoto = datos["urlFoto"]?.ToString() ?? "",
+                    canciones = datos["canciones"]?.ToObject<List<BusquedaCancionDTO>>() ?? new List<BusquedaCancionDTO>()
+                };
+
+                return perfil;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al obtener perfil de artista: {ex.Message}");
+                return null;
+            }
+        }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClienteMusAPI.Clases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -14,7 +15,7 @@ namespace ClienteMusAPI.Servicios
 
         static ClienteAPI()
         {
-            httpCliente.BaseAddress = new Uri("http://localhost:8080/api/");
+            httpCliente.BaseAddress = new Uri(Constantes.URL_API);
             httpCliente.DefaultRequestHeaders.Accept.Clear();
             httpCliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

@@ -28,29 +28,46 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         private SolidColorBrush colorBordeCorrecto = (SolidColorBrush)(new BrushConverter().ConvertFrom("#4F959D"));
         private UsuarioServicio usuarioServicio = new UsuarioServicio();
         private EdicionPerfilDTO edicionPerfil = new EdicionPerfilDTO();
-        private bool esArtista;
 
-        public vtEditarPerfil(bool esArtista)
+        public vtEditarPerfil()
         {
             InitializeComponent();
-            this.esArtista = esArtista;
             CargarDatos();
         }
 
-        private void CargarDatos()
+        private async void CargarDatos()
         {
             CargarPaises();
-            txb_Nombre.Text = SesionUsuario.NombreUsuario;
+            txb_Nombre.Text = SesionUsuario.Nombre;
             cb_pais.SelectedValue = SesionUsuario.Pais;
-            if (esArtista)
+            if (!SesionUsuario.EsArtista)
             {
-                sp_Pais.Visibility = Visibility.Collapsed;
+
+                sp_Descripcion.Visibility = Visibility.Collapsed;
+                sp_Foto.Visibility = Visibility.Collapsed;
+                return;
             }
             else
             {
-                sp_Descripcion.Visibility = Visibility.Collapsed;
-                sp_Foto.Visibility = Visibility.Collapsed;
+                BusquedaArtistaDTO perfilArtista = await usuarioServicio.ObtenerPerfilArtistaAsync(SesionUsuario.IdUsuario);
+
+                txb_Descripcion.Text = perfilArtista.descripcion;
+                //cargar imagen
+                if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
+                {
+                    var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
+                    using (var stream = new MemoryStream(bytes))
+                    {
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.StreamSource = stream;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.EndInit();
+                        img_foto.Source = image;
+                    }
+                }
             }
+            
         }
 
         private bool ValidarCampos()
@@ -100,7 +117,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         private void Click_SubirFoto(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.png) | *.jpg; *.png";
+            openFileDialog.Filter = "Imágenes (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
             if (openFileDialog.ShowDialog() == true)
             {
                 FileInfo informacionFoto = new FileInfo(openFileDialog.FileName);
@@ -122,7 +139,9 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         private async void EditarPerfil()
         {
             edicionPerfil.nombre = txb_Nombre.Text.Trim();
+            
             edicionPerfil.pais = cb_pais.SelectedValue.ToString();
+            
             edicionPerfil.nombreUsuario = SesionUsuario.NombreUsuario;
             if (SesionUsuario.EsArtista) {
                 edicionPerfil.descripcion = txb_Descripcion.Text.Trim();
@@ -132,7 +151,10 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
             if (exito)
             {
+                SesionUsuario.Nombre = edicionPerfil.nombre;
+                SesionUsuario.Pais = edicionPerfil.pais;
                 MessageBox.Show("Usuario registrado correctamente.");
+                NavigationService.GoBack();
             }
             else
             {

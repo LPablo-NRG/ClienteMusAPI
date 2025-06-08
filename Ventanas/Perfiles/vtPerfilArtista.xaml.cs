@@ -1,7 +1,14 @@
-﻿using ClienteMusAPI.UserControls;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Servicios;
+using ClienteMusAPI.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +28,9 @@ namespace ClienteMusAPI.Ventanas.Perfiles
     /// </summary>
     public partial class vtPerfilArtista : Page
     {
+        private UsuarioServicio usuarioServicio = new UsuarioServicio();
+        private BusquedaArtistaDTO perfilArtista = new BusquedaArtistaDTO();
+        private int idUsuario = -1;
         public vtPerfilArtista()
         {
             InitializeComponent();
@@ -42,6 +52,44 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             sp_sencillos.Children.Add(new ucContenido("Cancion"));
             sp_sencillos.Children.Add(new ucContenido("Cancion"));
         }
+
+        public vtPerfilArtista(int idUsuario)
+        {
+            InitializeComponent();
+            this.idUsuario = idUsuario;
+            this.Loaded += Page_Loaded;
+        }
+        
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (idUsuario != -1)
+                CargarDatos();
+        }
+
+        private async void CargarDatos()
+        {
+            perfilArtista = await usuarioServicio.ObtenerPerfilArtistaAsync(idUsuario);
+
+            txb_Nombre.Text = perfilArtista.nombre;
+            txb_Usuario.Text = "@" + perfilArtista.nombreUsuario;
+            txb_Descripcion.Text = perfilArtista.descripcion;
+
+            //cargar imagen
+            if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
+            {
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
+                using (var stream = new MemoryStream(bytes))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    img_foto.Source = image;
+                }
+            }
+        }
+
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
