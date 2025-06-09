@@ -63,14 +63,18 @@
     <Compile Include="Clases\Constantes.cs" />
     <Compile Include="Clases\Pais.cs" />
     <Compile Include="Clases\SesionUsuario.cs" />
+    <Compile Include="DTOs\AlbumDTO.cs" />
     <Compile Include="DTOs\BusquedaCancionDTO.cs" />
     <Compile Include="DTOs\BusquedaArtistaDTO.cs" />
     <Compile Include="DTOs\CancionDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
+    <Compile Include="DTOs\ListaReproduccionDTO.cs" />
     <Compile Include="DTOs\LoginRequest.cs" />
     <Compile Include="DTOs\PerfilArtistaDTO.cs" />
     <Compile Include="DTOs\UsuarioDTO.cs" />
+    <Compile Include="Servicios\AlbumServicio.cs" />
     <Compile Include="Servicios\ClienteAPI.cs" />
+    <Compile Include="Servicios\ListaServicio.cs" />
     <Compile Include="Servicios\UsuarioServicio.cs" />
     <Compile Include="UserControls\ucContenido.xaml.cs">
       <DependentUpon>ucContenido.xaml</DependentUpon>
@@ -80,6 +84,12 @@
     </Compile>
     <Compile Include="Ventanas\Contenido\vtAlbum.xaml.cs">
       <DependentUpon>vtAlbum.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Contenido\vtCrearAlbum.xaml.cs">
+      <DependentUpon>vtCrearAlbum.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Contenido\vtCrearLista.xaml.cs">
+      <DependentUpon>vtCrearLista.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Contenido\vtListaDeReproduccion.xaml.cs">
       <DependentUpon>vtListaDeReproduccion.xaml</DependentUpon>
@@ -124,6 +134,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Contenido\vtAlbum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Contenido\vtCrearAlbum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Contenido\vtCrearLista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
