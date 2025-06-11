@@ -47,9 +47,9 @@
                                 <Grid Grid.Column="1">
                                     <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="0,10,0,0">
                                         <TextBlock x:Name="txb_Nombre" Text="Nombre del Album" FontSize="36" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,2"
-FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
+FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{StaticResource FuentePrincipal}"/>
                                         <TextBlock x:Name="txb_Artista" Text="Artista: " FontSize="18" VerticalAlignment="Center" 
-Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
+Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{StaticResource FuentePrincipal}"/>
                                         <TextBlock x:Name="txb_Fecha" Text="Fecha de publicacion: " FontSize="18" VerticalAlignment="Center"
 Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" TextWrapping="Wrap"/>
                                         <TextBlock x:Name="txb_Duracion" Text="Duración: " FontSize="18" VerticalAlignment="Center"

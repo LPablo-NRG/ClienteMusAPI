@@ -108,7 +108,17 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_SubirContenido(object sender, RoutedEventArgs e)
         {
+            OverlayGrid.Children.Clear(); // Limpiar controles anteriores
+            OverlayGrid.Visibility = Visibility.Visible;
 
+            ucSubirContenido detalles = new ucSubirContenido(perfilArtista.idArtista);
+            detalles.btn_Volver.Click += (sender2, e2) =>
+            {
+                OverlayGrid.Visibility = Visibility.Collapsed;
+                OverlayGrid.Children.Remove(detalles);
+            };
+
+            OverlayGrid.Children.Add(detalles);
         }
 
         private void Click_SeguirArtista(object sender, RoutedEventArgs e)

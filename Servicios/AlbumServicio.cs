@@ -7,6 +7,10 @@ using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using ClienteMusAPI.Clases;
+using System.Windows;
 
 namespace ClienteMusAPI.Servicios
 {
@@ -37,6 +41,45 @@ namespace ClienteMusAPI.Servicios
             {
                 Console.WriteLine("Error al crear álbum: " + ex.Message);
                 return false;
+            }
+        }
+
+        public async Task<List<InfoAlbumDTO>> ObtenerAlbumesPendientesAsync(int idPerfilArtista)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"albumes/pendientes?idPerfilArtista={idPerfilArtista}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    //MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var mensaje = jsonObject?["mensaje"]?.ToString();
+                if (!string.IsNullOrEmpty(mensaje) && mensaje != "Álbumes pendientes recuperados exitosamente")
+                {
+                    MessageBox.Show(mensaje);
+                    return null;
+                }
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var albumes = datos.ToObject<List<InfoAlbumDTO>>();
+                return albumes ?? new List<InfoAlbumDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al obtener álbumes pendientes: {ex.Message}");
+                return null;
             }
         }
 

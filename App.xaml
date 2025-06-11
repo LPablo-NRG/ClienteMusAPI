@@ -26,6 +26,18 @@
         <system:Double x:Key="TamanoFuenteTitulo">28</system:Double>
         <system:Double x:Key="TamanoFuenteCuerpo">16</system:Double>
 
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FuentePrincipal}"/>
+        </Style>
+        
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource FuentePrincipal}"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource FuentePrincipal}"/>
+        </Style>
+
 
         <Style x:Key="BotonGenerico" TargetType="Button">
             <Setter Property="FontSize" Value="20"/>

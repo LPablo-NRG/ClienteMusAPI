@@ -63,7 +63,6 @@ namespace ClienteMusAPI.UserControls
                     NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Contenido/vtAlbum.xaml", UriKind.Relative));
                     break;
                 case "Cancion":
-                    // Buscar el contenedor llamado "ContenedorGeneral"
                     DependencyObject parent = this;
                     while (parent != null && !(parent is Window))
                     {

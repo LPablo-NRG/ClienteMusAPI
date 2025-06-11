@@ -90,6 +90,7 @@
                                            FontSize="20" 
                                            FontWeight="DemiBold"
                                            Foreground="{StaticResource ColorLetrasHEX}" 
+                                           FontFamily="{StaticResource FuentePrincipal}"
                                            />
                                     <TextBox x:Name="txb_Nombre" Width="300" Height="30" Margin="0,0,0,0" MaxLength="100"
                                              FontSize="16" 
@@ -99,10 +100,10 @@
                                              Foreground="{StaticResource ColorLetrasHEX}" 
                                              BorderBrush="#4F959D" BorderThickness="2"
                                              />
-                                    <Label Foreground="{StaticResource ColorLetrasHEX}" Content="Este es el nombre público de tu perfil" HorizontalContentAlignment="Center" FontSize="14" Visibility="Visible"/>
+                                    <Label FontFamily="{StaticResource FuentePrincipal}" Foreground="{StaticResource ColorLetrasHEX}" Content="Este es el nombre público de tu perfil" HorizontalContentAlignment="Center" FontSize="14" Visibility="Visible"/>
 
                                     <StackPanel x:Name="sp_Descripcion">
-                                        <Label Content="Descripción" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                        <Label Content="Descripción" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="{StaticResource FuentePrincipal}"
 FontSize="20" 
 FontWeight="DemiBold"
 Foreground="{StaticResource ColorLetrasHEX}" 
@@ -115,12 +116,12 @@ Foreground="{StaticResource ColorLetrasHEX}"
   Foreground="{StaticResource ColorLetrasHEX}" 
   BorderBrush="#4F959D" BorderThickness="2"
   />
-                                        <Label Foreground="{StaticResource ColorLetrasHEX}" Content="Este es el nombre público de tu perfil" HorizontalContentAlignment="Center" FontSize="14" Visibility="Visible"/>
+                                        <Label FontFamily="{StaticResource FuentePrincipal}" Foreground="{StaticResource ColorLetrasHEX}" Content="Este es el nombre público de tu perfil" HorizontalContentAlignment="Center" FontSize="14" Visibility="Visible"/>
                                     </StackPanel>
 
 
                                     <StackPanel x:Name="sp_Pais">
-                                        <Label Content="País" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                        <Label FontFamily="{StaticResource FuentePrincipal}" Content="País" HorizontalAlignment="Center" VerticalAlignment="Top" 
 FontSize="20" 
 FontWeight="DemiBold"
 Foreground="{StaticResource ColorLetrasHEX}" 
@@ -130,7 +131,7 @@ Foreground="{StaticResource ColorLetrasHEX}"
    DisplayMemberPath="Nombre"
    SelectedValuePath="Codigo"
    Style="{StaticResource ComboBoxGenerico}"
-   
+   FontFamily="{StaticResource FuentePrincipal}"
    />
                                     </StackPanel>
                                     
