@@ -1,6 +1,10 @@
-﻿using ClienteMusAPI.UserControls;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Servicios;
+using ClienteMusAPI.UserControls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,9 +73,38 @@ namespace ClienteMusAPI.Ventanas.Busqueda
             NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilUsuario.xaml", UriKind.Relative));
         }
 
-        private void Click_BuscarContenido(object sender, RoutedEventArgs e)
+        private async void Click_BuscarContenido(object sender, RoutedEventArgs e)
         {
+            sp_Resultados.Children.Clear();
             //TODO: Implementar la lógica de búsqueda
+            switch (cb_tipo.Text)
+            {
+                case "Artista":
+                    //NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilArtista.xaml", UriKind.Relative));
+                    break;
+                case "Usuario":
+                    //NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilUsuario.xaml", UriKind.Relative));
+                    break;
+                case "Canción":
+                    //NavigationService.Navigate(new Uri("/Ventanas/Contenido/vtContenidoCancion.xaml", UriKind.Relative));
+                    break;
+                case "Album":
+                    sp_Resultados.Children.Clear();
+                    AlbumServicio albumServicio = new AlbumServicio();
+                    List<BusquedaAlbumDTO> albumes = await albumServicio.BuscarAlbum(txb_Busqueda.Text);
+                    if (albumes != null)
+                    {
+                        foreach (var album in albumes)
+                        {
+                            ucContenido contenido = new ucContenido(album);
+                            sp_Resultados.Children.Add(contenido);
+                        }
+                    }else
+                    {
+                        MessageBox.Show("No se encontraron resultados para la búsqueda de álbumes llamados "+txb_Busqueda.Text);
+                    }
+                    break;
+            }
         }
     }
 }

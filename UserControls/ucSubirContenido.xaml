@@ -8,7 +8,7 @@
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
         <Border CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource ColorLetrasAzulHEX}"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                Padding="5" Margin="5,5,5,5" Width="350">
+                Padding="5" Margin="5,5,5,5" >
             <Border.Background>
                 <SolidColorBrush Color="White" />
             </Border.Background>
@@ -16,6 +16,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" >
                     <Button Grid.Column="0" x:Name="btn_Volver"
@@ -38,19 +39,43 @@ Cursor="Hand">
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <Border Grid.Column="0" CornerRadius="10" BorderBrush="{StaticResource ColorLetrasHEX}" BorderThickness="1" Padding="5" Margin="20,0,20,0">
-                        <Button Content="Álbum" Background="Transparent" Foreground="{StaticResource ColorLetrasHEX}"
+                    <Border Grid.Column="0" CornerRadius="10" BorderBrush="{StaticResource ColorLetrasHEX}" BorderThickness="1" Padding="5" Margin="20,0,20,0" Width="200">
+                        <Button Content="Nuevo Álbum" Background="Transparent" Foreground="{StaticResource ColorLetrasHEX}"
                                 FontSize="{StaticResource  TamanoFuenteCuerpo}"  
                                 FontFamily="{StaticResource FuentePrincipal}" BorderBrush="Transparent" 
                                 Click="Click_CrearAlbum"/>
                     </Border>
-                    <Border Grid.Column="1" CornerRadius="10" BorderBrush="{StaticResource ColorLetrasHEX}" BorderThickness="1" Padding="5" Margin="20,0,20,0">
-                        <Button Content="Canción" Background="Transparent" Foreground="{StaticResource ColorLetrasHEX}"
+                    <Border Grid.Column="1" CornerRadius="10" BorderBrush="{StaticResource ColorLetrasHEX}" BorderThickness="1" Padding="5" Margin="20,0,20,0" Width="200">
+                        <Button Content="Sencillo" Background="Transparent" Foreground="{StaticResource ColorLetrasHEX}"
                                 FontSize="{StaticResource  TamanoFuenteCuerpo}" 
                                 FontFamily="{StaticResource FuentePrincipal}" BorderBrush="Transparent" 
                                 Click="Click_SubirCancion"/>
                     </Border>
 
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Álbumes pendientes" FontSize="{StaticResource TamanoFuenteCuerpo}" HorizontalAlignment="Center"
+Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{StaticResource FuentePrincipal}" 
+FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
+                    <Border CornerRadius="10"  Grid.Column="0"  Margin="40,00,40,10" Grid.Row="1" MaxHeight="300">
+                        <Border.Background>
+                            <SolidColorBrush Color="Black" Opacity=".1" />
+                        </Border.Background>
+                        
+                        <Grid Background="Transparent">
+                            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="20,5,20,5" Style="{StaticResource PlantillaScrollViewer}" >
+                                <StackPanel x:Name="sp_Albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top"  >
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
                 </Grid>
             </Grid>
 

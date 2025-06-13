@@ -10,7 +10,7 @@ namespace ClienteMusAPI.DTOs
     {
         public String nombre { get; set; }
         public String archivoCancion { get; set; }
-        public String foto { get; set; }
+        public String urlFoto { get; set; }
         public String duracionStr { get; set; }
         public int idCategoriaMusical { get; set; }
         public int idAlbum { get; set; }

@@ -30,7 +30,7 @@ namespace ClienteMusAPI.Servicios
                         var fileStream = new FileStream(album.FotoPath, FileMode.Open, FileAccess.Read);
                         var fileContent = new StreamContent(fileStream);
                         fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                        form.Add(fileContent, "foto", Path.GetFileName(album.FotoPath));
+                        form.Add(fileContent, "urlFoto", Path.GetFileName(album.FotoPath));
                     }
 
                     var response = await ClienteAPI.HttpClient.PostAsync("/api/albumes/crear", form);
@@ -79,6 +79,40 @@ namespace ClienteMusAPI.Servicios
             catch (Exception ex)
             {
                 MessageBox.Show($"Excepción al obtener álbumes pendientes: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<List<BusquedaAlbumDTO>> BuscarAlbum(string nombreAlbum)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"albumes/buscar?texto={nombreAlbum}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var albumes = datos.ToObject<List<BusquedaAlbumDTO>>();
+
+                
+                return albumes ?? new List<BusquedaAlbumDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al obtener perfil de artista: {ex.Message}");
                 return null;
             }
         }

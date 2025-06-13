@@ -8,6 +8,7 @@ namespace ClienteMusAPI.DTOs
 {
     public class BusquedaCancionDTO
     {
+        public int idCancion { get; set; }
         public String nombre { get; set; }
         public String duracion { get; set; }
         public String urlArchivo { get; set; }

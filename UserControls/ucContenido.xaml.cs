@@ -1,5 +1,10 @@
-﻿using System;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Servicios;
+using ClienteMusAPI.Ventanas.Contenido;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,23 +25,80 @@ namespace ClienteMusAPI.UserControls
     /// </summary>
     public partial class ucContenido : UserControl
     {
-        String tipo;
+        public String tipo { get; set; }
+        public int idArtista { get; set; }
+        public InfoAlbumDTO albumPendiente { get; set; }
+        public BusquedaAlbumDTO album { get; set; }
+        public BusquedaCancionDTO cancion { get; set; }
+        public BusquedaArtistaDTO artista { get; set; }
+
         public ucContenido()
         {
             InitializeComponent();
             img_foto.Source = null;
         }
+        public ucContenido(BusquedaCancionDTO cancion)
+        {
+            InitializeComponent();
+            this.tipo = "Cancion";
+            this.cancion = cancion;
+            ConfigurarUserControl();
+        }
+        public ucContenido(BusquedaAlbumDTO album)
+        {
+            InitializeComponent();
+            this.tipo = "Album";
+            this.album = album;
+            ConfigurarUserControl();
+        }
+        public ucContenido(InfoAlbumDTO albumPendiente, int idArtista)
+        {
+            InitializeComponent();
+            this.tipo = "Album Pendiente";
+            this.albumPendiente = albumPendiente;
+            this.idArtista = idArtista;
+            ConfigurarUserControl();
+        }
+        public ucContenido(int lista) //gcahvbdskjlhvbjhaskdfhbsndajskkbhjkdsaljbnadskjdsbn TODO:
+        {
+            InitializeComponent();
+            this.tipo = "Lista";
+            ConfigurarUserControl();
+        }
+        public ucContenido(BusquedaArtistaDTO artista)
+        {
+            InitializeComponent();
+            this.tipo = "Artista";
+            this.artista = artista;
+            ConfigurarUserControl();
+        }
+
         public ucContenido(String tipo)
         {
             InitializeComponent();
             this.tipo = tipo;
+            //ConfigurarUserControl();
+        }
+
+        private void ConfigurarUserControl()
+        {
             switch (tipo)
             {
                 case "Album":
-                    txb_Nombre.Text = "Album";
+                    txb_Nombre.Text = album.nombreAlbum;
+                    txb_Autor.Text = album.nombreArtista;
+                    CargarImagen(album.urlFoto);
+                    break;
+                case "Album Pendiente":
+                    txb_Nombre.Text = albumPendiente.nombre;
+                    txb_Autor.Visibility = Visibility.Collapsed;
+                    btn_Guardar.Visibility = Visibility.Collapsed;
+                    CargarImagen(albumPendiente.urlFoto);
                     break;
                 case "Cancion":
-                    txb_Nombre.Text = "Cancion";
+                    txb_Nombre.Text = cancion.nombre; 
+                    txb_Autor.Text = cancion.nombreArtista;
+                    CargarImagen(cancion.urlFoto);
                     break;
                 case "Lista":
                     txb_Nombre.Text = "Lista de Reproducción";
@@ -45,13 +107,30 @@ namespace ClienteMusAPI.UserControls
                     img_foto.Source = new BitmapImage(new Uri("../Recursos/Iconos/iconoListaDeReproduccion.png", UriKind.Relative));
                     break;
                 case "Artista":
-                    txb_Nombre.Text = "Artista";
-                    txb_Autor.Visibility = Visibility.Collapsed;
+                    txb_Nombre.Text = artista.nombre;
+                    txb_Autor.Text = "@"+artista.nombreUsuario;
                     btn_Guardar.Visibility = Visibility.Collapsed;
                     btn_Reproducir.Visibility = Visibility.Collapsed;
-                    img_foto.Source = new BitmapImage(new Uri("../Recursos/Iconos/iconoPerfil.png", UriKind.Relative));
+                    CargarImagen(artista.urlFoto);
                     break;
 
+            }
+        }
+
+        private async void CargarImagen(string url)
+        {
+            if (!String.IsNullOrEmpty(url))
+            {
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + url);
+                using (var stream = new MemoryStream(bytes))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    img_foto.Source = image;
+                }
             }
         }
 
@@ -59,8 +138,10 @@ namespace ClienteMusAPI.UserControls
         {
             switch (tipo)
             {
-                case "Album":
-                    NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Contenido/vtAlbum.xaml", UriKind.Relative));
+                case "Album":  
+                case "Album Pendiente":
+                    vtAlbum vtAlbum = new vtAlbum(albumPendiente, idArtista);
+                    NavigationService.GetNavigationService(this).Navigate(vtAlbum);
                     break;
                 case "Cancion":
                     DependencyObject parent = this;

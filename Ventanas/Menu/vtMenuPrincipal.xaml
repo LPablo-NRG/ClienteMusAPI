@@ -66,7 +66,7 @@
         Background="Transparent"
         BorderBrush="Transparent"
         Cursor="Hand">
-                            <Image Source="..\..\Recursos\Iconos\iconoConfiguracion.png" Width="30"/>
+                            <Image Source="..\..\Recursos\Iconos\iconoConfiguracion.png"  />
                         </Button>
                         <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent"
     VerticalAlignment="Center" HorizontalAlignment="Right"

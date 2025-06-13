@@ -1,6 +1,11 @@
-﻿using ClienteMusAPI.UserControls;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Servicios;
+using ClienteMusAPI.UserControls;
+using ClienteMusAPI.Ventanas.Perfiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +26,9 @@ namespace ClienteMusAPI.Ventanas.Contenido
     /// </summary>
     public partial class vtAlbum : Page
     {
+        private InfoAlbumDTO infoAlbum;
+        private int idArtista;
+        private BusquedaAlbumDTO busquedaAlbumDTO;
         public vtAlbum()
         {
             InitializeComponent();
@@ -72,6 +80,102 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
 
         }
+
+        public vtAlbum(BusquedaAlbumDTO album)
+        {
+            InitializeComponent();
+            this.busquedaAlbumDTO = album;
+            
+            this.Loaded += Page_Loaded;
+        }
+
+        public vtAlbum(InfoAlbumDTO album, int idArtista)
+        {
+            InitializeComponent();
+            this.infoAlbum = album;
+            this.idArtista = idArtista;
+            btn_SubirCancion.Visibility = Visibility.Visible;
+            btn_PublicarAlbum.Visibility = Visibility.Visible;
+            this.Loaded += Page_Loaded;
+
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (busquedaAlbumDTO != null)
+            {
+                await CargarInformacionAlbumAsync(busquedaAlbumDTO);
+            }
+            else if (infoAlbum != null)
+            {
+                await CargarInformacionAlbumAsync(infoAlbum);
+            }
+        }
+
+        private async Task CargarInformacionAlbumAsync(BusquedaAlbumDTO album)
+        {
+            txb_Artista.Text = album.nombreArtista;
+            txb_Nombre.Text = album.nombreAlbum;
+            img_foto.Source = new BitmapImage(new Uri(album.urlFoto, UriKind.RelativeOrAbsolute));
+            txb_Fecha.Text = album.fechaPublicacion;
+            //txb_Duracion.Text = album.
+            //cargar imagen
+            if (!String.IsNullOrEmpty(album.urlFoto))
+            {
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + album.urlFoto);
+                using (var stream = new MemoryStream(bytes))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    img_foto.Source = image;
+                }
+            }
+        }
+
+        private async Task CargarInformacionAlbumAsync(InfoAlbumDTO album)
+        {
+            txb_Artista.Text = album.nombreArtista;
+            txb_Nombre.Text = album.nombre;
+            img_foto.Source = new BitmapImage(new Uri(album.urlFoto, UriKind.RelativeOrAbsolute));
+            txb_Fecha.Text = album.fechaPublicacion;
+            //txb_Duracion.Text = album.
+            //cargar imagen
+            if (!String.IsNullOrEmpty(album.urlFoto))
+            {
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + album.urlFoto);
+                using (var stream = new MemoryStream(bytes))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    img_foto.Source = image;
+                }
+            }
+            await CargarCanciones(album.idAlbum);
+        }
+
+        private async Task CargarCanciones(int idAlbum)
+        {
+            CancionServicio cancionServicio = new CancionServicio();
+            List<BusquedaCancionDTO> canciones = new List<BusquedaCancionDTO>();
+            canciones = await cancionServicio.ObtenerCancionesPorAlbumAsync(idAlbum);
+            if (canciones != null)
+            {
+                foreach (var cancion in canciones)
+                {
+                    ucContenido contenido = new ucContenido(cancion);
+                    sp_Canciones.Children.Add(contenido);
+                }
+            }
+            else
+                Console.WriteLine("Error");
+        }
+
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -79,17 +183,28 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
         private void Click_VerEstadisticas(object sender, RoutedEventArgs e)
         {
-
+            //TODO
         }
 
         private void Click_EditarAlbum(object sender, RoutedEventArgs e)
         {
-
+            //TODO
         }
 
         private void Click_GuardarAlbum(object sender, RoutedEventArgs e)
         {
+            //TODO
+        }
 
+        private void Click_SubirCancion(object sender, RoutedEventArgs e)
+        {
+            vtSubirCancion vtSubirCancion = new vtSubirCancion(idArtista, infoAlbum.idAlbum);
+            NavigationService.GetNavigationService(this).Navigate(vtSubirCancion);
+        }
+
+        private void Click_PublicarAlbum(object sender, RoutedEventArgs e)
+        {
+            //TODO
         }
     }
 }

@@ -92,8 +92,7 @@ namespace ClienteMusAPI.Ventanas.Menu
 
         private void Click_CerrarSesion(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Ventanas/Contenido/vtCrearAlbum.xaml", UriKind.Relative));
-            //NavigationService.GoBack();
+            NavigationService.GoBack();
         }
 
         private void Click_CrearListaDeReproduccion(object sender, RoutedEventArgs e)

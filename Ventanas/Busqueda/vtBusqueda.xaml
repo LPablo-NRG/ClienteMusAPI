@@ -46,7 +46,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="tbBusqueda" Text="Buscar..."
+                    <TextBox x:Name="txb_Busqueda" Text="Buscar..."
                              Style="{StaticResource TextBoxRedondeado}" FontFamily="{StaticResource FuentePrincipal}"
                              />
                     
@@ -56,7 +56,7 @@
                               Grid.Column="0">
                         <Image  Source="..\..\Recursos\Iconos\iconoLupa.png" />
                     </Button>
-                    <ComboBox x:Name="comboBox" Grid.Column="2"
+                    <ComboBox x:Name="cb_tipo" Grid.Column="2"
                               VerticalContentAlignment="Center"
                               SelectedIndex="0"  
                               Height="40" 

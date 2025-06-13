@@ -1,6 +1,11 @@
-﻿using ClienteMusAPI.Ventanas.Contenido;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Servicios;
+using ClienteMusAPI.Ventanas.Contenido;
+using ClienteMusAPI.Ventanas.Perfiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +27,31 @@ namespace ClienteMusAPI.UserControls
     public partial class ucSubirContenido : UserControl
     {
         private int idPerfilArtista;
+        private List<InfoAlbumDTO> albumesDelUsuario = new List<InfoAlbumDTO>();
         public ucSubirContenido(int idPerfilArtista)
         {
             InitializeComponent();
             this.idPerfilArtista = idPerfilArtista;
+            this.Loaded += Page_Loaded;
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        { 
+            CargarAlbumesAsync();
+        }
+        private async void CargarAlbumesAsync()
+        {
+            sp_Albumes.Children.Clear();
+            AlbumServicio albumServicio = new AlbumServicio();
+            albumesDelUsuario = await albumServicio.ObtenerAlbumesPendientesAsync(idPerfilArtista);
+
+            foreach (var album in albumesDelUsuario)
+            {
+                ucContenido contenido = new ucContenido(album, idPerfilArtista);
+                sp_Albumes.Children.Add(contenido);
+            }
+
+        }
 
         private void Click_CrearAlbum(object sender, RoutedEventArgs e)
         {

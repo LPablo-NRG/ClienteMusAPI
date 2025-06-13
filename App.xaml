@@ -29,6 +29,10 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource FuentePrincipal}"/>
         </Style>
+
+        <Style TargetType="Image">
+            <Setter Property="Stretch" Value="Fill"/>
+        </Style>
         
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource FuentePrincipal}"/>

@@ -57,7 +57,26 @@ Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" Te
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right">
                                         <StackPanel x:Name="sp_MenuArtista" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Visible" Margin="0,0,0,10">
-                                            
+                                            <Button x:Name="btn_SubirCancion" Grid.Column="0" Visibility="Collapsed"
+                                                    Width="40" Height="40"
+                                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                                    Margin="10,0,10,0"
+                                                    Click="Click_SubirCancion"
+                                                    Background="Transparent"
+                                                    BorderBrush="Transparent"
+                                                    Cursor="Hand">
+                                                <Image Source="..\..\Recursos\Iconos\iconoMas.png" />
+                                            </Button>
+                                            <Button x:Name="btn_PublicarAlbum" Grid.Column="0" Visibility="Collapsed"
+                                                    Width="40" Height="40"
+                                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                                    Margin="10,0,10,0"
+                                                    Click="Click_SubirCancion"
+                                                    Background="Transparent"
+                                                    BorderBrush="Transparent"
+                                                    Cursor="Hand">
+                                                <Image Source="..\..\Recursos\Iconos\iconoMundo.png" />
+                                            </Button>
                                             <Button Grid.Column="0"
                                                     Width="40" Height="40"
                                                     VerticalAlignment="Top" HorizontalAlignment="Right"
@@ -66,7 +85,7 @@ Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" Te
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstadisticas.png" Width="30"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoEstadisticas.png"  />
                                             </Button>
                                             <Button Grid.Column="0"
                                                     Width="40" Height="40"
@@ -76,7 +95,7 @@ Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" Te
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEditar.png" Width="25"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoEditar.png" />
                                             </Button>
                                         </StackPanel>
                                         <StackPanel x:Name="sp_MenuOyente" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -88,7 +107,7 @@ Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" Te
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png" Width="30"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png" />
                                             </Button>
                                             
                                         </StackPanel>

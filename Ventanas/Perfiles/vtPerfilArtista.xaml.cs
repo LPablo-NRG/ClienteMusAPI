@@ -40,17 +40,6 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
 
             sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
         }
 
         public vtPerfilArtista(int idUsuario)

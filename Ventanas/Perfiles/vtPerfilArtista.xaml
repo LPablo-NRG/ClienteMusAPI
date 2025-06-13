@@ -64,7 +64,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoMas.png" Width="30"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoMas.png" />
                                             </Button>
                                             <Button Grid.Column="0"
                                                     Width="40" Height="40"
@@ -74,7 +74,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstadisticas.png" Width="30"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoEstadisticas.png"/>
                                             </Button>
                                             <Button Grid.Column="0"
                                                     Width="40" Height="40"
@@ -84,7 +84,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEditar.png" Width="25"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoEditar.png"/>
                                             </Button>
                                         </StackPanel>
                                         <StackPanel x:Name="sp_MenuOyente" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -96,7 +96,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png" Width="30"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png"/>
                                             </Button>
                                             <Button Grid.Column="0"
                                                     Width="40" Height="40"
@@ -106,7 +106,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoChat.png" Width="30"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoChat.png" />
                                             </Button>
                                             <Button Grid.Column="0"
                                                 Width="40" Height="40"
@@ -116,7 +116,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                 Background="Transparent"
                                                 BorderBrush="Transparent"
                                                 Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEvaluar.png" Width="25"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoEvaluar.png"  />
                                             </Button>
                                         </StackPanel>
                                     </StackPanel>

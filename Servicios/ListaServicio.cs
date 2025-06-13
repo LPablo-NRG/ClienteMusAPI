@@ -27,7 +27,7 @@ namespace ClienteMusAPI.Servicios
                     var bytes = File.ReadAllBytes(dto.FotoPath);
                     var fileContent = new ByteArrayContent(bytes);
                     fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    form.Add(fileContent, "foto", Path.GetFileName(dto.FotoPath));
+                    form.Add(fileContent, "urlFoto", Path.GetFileName(dto.FotoPath));
                 }
 
                 var response = await ClienteAPI.HttpClient.PostAsync("listasDeReproduccion/crear", form);
