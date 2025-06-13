@@ -67,6 +67,7 @@
     <Compile Include="DTOs\BusquedaCancionDTO.cs" />
     <Compile Include="DTOs\BusquedaArtistaDTO.cs" />
     <Compile Include="DTOs\CancionDTO.cs" />
+    <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
     <Compile Include="DTOs\InfoAlbumDTO.cs" />
     <Compile Include="DTOs\ListaReproduccionDTO.cs" />
@@ -100,6 +101,9 @@
     </Compile>
     <Compile Include="Ventanas\Contenido\vtSubirCancion.xaml.cs">
       <DependentUpon>vtSubirCancion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfiles\Chat\vtChat.xaml.cs">
+      <DependentUpon>vtChat.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Perfiles\vtCrearPerfilArtista.xaml.cs">
       <DependentUpon>vtCrearPerfilArtista.xaml</DependentUpon>
@@ -174,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Menu\vtMenuPrincipal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfiles\Chat\vtChat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

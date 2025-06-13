@@ -2,6 +2,7 @@
 using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Servicios;
 using ClienteMusAPI.UserControls;
+using ClienteMusAPI.Ventanas.Perfiles.Chat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -75,7 +76,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             txb_Descripcion.Text = perfilArtista.descripcion;
 
             //cargar imagen
-            if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
+            /*if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
             {
                 var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
                 using (var stream = new MemoryStream(bytes))
@@ -87,7 +88,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
                     image.EndInit();
                     img_foto.Source = image;
                 }
-            }
+            }*/
         }
 
 
@@ -131,7 +132,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         }
         private void Click_VerChat(object sender, RoutedEventArgs e)
         {
-
+            NavigationService?.Navigate(new vtChat(perfilArtista.idArtista, SesionUsuario.NombreUsuario));
         }
     }
 }
