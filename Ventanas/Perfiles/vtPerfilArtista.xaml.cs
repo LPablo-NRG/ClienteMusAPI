@@ -2,6 +2,7 @@
 using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Servicios;
 using ClienteMusAPI.UserControls;
+using ClienteMusAPI.Ventanas.Perfiles.Chat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -149,7 +150,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         }
         private void Click_VerChat(object sender, RoutedEventArgs e)
         {
-
+            NavigationService?.Navigate(new vtChat(perfilArtista.idArtista, SesionUsuario.NombreUsuario));
         }
     }
 }

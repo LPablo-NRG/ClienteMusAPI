@@ -1,0 +1,25 @@
+﻿<Page x:Class="ClienteMusAPI.Ventanas.Perfiles.Chat.vtChat"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="Chat">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+            <StackPanel x:Name="sp_Mensajes"/>
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
+            <TextBox x:Name="txtMensaje" Width="1000" Height="40" Margin="0,0,10,0"/>
+            <Button Content="Enviar" Width="100" Height="40" Click="EnviarMensaje_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
