@@ -212,9 +212,27 @@ namespace ClienteMusAPI.Ventanas.Contenido
             NavigationService.GetNavigationService(this).Navigate(vtSubirCancion);
         }
 
-        private void Click_PublicarAlbum(object sender, RoutedEventArgs e)
+        private async void Click_PublicarAlbum(object sender, RoutedEventArgs e)
         {
-            //TODO
+            if (sp_Canciones.Children.Count < 2)
+            {
+                MessageBox.Show("Un álbum debe tener por lo menos 2 canciones para poder ser publicado.");
+                return;
+            }
+            if (MessageBoxResult.OK == MessageBox.Show("¿Desea publicar el album?", "Publicar Album", MessageBoxButton.OKCancel))
+            {
+                AlbumServicio albumServicio = new AlbumServicio();
+                bool exito = await albumServicio.PublicarAlbum(albumPendiente.idAlbum);
+                if (exito)
+                {
+                    MessageBox.Show("El album se ha publicado correctamente.");
+                    NavigationService.GoBack();
+                }
+                else
+                {
+                    MessageBox.Show("Error al publicar el album.");
+                }
+            }
         }
     }
 }

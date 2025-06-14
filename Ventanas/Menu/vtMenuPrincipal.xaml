@@ -47,7 +47,7 @@
 
                     <Grid Grid.Column="1" VerticalAlignment="Center">
 
-                        <TextBox x:Name="tbBusqueda" Text="Buscar..." FontFamily="{StaticResource FuentePrincipal}" 
+                        <TextBox x:Name="txb_Busqueda" Text="Buscar..." FontFamily="{StaticResource FuentePrincipal}" 
                              Style="{StaticResource TextBoxRedondeado}" />
 
                         <Button Background="Transparent" BorderBrush="Transparent" Cursor="Hand" 

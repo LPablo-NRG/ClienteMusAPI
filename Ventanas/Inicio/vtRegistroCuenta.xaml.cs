@@ -1,4 +1,5 @@
 ﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Modelo;
 using ClienteMusAPI.Servicios;
 using System;
@@ -67,11 +68,25 @@ namespace ClienteMusAPI.Ventanas.Inicio
             if (exito)
             {
                 MessageBox.Show("Usuario registrado correctamente.");
+                IniciarSesion();
             }
             else
             {
                 MessageBox.Show("Error al registrar usuario.");
             }
+        }
+        private async Task IniciarSesion()
+        {
+            var login = new LoginRequest
+            {
+                correo = txb_Correo.Text,
+                contrasenia = pwb_Contrasenia.Password
+            };
+            await usuarioServicio.IniciarSesionAsync(login);
+            VentanaPrincipal vt = (VentanaPrincipal)Application.Current.MainWindow;
+            vt.Reproductor.Visibility = Visibility.Visible;
+
+            NavigationService.Navigate(new Uri("/Ventanas/Menu/vtMenuPrincipal.xaml", UriKind.Relative));
         }
 
         private bool ValidarCampos()

@@ -80,7 +80,7 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    Console.Write($"Error: {response.StatusCode}\n{responseContent}");
                     return null;
                 }
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
@@ -88,7 +88,7 @@ namespace ClienteMusAPI.Servicios
                 var mensaje = jsonObject?["mensaje"]?.ToString();
                 if (string.IsNullOrEmpty(mensaje))
                 {
-                    MessageBox.Show(mensaje);
+                    Console.Write(mensaje);
                     return null;
                 }
 
@@ -145,6 +145,40 @@ namespace ClienteMusAPI.Servicios
             catch (Exception ex)
             {
                 MessageBox.Show($"Excepción al obtener sencillos: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<List<BusquedaCancionDTO>> BuscarCancion(string nombreCancion)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"canciones/buscar?texto={nombreCancion}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var canciones = datos.ToObject<List<BusquedaCancionDTO>>();
+
+
+                return canciones ?? new List<BusquedaCancionDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al buscar canciones: {ex.Message}");
                 return null;
             }
         }

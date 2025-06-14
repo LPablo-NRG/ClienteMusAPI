@@ -42,6 +42,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
             InitializeComponent();
             this.idPerfilArtista = idPerfilArtista;
             this.idAlbum = idAlbum;
+            sp_portada.Visibility = Visibility.Collapsed; 
             CargarCategorias();
         }
 
@@ -72,11 +73,12 @@ namespace ClienteMusAPI.Ventanas.Contenido
         private async void Click_Confirmar(object sender, RoutedEventArgs e)
         {
             
-            if (string.IsNullOrEmpty(txb_Nombre.Text) || string.IsNullOrEmpty(txb_ArchivoSeleccionado.Text) || string.IsNullOrEmpty(cancionDTO.urlFoto) || cb_CategoriaMusical.SelectedItem == null) {
+            if (string.IsNullOrEmpty(txb_Nombre.Text) || string.IsNullOrEmpty(txb_ArchivoSeleccionado.Text) || cb_CategoriaMusical.SelectedItem == null || (idAlbum == 0 && string.IsNullOrEmpty(cancionDTO.urlFoto))) {
+
                 MessageBox.Show("Por favor, complete todos los campos obligatorios.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
+            
             List<int> idArtistas = new List<int>();
             idArtistas.Add(idPerfilArtista);
             cancionDTO.idPerfilArtistas = idArtistas;

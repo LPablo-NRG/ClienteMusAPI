@@ -50,7 +50,7 @@
                              Style="{StaticResource TextBoxRedondeado}" FontFamily="{StaticResource FuentePrincipal}"
                              />
                     
-                    <Button Background="Transparent" BorderBrush="Transparent" Cursor="Hand"
+                    <Button x:Name="btn_Buscar" Background="Transparent" BorderBrush="Transparent" Cursor="Hand"
                               Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right"
                               Click="Click_BuscarContenido"
                               Grid.Column="0">
@@ -64,7 +64,7 @@
 
                         
 
-                        <ComboBoxItem Content="Cancion" />
+                        <ComboBoxItem Content="Canción" />
                         <ComboBoxItem Content="Album" />
                         <ComboBoxItem Content="Artista" />
                         <ComboBoxItem Content="Usuario (Cambiar descripcion-CU)" />

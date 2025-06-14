@@ -58,6 +58,18 @@ namespace ClienteMusAPI.Ventanas.Busqueda
 
         }
 
+        public vtBusqueda(string busqueda)
+        {
+            InitializeComponent();
+            txb_Busqueda.Text = busqueda;
+
+            var sender = this; 
+            var e = new RoutedEventArgs();
+
+            Click_BuscarContenido(sender, e);
+
+        }
+
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -80,16 +92,43 @@ namespace ClienteMusAPI.Ventanas.Busqueda
             switch (cb_tipo.Text)
             {
                 case "Artista":
-                    //NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilArtista.xaml", UriKind.Relative));
+                    UsuarioServicio usuarioServicio = new UsuarioServicio();
+                    List<BusquedaArtistaDTO> artistas = await usuarioServicio.BuscarArtista(txb_Busqueda.Text);
+
+                    if (artistas != null)
+                    {
+                        foreach (var artista in artistas)
+                        {
+                            ucContenido contenido = new ucContenido(artista);
+                            sp_Resultados.Children.Add(contenido);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron resultados para la búsqueda de artistas llamados" + txb_Busqueda.Text);
+                    }
                     break;
                 case "Usuario":
                     //NavigationService.Navigate(new Uri("/Ventanas/Perfiles/vtPerfilUsuario.xaml", UriKind.Relative));
                     break;
                 case "Canción":
-                    //NavigationService.Navigate(new Uri("/Ventanas/Contenido/vtContenidoCancion.xaml", UriKind.Relative));
+                    CancionServicio cancionServicio = new CancionServicio();
+                    List<BusquedaCancionDTO> canciones = await cancionServicio. BuscarCancion(txb_Busqueda.Text);
+
+                    if (canciones != null)
+                    {
+                        foreach (var cancion in canciones)
+                        {
+                            ucContenido contenido = new ucContenido(cancion);
+                            sp_Resultados.Children.Add(contenido);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron resultados para la búsqueda de canciones llamadas " + txb_Busqueda.Text);
+                    }
                     break;
                 case "Album":
-                    sp_Resultados.Children.Clear();
                     AlbumServicio albumServicio = new AlbumServicio();
                     List<BusquedaAlbumDTO> albumes = await albumServicio.BuscarAlbum(txb_Busqueda.Text);
                     if (albumes != null)

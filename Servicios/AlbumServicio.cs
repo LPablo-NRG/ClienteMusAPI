@@ -141,8 +141,38 @@ namespace ClienteMusAPI.Servicios
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Excepción al obtener perfil de artista: {ex.Message}");
+                MessageBox.Show($"Excepción al buscar albumes: {ex.Message}");
                 return null;
+            }
+        }
+
+        public async Task<bool> PublicarAlbum(long idAlbum)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.PutAsync($"albumes/publicar/{idAlbum}",null);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                    return false;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var mensaje = jsonObject?["mensaje"]?.ToString();
+                if (!string.IsNullOrEmpty(mensaje))
+                {
+                    Console.WriteLine($"Respuesta del servidor: {mensaje}");
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al publicar el álbum: {ex.Message}");
+                return false;
             }
         }
 

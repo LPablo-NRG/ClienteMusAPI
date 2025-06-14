@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClienteMusAPI.Ventanas.Busqueda;
+using ClienteMusAPI.Ventanas.Inicio;
 
 namespace ClienteMusAPI.Ventanas.Menu
 {
@@ -77,7 +79,8 @@ namespace ClienteMusAPI.Ventanas.Menu
 
         private void Click_BuscarContenido(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Ventanas/Busqueda/vtBusqueda.xaml", UriKind.Relative));
+            vtBusqueda busqueda = new vtBusqueda(txb_Busqueda.Text);
+            NavigationService.Navigate(busqueda);
         }
 
         private void Click_VerPerfilArtista(object sender, RoutedEventArgs e)
@@ -92,7 +95,8 @@ namespace ClienteMusAPI.Ventanas.Menu
 
         private void Click_CerrarSesion(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            vtInicioSesion inicioSesion = new vtInicioSesion();
+            NavigationService.Navigate(inicioSesion);
         }
 
         private void Click_CrearListaDeReproduccion(object sender, RoutedEventArgs e)

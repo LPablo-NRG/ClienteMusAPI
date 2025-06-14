@@ -224,6 +224,40 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
+        public async Task<List<BusquedaArtistaDTO>> BuscarArtista (string nombreArtista)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"usuarios/artistas/buscar?texto={nombreArtista}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var artistas = datos.ToObject<List<BusquedaArtistaDTO>>();
+
+
+                return artistas ?? new List<BusquedaArtistaDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al buscar artistas: {ex.Message}");
+                return null;
+            }
+        }
+
     }
 }
 
