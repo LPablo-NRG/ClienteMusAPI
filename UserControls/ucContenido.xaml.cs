@@ -138,9 +138,12 @@ namespace ClienteMusAPI.UserControls
         {
             switch (tipo)
             {
-                case "Album":  
+                case "Album":
+                    vtAlbum vtAlbum = new vtAlbum(album);
+                    NavigationService.GetNavigationService(this).Navigate(vtAlbum);
+                    break;
                 case "Album Pendiente":
-                    vtAlbum vtAlbum = new vtAlbum(albumPendiente, idArtista);
+                    vtAlbum = new vtAlbum(albumPendiente, idArtista);
                     NavigationService.GetNavigationService(this).Navigate(vtAlbum);
                     break;
                 case "Cancion":

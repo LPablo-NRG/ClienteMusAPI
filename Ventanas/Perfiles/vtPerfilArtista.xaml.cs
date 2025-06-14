@@ -34,12 +34,12 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         public vtPerfilArtista()
         {
             InitializeComponent();
-            sp_albumes.Children.Add(new ucContenido("Album"));
-            sp_albumes.Children.Add(new ucContenido("Album"));
-            sp_albumes.Children.Add(new ucContenido("Album"));
+            sp_Albumes.Children.Add(new ucContenido("Album"));
+            sp_Albumes.Children.Add(new ucContenido("Album"));
+            sp_Albumes.Children.Add(new ucContenido("Album"));
 
 
-            sp_sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_Sencillos.Children.Add(new ucContenido("Cancion"));
         }
 
         public vtPerfilArtista(int idUsuario)
@@ -77,8 +77,37 @@ namespace ClienteMusAPI.Ventanas.Perfiles
                     img_foto.Source = image;
                 }
             }
+
+            CargarAlbumesAsync();
+            CargarSencillosAsync();
         }
 
+        private async void CargarAlbumesAsync()
+        {
+            sp_Albumes.Children.Clear();
+            AlbumServicio albumServicio = new AlbumServicio();
+            List<BusquedaAlbumDTO> albumesDelUsuario = new List<BusquedaAlbumDTO>();
+            albumesDelUsuario = await albumServicio.ObtenerAlbumesPublicosAsync(perfilArtista.idArtista);
+
+            foreach (var album in albumesDelUsuario)
+            {
+                ucContenido contenido = new ucContenido(album);
+                sp_Albumes.Children.Add(contenido);
+            } 
+        }
+        private async void CargarSencillosAsync()
+        {
+            sp_Sencillos.Children.Clear();
+            CancionServicio cancionServicio = new CancionServicio();
+            List<BusquedaCancionDTO> sencillos = new List<BusquedaCancionDTO>();
+            sencillos = await cancionServicio.ObtenerSencillosPorArtistaAsync(perfilArtista.idArtista);
+
+            foreach (var sencillo in sencillos)
+            {
+                ucContenido contenido = new ucContenido(sencillo);
+                sp_Sencillos.Children.Add(contenido);
+            }
+        }
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {

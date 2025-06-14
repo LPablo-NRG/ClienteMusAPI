@@ -152,7 +152,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                            FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
                                     <Border CornerRadius="10"  Grid.Column="0"  Margin="40,00,40,10" Grid.Row="1">
                                         <Grid Background="Transparent">
-                                            <StackPanel x:Name="sp_albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+                                            <StackPanel x:Name="sp_Albumes" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
                                             </StackPanel>
                                         </Grid>
 
@@ -172,7 +172,7 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                             Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{StaticResource FuentePrincipal}"
                                             FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
                                     <Border CornerRadius="10" Grid.Column="2" Margin="40,00,40,10" Grid.Row="1">
-                                        <StackPanel x:Name="sp_sencillos" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">
+                                        <StackPanel x:Name="sp_Sencillos" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">
 
                                         </StackPanel>
                                     </Border>

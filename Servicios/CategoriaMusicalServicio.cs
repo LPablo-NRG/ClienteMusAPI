@@ -29,11 +29,6 @@ namespace ClienteMusAPI.Servicios
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
 
                 var mensaje = jsonObject?["mensaje"]?.ToString();
-                if (!string.IsNullOrEmpty(mensaje))
-                {
-                    MessageBox.Show(mensaje);
-                    
-                }
 
                 var datos = jsonObject?["datos"];
                 if (datos == null)

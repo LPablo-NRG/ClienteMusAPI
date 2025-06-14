@@ -26,9 +26,9 @@ namespace ClienteMusAPI.Ventanas.Contenido
     /// </summary>
     public partial class vtAlbum : Page
     {
-        private InfoAlbumDTO infoAlbum;
+        private InfoAlbumDTO albumPendiente;
         private int idArtista;
-        private BusquedaAlbumDTO busquedaAlbumDTO;
+        private BusquedaAlbumDTO albumPublico;
         public vtAlbum()
         {
             InitializeComponent();
@@ -84,45 +84,45 @@ namespace ClienteMusAPI.Ventanas.Contenido
         public vtAlbum(BusquedaAlbumDTO album)
         {
             InitializeComponent();
-            this.busquedaAlbumDTO = album;
-            
+            btn_SubirCancion.Visibility = Visibility.Collapsed;
+            btn_PublicarAlbum.Visibility = Visibility.Collapsed;
+            this.albumPublico = album;
             this.Loaded += Page_Loaded;
         }
 
         public vtAlbum(InfoAlbumDTO album, int idArtista)
         {
             InitializeComponent();
-            this.infoAlbum = album;
+            this.albumPendiente = album;
             this.idArtista = idArtista;
-            btn_SubirCancion.Visibility = Visibility.Visible;
-            btn_PublicarAlbum.Visibility = Visibility.Visible;
             this.Loaded += Page_Loaded;
 
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (busquedaAlbumDTO != null)
+            sp_Canciones.Children.Clear();
+            if (albumPublico != null)
             {
-                await CargarInformacionAlbumAsync(busquedaAlbumDTO);
+                await CargarInformacionAlbumPublicoAsync();
             }
-            else if (infoAlbum != null)
+            else if (albumPendiente != null)
             {
-                await CargarInformacionAlbumAsync(infoAlbum);
+                await CargarInformacionAlbumPendienteAsync();
             }
         }
 
-        private async Task CargarInformacionAlbumAsync(BusquedaAlbumDTO album)
+        private async Task CargarInformacionAlbumPublicoAsync()
         {
-            txb_Artista.Text = album.nombreArtista;
-            txb_Nombre.Text = album.nombreAlbum;
-            img_foto.Source = new BitmapImage(new Uri(album.urlFoto, UriKind.RelativeOrAbsolute));
-            txb_Fecha.Text = album.fechaPublicacion;
+            txb_Artista.Text = albumPublico.nombreArtista;
+            txb_Nombre.Text = albumPublico.nombreAlbum;
+            img_foto.Source = new BitmapImage(new Uri(albumPublico.urlFoto, UriKind.RelativeOrAbsolute));
+            txb_Fecha.Text = albumPublico.fechaPublicacion;
             //txb_Duracion.Text = album.
             //cargar imagen
-            if (!String.IsNullOrEmpty(album.urlFoto))
+            if (!String.IsNullOrEmpty(albumPublico.urlFoto))
             {
-                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + album.urlFoto);
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + albumPublico.urlFoto);
                 using (var stream = new MemoryStream(bytes))
                 {
                     var image = new BitmapImage();
@@ -133,19 +133,19 @@ namespace ClienteMusAPI.Ventanas.Contenido
                     img_foto.Source = image;
                 }
             }
+            await CargarCanciones(albumPublico.canciones);
         }
 
-        private async Task CargarInformacionAlbumAsync(InfoAlbumDTO album)
+        private async Task CargarInformacionAlbumPendienteAsync()
         {
-            txb_Artista.Text = album.nombreArtista;
-            txb_Nombre.Text = album.nombre;
-            img_foto.Source = new BitmapImage(new Uri(album.urlFoto, UriKind.RelativeOrAbsolute));
-            txb_Fecha.Text = album.fechaPublicacion;
-            //txb_Duracion.Text = album.
+            txb_Artista.Text = albumPendiente.nombreArtista;
+            txb_Nombre.Text = albumPendiente.nombre;
+            img_foto.Source = new BitmapImage(new Uri(albumPendiente.urlFoto, UriKind.RelativeOrAbsolute));
+            
             //cargar imagen
-            if (!String.IsNullOrEmpty(album.urlFoto))
+            if (!String.IsNullOrEmpty(albumPendiente.urlFoto))
             {
-                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + album.urlFoto);
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + albumPendiente.urlFoto);
                 using (var stream = new MemoryStream(bytes))
                 {
                     var image = new BitmapImage();
@@ -156,21 +156,31 @@ namespace ClienteMusAPI.Ventanas.Contenido
                     img_foto.Source = image;
                 }
             }
-            await CargarCanciones(album.idAlbum);
+            await CargarCanciones(null);
+
+            //txb_Duracion.Text = album.
         }
 
-        private async Task CargarCanciones(int idAlbum)
+        private async Task CargarCanciones(List<BusquedaCancionDTO> canciones)
         {
-            CancionServicio cancionServicio = new CancionServicio();
-            List<BusquedaCancionDTO> canciones = new List<BusquedaCancionDTO>();
-            canciones = await cancionServicio.ObtenerCancionesPorAlbumAsync(idAlbum);
+            if (canciones == null)
+            {
+                CancionServicio cancionServicio = new CancionServicio();
+                canciones = await cancionServicio.ObtenerCancionesPorAlbumAsync(albumPendiente.idAlbum);
+            }
+            
             if (canciones != null)
             {
+                TimeSpan duracionTotal = TimeSpan.Zero;
                 foreach (var cancion in canciones)
                 {
                     ucContenido contenido = new ucContenido(cancion);
                     sp_Canciones.Children.Add(contenido);
+
+                    TimeSpan duracionRecuperada = TimeSpan.ParseExact(cancion.duracion, @"mm\:ss", null);
+                    duracionTotal += duracionRecuperada;
                 }
+                txb_Duracion.Text = duracionTotal.ToString(@"hh\:mm\:ss");
             }
             else
                 Console.WriteLine("Error");
@@ -198,7 +208,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
         private void Click_SubirCancion(object sender, RoutedEventArgs e)
         {
-            vtSubirCancion vtSubirCancion = new vtSubirCancion(idArtista, infoAlbum.idAlbum);
+            vtSubirCancion vtSubirCancion = new vtSubirCancion(idArtista, albumPendiente.idAlbum);
             NavigationService.GetNavigationService(this).Navigate(vtSubirCancion);
         }
 

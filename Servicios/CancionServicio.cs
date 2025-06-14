@@ -110,5 +110,43 @@ namespace ClienteMusAPI.Servicios
 
         }
 
+        public async Task<List<BusquedaCancionDTO>> ObtenerSencillosPorArtistaAsync(int idPerfilArtista)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"canciones/artista?idPerfilArtista={idPerfilArtista}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    //MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var mensaje = jsonObject?["mensaje"]?.ToString();
+                if (!string.IsNullOrEmpty(mensaje) && mensaje != "Sencillos recuperados exitosamente")
+                {
+                    MessageBox.Show(mensaje);
+                    return null;
+                }
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var sencillos = datos.ToObject<List<BusquedaCancionDTO>>();
+                return sencillos ?? new List<BusquedaCancionDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al obtener sencillos: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

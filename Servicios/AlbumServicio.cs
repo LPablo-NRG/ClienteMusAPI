@@ -83,6 +83,45 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
+        public async Task<List<BusquedaAlbumDTO>> ObtenerAlbumesPublicosAsync(int idPerfilArtista)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"albumes/artista?idPerfilArtista={idPerfilArtista}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    //MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var mensaje = jsonObject?["mensaje"]?.ToString();
+                if (!string.IsNullOrEmpty(mensaje) && mensaje != "Álbumes públicos recuperados exitosamente")
+                {
+                    MessageBox.Show(mensaje);
+                    return null;
+                }
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var albumes = datos.ToObject<List<BusquedaAlbumDTO>>();
+                return albumes ?? new List<BusquedaAlbumDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al obtener álbumes públicos: {ex.Message}");
+                return null;
+            }
+        }
+
         public async Task<List<BusquedaAlbumDTO>> BuscarAlbum(string nombreAlbum)
         {
             try
