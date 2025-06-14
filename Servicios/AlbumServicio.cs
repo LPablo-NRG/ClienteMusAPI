@@ -30,7 +30,7 @@ namespace ClienteMusAPI.Servicios
                         var fileStream = new FileStream(album.FotoPath, FileMode.Open, FileAccess.Read);
                         var fileContent = new StreamContent(fileStream);
                         fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                        form.Add(fileContent, "urlFoto", Path.GetFileName(album.FotoPath));
+                        form.Add(fileContent, "Foto", Path.GetFileName(album.FotoPath));
                     }
 
                     var response = await ClienteAPI.HttpClient.PostAsync("/api/albumes/crear", form);
