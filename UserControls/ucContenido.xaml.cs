@@ -2,6 +2,7 @@
 using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Servicios;
 using ClienteMusAPI.Ventanas.Contenido;
+using ClienteMusAPI.Ventanas.Perfiles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -158,12 +159,12 @@ namespace ClienteMusAPI.UserControls
                         var contenedor = (window as VentanaPrincipal)?.Contenido;
                         if (contenedor != null)
                         {
-                            ucVentanaDetalles detalles = new ucVentanaDetalles();
+                            ucVentanaDetalles detalles = new ucVentanaDetalles(cancion);
                             detalles.btn_Cerrar.Click += (object sender2, RoutedEventArgs e2) =>
                             {
                                 contenedor.Children.Remove(detalles);
                             };
-                            contenedor.Children.Add(new ucVentanaDetalles());
+                            contenedor.Children.Add(new ucVentanaDetalles(cancion));
                         }
                     }
                     break;
@@ -172,7 +173,8 @@ namespace ClienteMusAPI.UserControls
                     NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Contenido/vtListaDeReproduccion.xaml", UriKind.Relative));
                     break;
                 case "Artista":
-                    NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Perfiles/vtPerfilArtista.xaml", UriKind.Relative));    
+                    vtPerfilArtista vtPerfilArtista = new vtPerfilArtista(artista);
+                    NavigationService.GetNavigationService(this).Navigate(vtPerfilArtista);
                     break;
 
             }

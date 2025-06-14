@@ -30,7 +30,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
     public partial class vtPerfilArtista : Page
     {
         private UsuarioServicio usuarioServicio = new UsuarioServicio();
-        private BusquedaArtistaDTO perfilArtista = new BusquedaArtistaDTO();
+        private BusquedaArtistaDTO perfilArtista;
         private int idUsuario = -1;
         public vtPerfilArtista()
         {
@@ -49,16 +49,29 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             this.idUsuario = idUsuario;
             this.Loaded += Page_Loaded;
         }
-        
+
+        public vtPerfilArtista(BusquedaArtistaDTO artista)
+        {
+            InitializeComponent();
+            this.perfilArtista = artista;
+            this.Loaded += Page_Loaded;
+        }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (idUsuario != -1)
-                CargarDatos();
+            CargarDatos();
         }
 
         private async void CargarDatos()
         {
-            perfilArtista = await usuarioServicio.ObtenerPerfilArtistaAsync(idUsuario);
+            if (perfilArtista == null)
+            {
+                perfilArtista = await usuarioServicio.ObtenerPerfilArtistaAsync(idUsuario);
+            }
+            if (perfilArtista.nombreUsuario != SesionUsuario.NombreUsuario)
+            {
+                sp_MenuArtista.Visibility = Visibility.Collapsed;
+            }
 
             txb_Nombre.Text = perfilArtista.nombre;
             txb_Usuario.Text = "@" + perfilArtista.nombreUsuario;

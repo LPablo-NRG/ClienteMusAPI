@@ -6,10 +6,7 @@
              xmlns:local="clr-namespace:ClienteMusAPI.UserControls"
              mc:Ignorable="d" >
 
-    <Grid Width="3000" Height="3000" HorizontalAlignment="Center" VerticalAlignment="Center" >
-        <Grid.Background>
-            <SolidColorBrush Color="Black" Opacity=".5" />
-        </Grid.Background>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
         <Border CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource ColorLetrasAzulHEX}"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
 Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
@@ -27,8 +24,12 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Rectangle Fill="Black" Width="128" Height="128" Margin="10,0,10,0" Opacity=".1"/>
-                    <Image x:Name="img_foto" Source="..\Recursos\Iconos\iconoDisco.png" Grid.Column="0" Width="128" Height="128" Margin="10,0,10,0"/>
+                    <Border Grid.Column="0" CornerRadius="5" Padding="5" Margin="10,0,10,0">
+                        <Border.Background>
+                            <SolidColorBrush Color="Black" Opacity=".1"/>
+                        </Border.Background>
+                        <Image x:Name="img_foto" Source="..\Recursos\Iconos\iconoDisco.png" Grid.Column="0" Width="128" Height="128" />
+                    </Border>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Título: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
@@ -43,6 +44,14 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                                TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
                                FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
                             <TextBlock x:Name="txb_Autor" Text="cancion, album, lista" FontSize="18" VerticalAlignment="Center" 
+                               Grid.Column="1" Margin="0,0,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="sp_Album" Orientation="Horizontal">
+                            <TextBlock Text="Álbum: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
+                               TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
+                               FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
+                            <TextBlock x:Name="txb_Album" Text="lista" FontSize="18" VerticalAlignment="Center" 
                                Grid.Column="1" Margin="0,0,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
                         </StackPanel>
 
@@ -61,15 +70,6 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                             <TextBlock x:Name="txb_Duracion" Text="cancion, lista" FontSize="18" VerticalAlignment="Center" 
                                Grid.Column="1" Margin="0,0,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
                         </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Descripción: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
-                               TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
-                               FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
-                            <TextBlock x:Name="txb_Descripcion" Text="lista" FontSize="18" VerticalAlignment="Center" 
-                               Grid.Column="1" Margin="0,0,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
-                        </StackPanel>
-
                     </StackPanel>
 
                 </Grid>

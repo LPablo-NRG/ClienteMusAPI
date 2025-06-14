@@ -89,12 +89,9 @@ namespace ClienteMusAPI.Servicios
                 {
                     Console.Write($"Error: {response.StatusCode}\n{responseContent}");
                     return null;
-                }
-
-                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
-
-                var mensaje = jsonObject?["mensaje"]?.ToString();
-
+                } 
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent); 
+                var mensaje = jsonObject?["mensaje"]?.ToString(); 
                 var datos = jsonObject?["datos"];
                 if (datos == null)
                 {
@@ -123,20 +120,15 @@ namespace ClienteMusAPI.Servicios
                 {
                     Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
                     return null;
-                }
-
-                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
-
+                } 
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent); 
                 var datos = jsonObject?["datos"];
                 if (datos == null)
                 {
                     Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
                     return null;
-                }
-
-                var albumes = datos.ToObject<List<BusquedaAlbumDTO>>();
-
-                
+                } 
+                var albumes = datos.ToObject<List<BusquedaAlbumDTO>>(); 
                 return albumes ?? new List<BusquedaAlbumDTO>();
             }
             catch (Exception ex)
