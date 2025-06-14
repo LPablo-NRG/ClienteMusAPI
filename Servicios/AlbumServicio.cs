@@ -53,23 +53,18 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    //MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    Console.Write($"Error: {response.StatusCode}\n{responseContent}");
                     return null;
                 }
 
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
 
                 var mensaje = jsonObject?["mensaje"]?.ToString();
-                if (!string.IsNullOrEmpty(mensaje) && mensaje != "Álbumes pendientes recuperados exitosamente")
-                {
-                    MessageBox.Show(mensaje);
-                    return null;
-                }
 
                 var datos = jsonObject?["datos"];
                 if (datos == null)
                 {
-                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
                     return null;
                 }
 
@@ -92,23 +87,18 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    //MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    Console.Write($"Error: {response.StatusCode}\n{responseContent}");
                     return null;
                 }
 
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
 
                 var mensaje = jsonObject?["mensaje"]?.ToString();
-                if (!string.IsNullOrEmpty(mensaje) && mensaje != "Álbumes públicos recuperados exitosamente")
-                {
-                    MessageBox.Show(mensaje);
-                    return null;
-                }
 
                 var datos = jsonObject?["datos"];
                 if (datos == null)
                 {
-                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
                     return null;
                 }
 
@@ -131,7 +121,7 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
                     return null;
                 }
 
@@ -140,7 +130,7 @@ namespace ClienteMusAPI.Servicios
                 var datos = jsonObject?["datos"];
                 if (datos == null)
                 {
-                    MessageBox.Show("No se encontró el objeto 'datos' en la respuesta.");
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
                     return null;
                 }
 

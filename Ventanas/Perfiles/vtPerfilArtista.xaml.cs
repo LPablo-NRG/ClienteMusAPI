@@ -89,12 +89,15 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             AlbumServicio albumServicio = new AlbumServicio();
             List<BusquedaAlbumDTO> albumesDelUsuario = new List<BusquedaAlbumDTO>();
             albumesDelUsuario = await albumServicio.ObtenerAlbumesPublicosAsync(perfilArtista.idArtista);
-
-            foreach (var album in albumesDelUsuario)
+            if (albumesDelUsuario != null)
             {
-                ucContenido contenido = new ucContenido(album);
-                sp_Albumes.Children.Add(contenido);
-            } 
+                foreach (var album in albumesDelUsuario)
+                {
+                    ucContenido contenido = new ucContenido(album);
+                    sp_Albumes.Children.Add(contenido);
+                }
+            }
+            
         }
         private async void CargarSencillosAsync()
         {
@@ -102,12 +105,15 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             CancionServicio cancionServicio = new CancionServicio();
             List<BusquedaCancionDTO> sencillos = new List<BusquedaCancionDTO>();
             sencillos = await cancionServicio.ObtenerSencillosPorArtistaAsync(perfilArtista.idArtista);
-
-            foreach (var sencillo in sencillos)
+            if (sencillos != null)
             {
-                ucContenido contenido = new ucContenido(sencillo);
-                sp_Sencillos.Children.Add(contenido);
+                foreach (var sencillo in sencillos)
+                {
+                    ucContenido contenido = new ucContenido(sencillo);
+                    sp_Sencillos.Children.Add(contenido);
+                }
             }
+            
         }
 
         private void Click_Volver(object sender, RoutedEventArgs e)

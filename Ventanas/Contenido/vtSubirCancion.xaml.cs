@@ -52,10 +52,14 @@ namespace ClienteMusAPI.Ventanas.Contenido
             categorias = await categoriaMusicalServicio.ObtenerCategoriasMusicalesAsync();
             
             cb_CategoriaMusical.Items.Clear();
-            foreach (var categoria in categorias)
+            if (categorias != null)
             {
-                cb_CategoriaMusical.Items.Add(categoria);
+                foreach (var categoria in categorias)
+                {
+                    cb_CategoriaMusical.Items.Add(categoria);
+                }
             }
+            
 
 
         }

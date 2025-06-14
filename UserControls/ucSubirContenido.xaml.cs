@@ -45,11 +45,15 @@ namespace ClienteMusAPI.UserControls
             AlbumServicio albumServicio = new AlbumServicio();
             albumesDelUsuario = await albumServicio.ObtenerAlbumesPendientesAsync(idPerfilArtista);
 
-            foreach (var album in albumesDelUsuario)
+            if (albumesDelUsuario != null)
             {
-                ucContenido contenido = new ucContenido(album, idPerfilArtista);
-                sp_Albumes.Children.Add(contenido);
+                foreach (var album in albumesDelUsuario)
+                {
+                    ucContenido contenido = new ucContenido(album, idPerfilArtista);
+                    sp_Albumes.Children.Add(contenido);
+                }
             }
+            
 
         }
 
