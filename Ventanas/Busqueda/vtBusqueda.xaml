@@ -60,14 +60,11 @@
                               VerticalContentAlignment="Center"
                               SelectedIndex="0"  
                               Height="40" 
-                              Style="{StaticResource ComboBoxTransparente}">
-
-                        
-
+                              Style="{StaticResource ComboBoxTransparente}"
+                              SelectionChanged="cb_tipo_SelectionChanged">
                         <ComboBoxItem Content="Canción" />
                         <ComboBoxItem Content="Album" />
                         <ComboBoxItem Content="Artista" />
-                        <ComboBoxItem Content="Usuario (Cambiar descripcion-CU)" />
                     </ComboBox>
 
                 </Grid>

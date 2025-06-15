@@ -20,14 +20,14 @@ namespace ClienteMusAPI
     /// </summary>
     public partial class VentanaPrincipal : Window
     {
-        private MediaPlayer player = new MediaPlayer();
-
+        public MediaPlayer reproductor = new MediaPlayer();
+        
         public VentanaPrincipal()
         {
             InitializeComponent();
-            player.Open(new Uri("pack://siteoforigin:,,,/Recursos/Sonidos/MusAPI.wav"));
+            reproductor.Open(new Uri("pack://siteoforigin:,,,/Recursos/Sonidos/MusAPI.wav"));
             MarcoPrincipal.Navigate(new Uri("/Ventanas/Inicio/vtInicioSesion.xaml", UriKind.Relative));
-            player.Play();
+            reproductor.Play();
         }
 
     }

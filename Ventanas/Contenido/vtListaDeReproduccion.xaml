@@ -88,7 +88,7 @@ Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" Te
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png" Width="30"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoGuardar.png" Width="30"/>
                                             </Button>
 
                                         </StackPanel>

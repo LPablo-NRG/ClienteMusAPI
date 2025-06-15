@@ -258,6 +258,42 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
+        public async Task<string> EvaluarArtista (EvaluacionDTO evaluacionDTO)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(evaluacionDTO);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await ClienteAPI.HttpClient.PostAsync("evaluaciones/registrar", content);
+
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.Write($"Error: {response.StatusCode}\n{responseContent}");
+                }
+
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                String respuesta = datos.ToObject<String>();
+
+
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                return "Excepción: "+ex.Message;
+            }
+        }
     }
 }
 

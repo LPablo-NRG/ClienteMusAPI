@@ -101,6 +101,7 @@
     <Compile Include="DTOs\CategoriaMusicalDTO.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
+    <Compile Include="DTOs\EvaluacionDTO.cs" />
     <Compile Include="DTOs\InfoAlbumDTO.cs" />
     <Compile Include="DTOs\ListaReproduccionDTO.cs" />
     <Compile Include="DTOs\LoginRequest.cs" />
@@ -114,6 +115,9 @@
     <Compile Include="Servicios\UsuarioServicio.cs" />
     <Compile Include="UserControls\ucContenido.xaml.cs">
       <DependentUpon>ucContenido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucEvaluarArtista.xaml.cs">
+      <DependentUpon>ucEvaluarArtista.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ucSubirContenido.xaml.cs">
       <DependentUpon>ucSubirContenido.xaml</DependentUpon>
@@ -152,6 +156,10 @@
       <DependentUpon>vtPerfilUsuario.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\ucContenido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucEvaluarArtista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -300,6 +308,7 @@
     <Resource Include="Recursos\Iconos\iconoConfiguracion.png" />
     <Resource Include="Recursos\Iconos\iconoFlecha.png" />
     <Resource Include="Recursos\Iconos\iconoMundo.png" />
+    <Resource Include="Recursos\Iconos\iconoGuardar.png" />
     <Content Include="Recursos\Sonidos\MusAPI.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

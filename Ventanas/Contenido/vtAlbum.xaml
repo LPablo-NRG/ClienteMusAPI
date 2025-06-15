@@ -115,7 +115,7 @@ FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}" FontFamily="{Stat
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png" />
+                                                <Image Source="..\..\Recursos\Iconos\iconoGuardar.png" />
                                             </Button>
                                             
                                         </StackPanel>

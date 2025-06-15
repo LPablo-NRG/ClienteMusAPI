@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:ClienteMusAPI.UserControls"
              mc:Ignorable="d" >
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="2000" Height="2000">
+        <Grid.Background>
+            <SolidColorBrush Color="Black" Opacity=".1"/>
+        </Grid.Background>
+        
         <Border CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource ColorLetrasAzulHEX}"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
 Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">

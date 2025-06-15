@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace ClienteMusAPI.Ventanas.Perfiles
 {
@@ -68,7 +69,11 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 perfilArtista = await usuarioServicio.ObtenerPerfilArtistaAsync(idUsuario);
             }
-            if (perfilArtista.nombreUsuario != SesionUsuario.NombreUsuario)
+            if (perfilArtista.nombreUsuario == SesionUsuario.NombreUsuario)
+            {
+                sp_MenuOyente.Visibility = Visibility.Collapsed;
+            } 
+            else
             {
                 sp_MenuArtista.Visibility = Visibility.Collapsed;
             }
@@ -165,7 +170,24 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         }
         private void Click_EvaluarArtista(object sender, RoutedEventArgs e)
         {
-
+            DependencyObject parent = this;
+            while (parent != null && !(parent is Window))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            if (parent is Window window)
+            {
+                var contenedor = (window as VentanaPrincipal)?.Contenido;
+                if (contenedor != null)
+                {
+                    ucEvaluarArtista evaluacion = new ucEvaluarArtista(perfilArtista.idArtista);
+                    evaluacion.btn_Cerrar.Click += (object sender2, RoutedEventArgs e2) =>
+                    {
+                        contenedor.Children.Remove(evaluacion);
+                    };
+                    contenedor.Children.Add(evaluacion);
+                }
+            }
         }
         private void Click_VerChat(object sender, RoutedEventArgs e)
         {

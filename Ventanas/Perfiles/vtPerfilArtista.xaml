@@ -96,18 +96,9 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
                                                     Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png"/>
+                                                <Image Source="..\..\Recursos\Iconos\iconoGuardar.png"/>
                                             </Button>
-                                            <Button Grid.Column="0"
-                                                    Width="40" Height="40"
-                                                    VerticalAlignment="Top" HorizontalAlignment="Right"
-                                                    Margin="10,0,10,0"
-                                                    Click="Click_VerChat"
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoChat.png" />
-                                            </Button>
+                                            
                                             <Button Grid.Column="0"
                                                 Width="40" Height="40"
                                                 VerticalAlignment="Top" HorizontalAlignment="Right"
@@ -116,9 +107,19 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                 Background="Transparent"
                                                 BorderBrush="Transparent"
                                                 Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEvaluar.png"  />
+                                                <Image Source="..\..\Recursos\Iconos\iconoEstrellaVacia.png"  />
                                             </Button>
                                         </StackPanel>
+                                        <Button Grid.Column="0"
+        Width="40" Height="40"
+        VerticalAlignment="Top" HorizontalAlignment="Right"
+        Margin="10,0,10,0"
+        Click="Click_VerChat"
+        Background="Transparent"
+        BorderBrush="Transparent"
+        Cursor="Hand">
+                                            <Image Source="..\..\Recursos\Iconos\iconoChat.png" />
+                                        </Button>
                                     </StackPanel>
                                     
                                 </Grid>

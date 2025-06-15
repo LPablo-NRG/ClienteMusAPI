@@ -145,5 +145,11 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                     break;
             }
         }
+
+        private void cb_tipo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sp_Resultados == null) return; 
+            Click_BuscarContenido(sender, new RoutedEventArgs());
+        }
     }
 }
