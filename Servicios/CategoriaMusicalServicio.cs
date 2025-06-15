@@ -54,7 +54,35 @@ namespace ClienteMusAPI.Servicios
                 var json = JsonConvert.SerializeObject(categoria);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await ClienteAPI.HttpClient.PostAsync("usuarios/registrar", content);
+                HttpResponseMessage response = await ClienteAPI.HttpClient.PostAsync("categoriasMusicales/registrar", content);
+
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                }
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> EditarCategoriaMusicalAsync(CategoriaMusicalDTO categoria)
+        {
+            try
+            {
+                int idCategoria = categoria.idCategoriaMusical.GetValueOrDefault();
+                categoria.idCategoriaMusical = null;
+                var json = JsonConvert.SerializeObject(categoria);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                Console.Write("id primero: "+idCategoria);
+                Console.Write("id despues: "+categoria.idCategoriaMusical);
+                HttpResponseMessage response = await ClienteAPI.HttpClient.PutAsync($"categoriasMusicales/{idCategoria}", content);
 
                 string responseContent = await response.Content.ReadAsStringAsync();
 

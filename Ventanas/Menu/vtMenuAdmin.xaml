@@ -22,7 +22,7 @@
                    Margin="0,0,0,40"
                    />
             <!-- Botones de navegación -->
-            <Button Content="Categorías musicales (CU 13 y 14)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14"/>
+            <Button Content="Categorías musicales (CU 13 y 14)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_CategoriasMusicales"/>
             <Button Content="Reportes (CU-15)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14"/>
             <Button Content="Volver" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_Volver"/>
         </StackPanel>

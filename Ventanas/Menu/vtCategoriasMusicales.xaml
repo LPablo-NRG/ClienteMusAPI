@@ -1,0 +1,84 @@
+﻿<Page x:Class="ClienteMusAPI.Ventanas.Menu.vtCategoriasMusicales"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ClienteMusAPI.Ventanas.Menu"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="MusAPI">
+
+    <Grid Background="Transparent" Margin="0,0,0,0">
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+            <StackPanel x:Name="sp_perfil" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" CornerRadius="10" BorderBrush="Black" BorderThickness="0"  
+                    Margin="20,10,20,10" VerticalAlignment="Center" Padding="10">
+                        <Border.Background>
+                            <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
+                        </Border.Background>
+                        <Grid VerticalAlignment="Top">
+                            <Grid Grid.Row="1" Margin="0,10,0,10">
+                                <Grid >
+                                    <Button Grid.Column="0"
+Width="40" Height="40"
+VerticalAlignment="Top" HorizontalAlignment="Left"
+Margin="10,0,100,0"
+Click="Click_Volver"
+Background="Transparent"
+BorderBrush="Transparent"
+Cursor="Hand">
+                                        <Image Source="..\..\Recursos\Iconos\iconoRegresar.png"/>
+                                    </Button>
+                                    <Label Content="Categorias Musicales" HorizontalAlignment="Center" 
+                                       FontSize="{StaticResource TamanoFuenteTitulo}" Foreground="{StaticResource ColorLetrasHEX}"
+                                       FontFamily="{StaticResource FuentePrincipal}" FontWeight="Bold"/>
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+
+                    <Grid Grid.Row="2" VerticalAlignment="Stretch">
+
+                        <Grid Grid.Row="1" VerticalAlignment="Top">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border CornerRadius="10" Grid.Column="1" Margin="20,10,20,10">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
+                                </Border.Background>
+                                <Grid Margin="0,0,0,20" Width="700">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Button Style="{StaticResource BotonGenerico}" Content="Nueva Categoria" Margin="0,20,0,10"  Click="Click_NuevaCategoria" Width="250" Grid.Row="0"/>
+                                    <StackPanel x:Name="sp_Categorias" HorizontalAlignment="Stretch" VerticalAlignment="Top" FlowDirection="LeftToRight" Grid.Row="1">
+                                        <!-- Aquí se agregarán las categorías musicales dinámicamente -->
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+
+    </Grid>
+</Page>

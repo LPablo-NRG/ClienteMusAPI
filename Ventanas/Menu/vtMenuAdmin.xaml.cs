@@ -29,5 +29,11 @@ namespace ClienteMusAPI.Ventanas.Menu
         {
             NavigationService.GoBack();
         }
+
+        private void Click_CategoriasMusicales(object sender, RoutedEventArgs e)
+        {
+            vtCategoriasMusicales vtCategoriasMusicales = new vtCategoriasMusicales();
+            NavigationService.Navigate(vtCategoriasMusicales);
+        }
     }
 }

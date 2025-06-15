@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="ClienteMusAPI.UserControls.ucCategoriaMusical"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClienteMusAPI.UserControls"
+             mc:Ignorable="d" >
+    
+    <Border x:Name="Contenido" CornerRadius="10" BorderThickness="0" HorizontalAlignment="Stretch"
+    Padding="5" Margin="5,5,5,5" Width="600">
+        <Border.Background>
+            <SolidColorBrush Color="White" Opacity="{StaticResource OpacityConstante}" />
+        </Border.Background>
+        <Grid   Margin="0,10,0,10"  MaxWidth="500">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="txb_Nombre" Text="Album/Cancion/Artista/Lista nombre de ejemplo" FontSize="18" VerticalAlignment="Center" Grid.Column="0" Margin="0,0,0,2"
+       TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Left" MaxWidth="400"
+       FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
+                <Button x:Name="btn_Editar" Style="{StaticResource BotonGenerico}" Content="Editar" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
+    Width="100" Height="30" FontSize="14" Margin="10,0,0,0"
+    Click="Click_Editar"
+    />
+            </Grid>
+            <TextBlock x:Name="txb_Descripcion" Text="- Descripcion" FontSize="18" VerticalAlignment="Center" Grid.Row="1"
+        HorizontalAlignment="Left" TextWrapping="Wrap"
+        Margin="0,10,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
+        </Grid>
+    </Border>
+</UserControl>
