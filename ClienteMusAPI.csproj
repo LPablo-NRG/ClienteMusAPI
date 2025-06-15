@@ -100,6 +100,7 @@
     <Compile Include="DTOs\CancionDTO.cs" />
     <Compile Include="DTOs\CategoriaMusicalDTO.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
+    <Compile Include="DTOs\ContenidoGuardadoDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
     <Compile Include="DTOs\EvaluacionDTO.cs" />
     <Compile Include="DTOs\InfoAlbumDTO.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Servicios\CategoriaMusicalServicio.cs" />
     <Compile Include="Servicios\ClienteAPI.cs" />
     <Compile Include="Servicios\CancionServicio.cs" />
+    <Compile Include="Servicios\ContenidoGuardadoServicio.cs" />
     <Compile Include="Servicios\ListaServicio.cs" />
     <Compile Include="Servicios\UsuarioServicio.cs" />
     <Compile Include="UserControls\ucCategoriaMusical.xaml.cs">

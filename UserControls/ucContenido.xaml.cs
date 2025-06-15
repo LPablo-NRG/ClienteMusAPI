@@ -32,6 +32,8 @@ namespace ClienteMusAPI.UserControls
         public BusquedaAlbumDTO album { get; set; }
         public BusquedaCancionDTO cancion { get; set; }
         public BusquedaArtistaDTO artista { get; set; }
+        public bool MostrarBotonGuardar { get; set; } = true;
+
 
         public ucContenido()
         {
@@ -79,9 +81,13 @@ namespace ClienteMusAPI.UserControls
             InitializeComponent();
             this.tipo = tipo;
             //ConfigurarUserControl();
+            if (!MostrarBotonGuardar)
+            {
+                btn_Guardar.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void ConfigurarUserControl()
+        public void ConfigurarUserControl()
         {
             switch (tipo)
             {
@@ -110,11 +116,15 @@ namespace ClienteMusAPI.UserControls
                 case "Artista":
                     txb_Nombre.Text = artista.nombre;
                     txb_Autor.Text = "@"+artista.nombreUsuario;
-                    btn_Guardar.Visibility = Visibility.Collapsed;
+                    btn_Guardar.Content = "Seguir";
                     btn_Reproducir.Visibility = Visibility.Collapsed;
                     CargarImagen(artista.urlFoto);
                     break;
 
+            }
+            if (!MostrarBotonGuardar)
+            {
+                btn_Guardar.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -180,9 +190,46 @@ namespace ClienteMusAPI.UserControls
             }
         }
 
-        private void Click_Guardar(object sender, RoutedEventArgs e)
+        private async void Click_Guardar(object sender, RoutedEventArgs e)
         {
+            var servicio = new ContenidoGuardadoServicio();
 
+            var dto = new ContenidoGuardadoDTO
+            {
+                IdUsuario = SesionUsuario.IdUsuario,
+                TipoDeContenido = tipo.ToUpper() // Asegúrate de enviar Album, Cancion, Artista, etc.
+            };
+
+            switch (tipo)
+            {
+                case "Album":
+                    dto.IdContenidoGuardado = album.idAlbum;
+                    break;
+                case "Cancion":
+                    dto.IdContenidoGuardado = cancion.idCancion;
+                    break;
+                case "Artista":
+                    dto.IdContenidoGuardado = artista.idArtista;
+                    break;
+                case "Lista":
+                    MessageBox.Show("Guardar listas aún no está implementado.");
+                    return;
+                default:
+                    MessageBox.Show("Tipo de contenido no reconocido.");
+                    return;
+            }
+
+            var mensaje = await servicio.GuardarContenidoAsync(dto);
+
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                MessageBox.Show(mensaje);
+
+                if (mensaje == "Contenido guardado exitosamente")
+                {
+                    btn_Guardar.Visibility = Visibility.Collapsed;
+                }
+            }
         }
         private void Click_Reproducir(object sender, RoutedEventArgs e)
         {

@@ -27,14 +27,19 @@ namespace ClienteMusAPI.Ventanas.Menu
         {
             InitializeComponent();
             ucContenido trench = new ucContenido("Album");
+            trench.MostrarBotonGuardar = false;
             trench.txb_Nombre.Text = "Trench";
             ucContenido ssi = new ucContenido("Album");
+            ssi.MostrarBotonGuardar = false;
             ssi.txb_Nombre.Text = "Sadness Sorrow Imathgination Experiment";
             ucContenido blurry = new ucContenido("Album");
+            blurry.MostrarBotonGuardar = false;
             blurry.txb_Nombre.Text = "Blurryface";
             ucContenido htbahb = new ucContenido("Album");
+            htbahb.MostrarBotonGuardar = false;
             htbahb.txb_Nombre.Text = "How to be a human being";
             ucContenido thenewabnormal = new ucContenido("Album");
+            thenewabnormal.MostrarBotonGuardar = false;
             thenewabnormal.txb_Nombre.Text = "The New Abnormal";
 
             sp_albumes.Children.Add(trench);
@@ -55,10 +60,13 @@ namespace ClienteMusAPI.Ventanas.Menu
             sp_listas.Children.Add(new ucContenido("Lista"));
 
             ucContenido twenty = new ucContenido("Artista");
+            twenty.MostrarBotonGuardar = false;
             twenty.txb_Nombre.Text = "Twenty One Pilots";
             ucContenido muse = new ucContenido("Artista");
+            muse.MostrarBotonGuardar = false;
             muse.txb_Nombre.Text = "Muse";
             ucContenido idkh = new ucContenido("Artista");
+            idkh.MostrarBotonGuardar = false;
             idkh.txb_Nombre.Text = "I Don't Know How But They Found Me";
 
             sp_Artistas.Children.Add(twenty);
@@ -70,6 +78,10 @@ namespace ClienteMusAPI.Ventanas.Menu
             sp_Artistas.Children.Add(new ucContenido("Artista"));
             sp_Artistas.Children.Add(new ucContenido("Artista"));
             sp_Artistas.Children.Add(new ucContenido("Artista"));
+
+            //trench.ConfigurarUserControl();
+            //ssi.ConfigurarUserControl();
+            //blurry.ConfigurarUserControl();
         }
 
         private void Click_MenuAdmin(object sender, RoutedEventArgs e)
