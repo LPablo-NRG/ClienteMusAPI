@@ -36,7 +36,7 @@ namespace ClienteMusAPI.Ventanas.Inicio
         private void vtInicioSesion_Loaded(object sender, RoutedEventArgs e)
         {
             VentanaPrincipal vt = (VentanaPrincipal)Application.Current.MainWindow;
-            vt.Reproductor.Visibility = Visibility.Collapsed;
+            vt.g_Reproductor.Visibility = Visibility.Collapsed;
         }
 
         private void Click_RegistrarCuenta(object sender, RoutedEventArgs e)
@@ -55,7 +55,7 @@ namespace ClienteMusAPI.Ventanas.Inicio
                 if (exito)
                 {
                     VentanaPrincipal vt = (VentanaPrincipal)Application.Current.MainWindow;
-                    vt.Reproductor.Visibility = Visibility.Visible;
+                    vt.g_Reproductor.Visibility = Visibility.Visible;
 
                     NavigationService.Navigate(new Uri("/Ventanas/Menu/vtMenuPrincipal.xaml", UriKind.Relative));
                 }

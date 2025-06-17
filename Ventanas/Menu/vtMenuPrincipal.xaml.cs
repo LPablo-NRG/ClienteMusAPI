@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClienteMusAPI.Ventanas.Busqueda;
 using ClienteMusAPI.Ventanas.Inicio;
+using ClienteMusAPI.Clases;
 
 namespace ClienteMusAPI.Ventanas.Menu
 {
@@ -107,19 +108,22 @@ namespace ClienteMusAPI.Ventanas.Menu
 
         private void Click_CerrarSesion(object sender, RoutedEventArgs e)
         {
-            vtInicioSesion inicioSesion = new vtInicioSesion();
-            NavigationService.Navigate(inicioSesion);
+            ;
+            var ventana = Window.GetWindow(this) as VentanaPrincipal;
+            if (ventana != null)
+            {
+                ventana.LimpiarInterfazReproductor();
+
+                vtInicioSesion inicioSesion = new vtInicioSesion();
+                NavigationService.Navigate(inicioSesion);
+            }
+            Reproductor.Detener();
         }
 
         private void Click_CrearListaDeReproduccion(object sender, RoutedEventArgs e)
         {
             
-        }
-
-        private void Click_Salir(object sender, RoutedEventArgs e)
-        {
-            App.Current.Shutdown();
-        }
+        } 
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

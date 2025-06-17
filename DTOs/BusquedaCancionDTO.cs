@@ -17,5 +17,6 @@ namespace ClienteMusAPI.DTOs
         public String fechaPublicacion { get; set; }
         public String nombreAlbum { get; set; }
         public String categoriaMusical { get; set; }
+
     }
 }

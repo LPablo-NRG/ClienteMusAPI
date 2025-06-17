@@ -299,6 +299,47 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="SliderPersonalizado" TargetType="Slider">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Slider">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-    </Application.Resources>
+                                <Track x:Name="PART_Track"
+                               Grid.Row="0"
+                               Maximum="{TemplateBinding Maximum}"
+                               Minimum="{TemplateBinding Minimum}"
+                               Value="{TemplateBinding Value}"
+                               IsDirectionReversed="False">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Height="4" 
+                                              Background="{StaticResource ColorBordeAzul}" 
+                                              BorderBrush="Transparent" 
+                                              BorderThickness="0"/>
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb Width="10" 
+                                       Height="20" 
+                                       Background="white" 
+                                       BorderBrush="{StaticResource ColorBordeAzul}" 
+                                       BorderThickness="1"/>
+                                    </Track.Thumb>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Height="4" 
+                                              Background="{StaticResource ColorLetrasAzulHEX}" 
+                                              BorderBrush="Transparent" 
+                                              BorderThickness="0"/>
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Application.Resources>
 </Application>

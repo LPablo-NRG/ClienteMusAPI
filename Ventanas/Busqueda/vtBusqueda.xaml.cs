@@ -88,7 +88,6 @@ namespace ClienteMusAPI.Ventanas.Busqueda
         private async void Click_BuscarContenido(object sender, RoutedEventArgs e)
         {
             sp_Resultados.Children.Clear();
-            //TODO: Implementar la lógica de búsqueda
             switch (cb_tipo.Text)
             {
                 case "Artista":
@@ -128,7 +127,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                         MessageBox.Show("No se encontraron resultados para la búsqueda de canciones llamadas " + txb_Busqueda.Text);
                     }
                     break;
-                case "Album":
+                case "Álbum":
                     AlbumServicio albumServicio = new AlbumServicio();
                     List<BusquedaAlbumDTO> albumes = await albumServicio.BuscarAlbum(txb_Busqueda.Text);
                     if (albumes != null)
@@ -146,10 +145,14 @@ namespace ClienteMusAPI.Ventanas.Busqueda
             }
         }
 
+
         private void cb_tipo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sp_Resultados == null) return; 
-            Click_BuscarContenido(sender, new RoutedEventArgs());
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Click_BuscarContenido(sender, new RoutedEventArgs());
+            }), System.Windows.Threading.DispatcherPriority.Input);
         }
     }
 }

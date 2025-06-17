@@ -231,8 +231,43 @@ namespace ClienteMusAPI.UserControls
                 }
             }
         }
-        private void Click_Reproducir(object sender, RoutedEventArgs e)
+
+        private async void Click_Reproducir(object sender, RoutedEventArgs e)
         {
+            switch (tipo)
+            {
+                case "Album":
+                    //TODO
+                    break;
+                case "Album Pendiente":
+                    //TODO
+                    break;
+                case "Cancion":
+                    /*
+                    DependencyObject parent = this;
+                    while (parent != null && !(parent is Window))
+                    {
+                        parent = VisualTreeHelper.GetParent(parent);
+                    }
+
+                    if (parent is Window window)
+                    {
+                        var contenedor = (window as VentanaPrincipal)?.Contenido;
+                        if (contenedor != null)
+                        {
+                            ucVentanaDetalles detalles = new ucVentanaDetalles(cancion);
+                            detalles.btn_Cerrar.Click += (object sender2, RoutedEventArgs e2) =>
+                            {
+                                contenedor.Children.Remove(detalles);
+                            };
+                            contenedor.Children.Add(new ucVentanaDetalles(cancion));
+                        }
+                    }*/
+
+                    Reproductor.listaCanciones = new List<BusquedaCancionDTO> { cancion };
+                    await Reproductor.ReproducirDesdeAPIAsync();
+                    break;
+            }
 
         }
     }

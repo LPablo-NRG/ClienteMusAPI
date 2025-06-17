@@ -63,7 +63,7 @@
                               Style="{StaticResource ComboBoxTransparente}"
                               SelectionChanged="cb_tipo_SelectionChanged">
                         <ComboBoxItem Content="Canción" />
-                        <ComboBoxItem Content="Album" />
+                        <ComboBoxItem Content="Álbum" />
                         <ComboBoxItem Content="Artista" />
                     </ComboBox>
 

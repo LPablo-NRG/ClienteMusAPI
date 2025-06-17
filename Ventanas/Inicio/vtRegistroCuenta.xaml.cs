@@ -84,7 +84,7 @@ namespace ClienteMusAPI.Ventanas.Inicio
             };
             await usuarioServicio.IniciarSesionAsync(login);
             VentanaPrincipal vt = (VentanaPrincipal)Application.Current.MainWindow;
-            vt.Reproductor.Visibility = Visibility.Visible;
+            vt.g_Reproductor.Visibility = Visibility.Visible;
 
             NavigationService.Navigate(new Uri("/Ventanas/Menu/vtMenuPrincipal.xaml", UriKind.Relative));
         }

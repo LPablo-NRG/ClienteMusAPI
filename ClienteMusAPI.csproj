@@ -92,6 +92,7 @@
     </ApplicationDefinition>
     <Compile Include="Clases\Constantes.cs" />
     <Compile Include="Clases\Pais.cs" />
+    <Compile Include="Clases\Reproductor.cs" />
     <Compile Include="Clases\SesionUsuario.cs" />
     <Compile Include="DTOs\AlbumDTO.cs" />
     <Compile Include="DTOs\BusquedaAlbumDTO.cs" />
