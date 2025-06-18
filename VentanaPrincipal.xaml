@@ -88,13 +88,13 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
 
 
-                        <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Visibility="Collapsed">
+                        <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="Click_Anterior" >
                             <Image Source="Recursos\Iconos\iconoSiguiente.png" FlowDirection="RightToLeft" />
                         </Button>
                         <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="Click_PausarReaunudar">
                             <Image  x:Name="img_PausarReaunudar" Source="Recursos\Iconos\iconoReproducir.png" />
                         </Button>
-                        <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Visibility="Collapsed">
+                        <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="Click_Siguiente">
                             <Image Source="Recursos\Iconos\iconoSiguiente.png" />
                         </Button>
                     </StackPanel>

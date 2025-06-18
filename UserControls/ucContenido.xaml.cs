@@ -32,6 +32,8 @@ namespace ClienteMusAPI.UserControls
         public BusquedaAlbumDTO album { get; set; }
         public BusquedaCancionDTO cancion { get; set; }
         public BusquedaArtistaDTO artista { get; set; }
+        public List<BusquedaCancionDTO> listaCanciones { get; set; } 
+        public int indice { get; set; } = 0;
         public bool MostrarBotonGuardar { get; set; } = true;
 
 
@@ -40,11 +42,13 @@ namespace ClienteMusAPI.UserControls
             InitializeComponent();
             img_foto.Source = null;
         }
-        public ucContenido(BusquedaCancionDTO cancion)
+        public ucContenido(List<BusquedaCancionDTO> canciones, int indice)
         {
             InitializeComponent();
             this.tipo = "Cancion";
-            this.cancion = cancion;
+            this.cancion = canciones[indice];
+            this.listaCanciones = canciones;
+            this.indice = indice;
             ConfigurarUserControl();
         }
         public ucContenido(BusquedaAlbumDTO album)
@@ -100,6 +104,7 @@ namespace ClienteMusAPI.UserControls
                     txb_Nombre.Text = albumPendiente.nombre;
                     txb_Autor.Visibility = Visibility.Collapsed;
                     btn_Guardar.Visibility = Visibility.Collapsed;
+                    btn_Reproducir.Visibility = Visibility.Collapsed;
                     CargarImagen(albumPendiente.urlFoto);
                     break;
                 case "Cancion":
@@ -237,35 +242,14 @@ namespace ClienteMusAPI.UserControls
             switch (tipo)
             {
                 case "Album":
-                    //TODO
+                    await Reproductor.ReproducirCancionAsync(album.canciones, 0);
                     break;
-                case "Album Pendiente":
+                case "Lista":
                     //TODO
+                    
                     break;
                 case "Cancion":
-                    /*
-                    DependencyObject parent = this;
-                    while (parent != null && !(parent is Window))
-                    {
-                        parent = VisualTreeHelper.GetParent(parent);
-                    }
-
-                    if (parent is Window window)
-                    {
-                        var contenedor = (window as VentanaPrincipal)?.Contenido;
-                        if (contenedor != null)
-                        {
-                            ucVentanaDetalles detalles = new ucVentanaDetalles(cancion);
-                            detalles.btn_Cerrar.Click += (object sender2, RoutedEventArgs e2) =>
-                            {
-                                contenedor.Children.Remove(detalles);
-                            };
-                            contenedor.Children.Add(new ucVentanaDetalles(cancion));
-                        }
-                    }*/
-
-                    Reproductor.listaCanciones = new List<BusquedaCancionDTO> { cancion };
-                    await Reproductor.ReproducirDesdeAPIAsync();
+                    await Reproductor.ReproducirCancionAsync(listaCanciones, indice);
                     break;
             }
 

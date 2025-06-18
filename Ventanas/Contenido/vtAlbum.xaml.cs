@@ -171,12 +171,13 @@ namespace ClienteMusAPI.Ventanas.Contenido
             
             if (canciones != null)
             {
+                int indice = 0;
                 TimeSpan duracionTotal = TimeSpan.Zero;
                 foreach (var cancion in canciones)
                 {
-                    ucContenido contenido = new ucContenido(cancion);
+                    ucContenido contenido = new ucContenido(canciones, indice);
                     sp_Canciones.Children.Add(contenido);
-
+                    indice++;
                     TimeSpan duracionRecuperada = TimeSpan.ParseExact(cancion.duracion, @"mm\:ss", null);
                     duracionTotal += duracionRecuperada;
                 }

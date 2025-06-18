@@ -118,7 +118,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                     {
                         foreach (var cancion in canciones)
                         {
-                            ucContenido contenido = new ucContenido(cancion);
+                            ucContenido contenido = new ucContenido(new List<BusquedaCancionDTO> { cancion }, 0);
                             sp_Resultados.Children.Add(contenido);
                         }
                     }

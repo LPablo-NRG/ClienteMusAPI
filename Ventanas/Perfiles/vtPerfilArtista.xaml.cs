@@ -127,7 +127,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 foreach (var sencillo in sencillos)
                 {
-                    ucContenido contenido = new ucContenido(sencillo);
+                    ucContenido contenido = new ucContenido(new List<BusquedaCancionDTO> { sencillo }, 0);
                     sp_Sencillos.Children.Add(contenido);
                 }
             }

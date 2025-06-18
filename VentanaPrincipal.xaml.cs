@@ -53,9 +53,9 @@ namespace ClienteMusAPI
 
         private void CargarDatosCancion()
         {
-            txb_Artista.Text = Reproductor.listaCanciones[0].nombreArtista;
-            txb_Cancion.Text = Reproductor.listaCanciones[0].nombre;
-            CargarImagen(Reproductor.listaCanciones[0].urlFoto);
+            txb_Artista.Text = Reproductor.listaCanciones[Reproductor.indiceActual].nombreArtista;
+            txb_Cancion.Text = Reproductor.listaCanciones[Reproductor.indiceActual].nombre;
+            CargarImagen(Reproductor.listaCanciones[Reproductor.indiceActual].urlFoto);
         }
 
         private async void CargarImagen(string url)
@@ -101,12 +101,7 @@ namespace ClienteMusAPI
         private void sld_Tiempo_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             usuarioArrastrando = true;
-        }
-
-        private void Click_PausarReaunudar(object sender, RoutedEventArgs e)
-        {
-            Reproductor.PausarReanudar();
-        }
+        } 
 
         private void sld_Volumen_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -135,6 +130,19 @@ namespace ClienteMusAPI
             txb_Duracion.Text = "00:00";
         }
 
+        private void Click_PausarReaunudar(object sender, RoutedEventArgs e)
+        {
+            Reproductor.PausarReanudar();
+        }
 
+        private async void Click_Anterior(object sender, RoutedEventArgs e)
+        {
+            await Reproductor.CancionAnteriorAsync();
+        }
+
+        private async void Click_Siguiente(object sender, RoutedEventArgs e)
+        {
+            await Reproductor.SiguienteCancionAsync();
+        }
     }
 }

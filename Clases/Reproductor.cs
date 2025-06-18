@@ -23,7 +23,8 @@ namespace ClienteMusAPI.Clases
         private static AudioFileReader audioFileReader;
         public static event Action OnReproduccionIniciada;
         public static event Action OnReproductorPausadoODetenido;
-
+        public static int indiceActual = 0;
+        private static float volumenActual = 1.0f;
 
 
         public static TimeSpan Duracion => audioFileReader?.TotalTime ?? TimeSpan.Zero;
@@ -36,46 +37,6 @@ namespace ClienteMusAPI.Clases
                     audioFileReader.CurrentTime = value;
             }
         }
-
-        public static async Task ReproducirDesdeAPIAsync()
-        {
-            Detener();
-
-            try
-            {
-                var respuesta = await ClienteAPI.HttpClient.GetAsync(Constantes.URL_BASE + listaCanciones[0].urlArchivo);
-
-                var tempPath = Path.Combine(Path.GetTempPath(), "cancion_temp.mp3");
-                using (var fs = new FileStream(tempPath, FileMode.Create, FileAccess.Write))
-                {
-                    await respuesta.Content.CopyToAsync(fs);
-                }
-
-                audioFileReader = new AudioFileReader(tempPath);
-                waveOutDevice = new WaveOutEvent();
-                waveOutDevice.Init(audioFileReader);
-                waveOutDevice.Play();
-                OnReproduccionIniciada?.Invoke();
-
-                Console.WriteLine("Reproduciendo archivo descargado");
-                waveOutDevice.PlaybackStopped += (s, e) =>
-                {
-                    if (audioFileReader != null)
-                    {
-                        // Reinicia a 00:00, pero no reproduce
-                        audioFileReader.Position = 0;
-                        Console.WriteLine("Canción finalizada. Lista para repetir.");
-                        OnReproductorPausadoODetenido?.Invoke();
-                    }
-                };
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al reproducir: " + ex.Message);
-            }
-        }
-
-
 
         public static void Detener()
         {
@@ -109,18 +70,86 @@ namespace ClienteMusAPI.Clases
             }
         }
 
-
         public static float Volumen
         {
             get => audioFileReader?.Volume ?? 1.0f;
             set
             {
-                if (audioFileReader != null)
-                {
-                    audioFileReader.Volume = value < 0 ? 0f : value > 1 ? 1f : value;
-                }
+                volumenActual = value < 0 ? 0f : value > 1 ? 1f : value;
 
+                if (audioFileReader != null)
+                    audioFileReader.Volume = volumenActual;
             }
         }
+
+        public static async Task ReproducirCancionAsync(List<BusquedaCancionDTO> canciones, int indice)
+        {
+            if (canciones == null || canciones.Count == 0 || indice < 0 || indice >= canciones.Count)
+                return;
+            Console.WriteLine("indice: " + indice + "\ncanciones:" + canciones.Count);
+            // Guardar los datos globalmente si necesitas avanzar/siguiente
+            listaCanciones = canciones;
+            indiceActual = indice;
+
+            Detener();
+
+            try
+            {
+                var cancion = canciones[indice];
+                var respuesta = await ClienteAPI.HttpClient.GetAsync(Constantes.URL_BASE + cancion.urlArchivo);
+
+                var tempPath = Path.Combine(Path.GetTempPath(), "cancion_temp.mp3");
+                using (var fs = new FileStream(tempPath, FileMode.Create, FileAccess.Write))
+                {
+                    await respuesta.Content.CopyToAsync(fs);
+                }
+
+                audioFileReader = new AudioFileReader(tempPath);
+                audioFileReader.Volume = volumenActual;
+                waveOutDevice = new WaveOutEvent();
+                waveOutDevice.Init(audioFileReader);
+                waveOutDevice.Play();
+
+                OnReproduccionIniciada?.Invoke();
+
+                waveOutDevice.PlaybackStopped += async (s, e) =>
+                {
+                    if (audioFileReader != null)
+                    {
+                        audioFileReader.Position = 0;
+                        OnReproductorPausadoODetenido?.Invoke();
+
+                        // Avanzar automáticamente a la siguiente si hay más
+                        if (indiceActual + 1 < listaCanciones.Count)
+                        {
+                            indiceActual++;
+                            await ReproducirCancionAsync(listaCanciones, indiceActual);
+                        }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al reproducir canción: " + ex.Message);
+            }
+        }
+
+        public static async Task SiguienteCancionAsync()
+        {
+            if (indiceActual + 1 < listaCanciones.Count)
+            {
+                indiceActual++;
+                await ReproducirCancionAsync(listaCanciones, indiceActual);
+            }
+        }
+        public static async Task CancionAnteriorAsync()
+        {
+            if (indiceActual > 0)
+            {
+                indiceActual--;
+                await ReproducirCancionAsync(listaCanciones, indiceActual);
+            }
+        }
+
     }
 }

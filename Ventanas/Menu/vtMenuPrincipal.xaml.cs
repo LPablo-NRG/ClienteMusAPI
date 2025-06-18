@@ -118,6 +118,8 @@ namespace ClienteMusAPI.Ventanas.Menu
                 NavigationService.Navigate(inicioSesion);
             }
             Reproductor.Detener();
+            Reproductor.indiceActual = 0;
+            Reproductor.listaCanciones = null;
         }
 
         private void Click_CrearListaDeReproduccion(object sender, RoutedEventArgs e)
