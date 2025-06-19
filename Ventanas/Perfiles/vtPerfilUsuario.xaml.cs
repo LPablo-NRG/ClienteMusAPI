@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClienteMusAPI.Servicios;
+using ClienteMusAPI.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,8 +54,23 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         }
 
-        private void CargarListas()
+        private async void CargarListas()
         {
+            var servicio = new ListaServicio();
+            int idUsuario = Clases.SesionUsuario.IdUsuario;
+
+            var listas = await servicio.ObtenerListasPorUsuarioAsync(idUsuario);
+
+            sp_Listas.Children.Clear();
+
+            if (listas != null)
+            {
+                foreach (var lista in listas)
+                {
+                    var uc = new ucContenido(lista, true);
+                    sp_Listas.Children.Add(uc);
+                }
+            }
 
         }
 

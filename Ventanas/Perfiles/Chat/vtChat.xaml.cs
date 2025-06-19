@@ -39,9 +39,15 @@ namespace ClienteMusAPI.Ventanas.Perfiles.Chat
         private async void ConectarWebSocket()
         {
             _webSocket = new ClientWebSocket();
-            await _webSocket.ConnectAsync(new Uri("ws://localhost:8080/ws"), CancellationToken.None);
+
+            // monta la URL con el id de perfil, p.e. /ws/42
+            var url = $"ws://localhost:8080/ws/{_idPerfilArtista}";
+            await _webSocket.ConnectAsync(new Uri(url), CancellationToken.None);
+
             _ = EscucharMensajes();
         }
+
+
 
         private async Task EscucharMensajes()
         {

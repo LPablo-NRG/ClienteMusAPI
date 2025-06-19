@@ -33,7 +33,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
         {
             InitializeComponent();
 
-            ucContenido jumpsuit = new ucContenido("Cancion");
+            /*ucContenido jumpsuit = new ucContenido("Cancion");
             jumpsuit.txb_Nombre.Text = "Jumpsuit";
             ucContenido levitate = new ucContenido("Cancion");
             levitate.txb_Nombre.Text = "Levitate";
@@ -76,7 +76,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
             sp_Canciones.Children.Add(bandito);
             sp_Canciones.Children.Add(pet);
             sp_Canciones.Children.Add(legend);
-            sp_Canciones.Children.Add(ltc);
+            sp_Canciones.Children.Add(ltc);*/
 
 
         }

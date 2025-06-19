@@ -25,10 +25,11 @@ namespace ClienteMusAPI.Ventanas.Busqueda
     /// </summary>
     public partial class vtBusqueda : Page
     {
+        bool mostrarBotonGuardar = true;
         public vtBusqueda()
         {
             InitializeComponent();
-            ucContenido twenty = new ucContenido("Artista");
+            /*ucContenido twenty = new ucContenido("Artista");
             twenty.txb_Nombre.Text = "Twenty One Pilots";
             ucContenido muse = new ucContenido("Artista");
             muse.txb_Nombre.Text = "Muse";
@@ -54,7 +55,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
             sp_Resultados.Children.Add(new ucContenido("Cancion"));
             sp_Resultados.Children.Add(new ucContenido("Lista"));
             sp_Resultados.Children.Add(new ucContenido("Album"));
-            sp_Resultados.Children.Add(new ucContenido("Artista"));
+            sp_Resultados.Children.Add(new ucContenido("Artista"));*/
 
         }
 
@@ -98,7 +99,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                     {
                         foreach (var artista in artistas)
                         {
-                            ucContenido contenido = new ucContenido(artista);
+                            ucContenido contenido = new ucContenido(artista, mostrarBotonGuardar);
                             sp_Resultados.Children.Add(contenido);
                         }
                     }
@@ -134,7 +135,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                     {
                         foreach (var album in albumes)
                         {
-                            ucContenido contenido = new ucContenido(album);
+                            ucContenido contenido = new ucContenido(album, mostrarBotonGuardar);
                             sp_Resultados.Children.Add(contenido);
                         }
                     }else

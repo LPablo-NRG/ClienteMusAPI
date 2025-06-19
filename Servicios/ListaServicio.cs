@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace ClienteMusAPI.Servicios
 {
@@ -27,7 +29,7 @@ namespace ClienteMusAPI.Servicios
                     var bytes = File.ReadAllBytes(dto.FotoPath);
                     var fileContent = new ByteArrayContent(bytes);
                     fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    form.Add(fileContent, "urlFoto", Path.GetFileName(dto.FotoPath));
+                    form.Add(fileContent, "foto", Path.GetFileName(dto.FotoPath));
                 }
 
                 var response = await ClienteAPI.HttpClient.PostAsync("listasDeReproduccion/crear", form);
@@ -46,6 +48,39 @@ namespace ClienteMusAPI.Servicios
             {
                 MessageBox.Show($"Excepción: {ex.Message}");
                 return false;
+            }
+        }
+
+        public async Task<List<ListaDeReproduccionDTO>> ObtenerListasPorUsuarioAsync(int idUsuario)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"listasDeReproduccion/usuario/{idUsuario}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var mensaje = jsonObject?["mensaje"]?.ToString();
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var listas = datos.ToObject<List<ListaDeReproduccionDTO>>();
+                return listas ?? new List<ListaDeReproduccionDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al obtener listas de reproducción: {ex.Message}");
+                return null;
             }
         }
     }

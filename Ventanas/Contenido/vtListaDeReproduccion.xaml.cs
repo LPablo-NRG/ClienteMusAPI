@@ -1,6 +1,10 @@
-﻿using ClienteMusAPI.UserControls;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Servicios;
+using ClienteMusAPI.UserControls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,42 +25,73 @@ namespace ClienteMusAPI.Ventanas.Contenido
     /// </summary>
     public partial class vtListaDeReproduccion : Page
     {
-        public vtListaDeReproduccion()
+        private ListaDeReproduccionDTO lista;
+
+        public vtListaDeReproduccion(ListaDeReproduccionDTO lista)
         {
             InitializeComponent();
-
-            ucContenido tostados = new ucContenido("Cancion");
-            tostados.txb_Nombre.Text = "tostados";
-            ucContenido hurt = new ucContenido("Cancion");
-            hurt.txb_Nombre.Text = "hurt";
-            ucContenido rosies = new ucContenido("Cancion");
-            rosies.txb_Nombre.Text = "rosies";
-            ucContenido theOutside = new ucContenido("Cancion");
-            theOutside.txb_Nombre.Text = "The Outside";
-
-            sp_Canciones.Children.Add(tostados);
-            sp_Canciones.Children.Add(hurt);
-            sp_Canciones.Children.Add(rosies);
-            sp_Canciones.Children.Add(theOutside);
+            this.lista = lista;
+            this.Loaded += vtListaDeReproduccion_Loaded;
         }
+
+        private void vtListaDeReproduccion_Loaded(object sender, RoutedEventArgs e)
+        {
+            CargarDatos();
+        }
+
+        private async void CargarImagen(string url)
+        {
+            if (!String.IsNullOrEmpty(url))
+            {
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + url);
+                using (var stream = new MemoryStream(bytes))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    img_foto.Source = image;
+                }
+            }
+        }
+
+        private void CargarDatos()
+        {
+            txb_Nombre.Text = lista.Nombre;
+            txb_Descripcion.Text = "Descripción: " + lista.Descripcion;
+            txb_Autor.Text = "Autor: "; // Aquí puedes agregar el nombre si lo tienes
+            CargarImagen(lista.UrlFoto);
+
+            if (lista.Canciones != null)
+            {
+                sp_Canciones.Children.Clear();
+                foreach (var cancion in lista.Canciones)
+                {
+                    sp_Canciones.Children.Add(new ucContenido(new List<BusquedaCancionDTO> { cancion }, 0));
+                }
+            }
+        }
+
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
+        private void Click_GuardarListaDeReproduccion(object sender, RoutedEventArgs e)
+        {
+            // Aquí puedes reutilizar el servicio para guardar
+        }
+
         private void Click_VerEstadisticas(object sender, RoutedEventArgs e)
         {
-
+            // O dejar en blanco si no aplica aún
         }
 
         private void Click_EditarListaDeReproduccion(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Click_GuardarListaDeReproduccion(object sender, RoutedEventArgs e)
-        {
-
+            // Navegar a vtEditarLista
         }
     }
+
 }

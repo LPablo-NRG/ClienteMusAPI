@@ -40,5 +40,80 @@ namespace ClienteMusAPI.Servicios
                 return null;
             }
         }
+
+        public async Task<List<BusquedaAlbumDTO>> ObtenerAlbumesGuardadosAsync(int idUsuario)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"contenidoGuardado/albumes/{idUsuario}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return new List<BusquedaAlbumDTO>();
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                var datos = jsonObject?["datos"]?.ToObject<List<BusquedaAlbumDTO>>();
+
+                return datos ?? new List<BusquedaAlbumDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción: {ex.Message}");
+                return new List<BusquedaAlbumDTO>();
+            }
+        }
+
+        public async Task<List<ListaDeReproduccionDTO>> ObtenerListasGuardadasAsync(int idUsuario)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"contenidoGuardado/listas/{idUsuario}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return new List<ListaDeReproduccionDTO>();
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                var datos = jsonObject?["datos"]?.ToObject<List<ListaDeReproduccionDTO>>();
+
+                return datos ?? new List<ListaDeReproduccionDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción: {ex.Message}");
+                return new List<ListaDeReproduccionDTO>();
+            }
+        }
+
+        public async Task<List<BusquedaArtistaDTO>> ObtenerArtistasGuardadosAsync(int idUsuario)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync($"contenidoGuardado/artistas/{idUsuario}");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    return new List<BusquedaArtistaDTO>();
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                var datos = jsonObject?["datos"]?.ToObject<List<BusquedaArtistaDTO>>();
+
+                return datos ?? new List<BusquedaArtistaDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción: {ex.Message}");
+                return new List<BusquedaArtistaDTO>();
+            }
+        }
     }
 }
