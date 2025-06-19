@@ -32,7 +32,8 @@ namespace ClienteMusAPI.UserControls
         public BusquedaAlbumDTO album { get; set; }
         public BusquedaCancionDTO cancion { get; set; }
         public BusquedaArtistaDTO artista { get; set; }
-        public List<BusquedaCancionDTO> listaCanciones { get; set; } 
+        public List<BusquedaCancionDTO> listaCanciones { get; set; }
+        public ListaDeReproduccionDTO lista { get; set; }
         public int indice { get; set; } = 0;
         public bool MostrarBotonGuardar { get; set; } = true;
 
@@ -41,6 +42,15 @@ namespace ClienteMusAPI.UserControls
         {
             InitializeComponent();
             img_foto.Source = null;
+        }
+
+        public ucContenido(ListaDeReproduccionDTO lista, bool mostrarBotonGuardar)
+        {
+            InitializeComponent();
+            this.tipo = "Lista";
+            this.lista = lista;
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
+            ConfigurarUserControl();
         }
         public ucContenido(List<BusquedaCancionDTO> canciones, int indice)
         {
@@ -51,11 +61,12 @@ namespace ClienteMusAPI.UserControls
             this.indice = indice;
             ConfigurarUserControl();
         }
-        public ucContenido(BusquedaAlbumDTO album)
+        public ucContenido(BusquedaAlbumDTO album, bool mostrarBotonGuardar)
         {
             InitializeComponent();
             this.tipo = "Album";
             this.album = album;
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
             ConfigurarUserControl();
         }
         public ucContenido(InfoAlbumDTO albumPendiente, int idArtista)
@@ -72,23 +83,21 @@ namespace ClienteMusAPI.UserControls
             this.tipo = "Lista";
             ConfigurarUserControl();
         }
-        public ucContenido(BusquedaArtistaDTO artista)
+        public ucContenido(BusquedaArtistaDTO artista, bool mostrarBotonGuardar)
         {
             InitializeComponent();
             this.tipo = "Artista";
             this.artista = artista;
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
             ConfigurarUserControl();
         }
 
-        public ucContenido(String tipo)
+        public ucContenido(String tipo, bool mostrarBotonGuardar)
         {
             InitializeComponent();
             this.tipo = tipo;
-            //ConfigurarUserControl();
-            if (!MostrarBotonGuardar)
-            {
-                btn_Guardar.Visibility = Visibility.Collapsed;
-            }
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
+            ConfigurarUserControl();
         }
 
         public void ConfigurarUserControl()
@@ -113,10 +122,19 @@ namespace ClienteMusAPI.UserControls
                     CargarImagen(cancion.urlFoto);
                     break;
                 case "Lista":
-                    txb_Nombre.Text = "Lista de Reproducción";
-                    txb_Autor.Visibility = Visibility.Collapsed;
-                    btn_Guardar.Visibility = Visibility.Collapsed;
-                    img_foto.Source = new BitmapImage(new Uri("../Recursos/Iconos/iconoListaDeReproduccion.png", UriKind.Relative));
+                    if (lista != null)
+                    {
+                        txb_Nombre.Text = lista.Nombre;
+                        txb_Autor.Visibility = Visibility.Collapsed;
+                        CargarImagen(lista.UrlFoto);
+                    }
+                    else
+                    {
+                        txb_Nombre.Text = "Lista de Reproducción";
+                        txb_Autor.Visibility = Visibility.Collapsed;
+                        img_foto.Source = new BitmapImage(new Uri("../Recursos/Iconos/iconoListaDeReproduccion.png", UriKind.Relative));
+                    }
+
                     break;
                 case "Artista":
                     txb_Nombre.Text = artista.nombre;
@@ -185,7 +203,7 @@ namespace ClienteMusAPI.UserControls
                     break;
 
                 case "Lista":
-                    NavigationService.GetNavigationService(this).Navigate(new Uri("/Ventanas/Contenido/vtListaDeReproduccion.xaml", UriKind.Relative));
+                    NavigationService.GetNavigationService(this).Navigate(new vtListaDeReproduccion(lista));
                     break;
                 case "Artista":
                     vtPerfilArtista vtPerfilArtista = new vtPerfilArtista(artista);
@@ -217,8 +235,8 @@ namespace ClienteMusAPI.UserControls
                     dto.IdContenidoGuardado = artista.idArtista;
                     break;
                 case "Lista":
-                    MessageBox.Show("Guardar listas aún no está implementado.");
-                    return;
+                    dto.IdContenidoGuardado = lista.IdListaDeReproduccion;
+                    break;
                 default:
                     MessageBox.Show("Tipo de contenido no reconocido.");
                     return;

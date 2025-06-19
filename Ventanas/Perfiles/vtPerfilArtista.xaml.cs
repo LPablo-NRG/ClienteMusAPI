@@ -33,15 +33,16 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         private UsuarioServicio usuarioServicio = new UsuarioServicio();
         private BusquedaArtistaDTO perfilArtista;
         private int idUsuario = -1;
+        bool mostrarBotonGuardar = true;
         public vtPerfilArtista()
         {
             InitializeComponent();
-            sp_Albumes.Children.Add(new ucContenido("Album"));
+            /*sp_Albumes.Children.Add(new ucContenido("Album"));
             sp_Albumes.Children.Add(new ucContenido("Album"));
             sp_Albumes.Children.Add(new ucContenido("Album"));
 
 
-            sp_Sencillos.Children.Add(new ucContenido("Cancion"));
+            sp_Sencillos.Children.Add(new ucContenido("Cancion"));*/
         }
 
         public vtPerfilArtista(int idUsuario)
@@ -111,7 +112,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 foreach (var album in albumesDelUsuario)
                 {
-                    ucContenido contenido = new ucContenido(album);
+                    ucContenido contenido = new ucContenido(album, mostrarBotonGuardar);
                     sp_Albumes.Children.Add(contenido);
                 }
             }

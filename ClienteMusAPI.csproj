@@ -105,6 +105,7 @@
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
     <Compile Include="DTOs\EvaluacionDTO.cs" />
     <Compile Include="DTOs\InfoAlbumDTO.cs" />
+    <Compile Include="DTOs\ListaDeReproduccionDTO.cs" />
     <Compile Include="DTOs\ListaReproduccionDTO.cs" />
     <Compile Include="DTOs\LoginRequest.cs" />
     <Compile Include="DTOs\PerfilArtistaDTO.cs" />

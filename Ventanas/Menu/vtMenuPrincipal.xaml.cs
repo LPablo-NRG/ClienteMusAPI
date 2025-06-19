@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using ClienteMusAPI.Ventanas.Busqueda;
 using ClienteMusAPI.Ventanas.Inicio;
 using ClienteMusAPI.Clases;
+using ClienteMusAPI.Servicios;
+using ClienteMusAPI.Ventanas.Contenido;
 
 namespace ClienteMusAPI.Ventanas.Menu
 {
@@ -27,7 +29,7 @@ namespace ClienteMusAPI.Ventanas.Menu
         public vtMenuPrincipal()
         {
             InitializeComponent();
-            ucContenido trench = new ucContenido("Album");
+            /*ucContenido trench = new ucContenido("Album");
             trench.MostrarBotonGuardar = false;
             trench.txb_Nombre.Text = "Trench";
             ucContenido ssi = new ucContenido("Album");
@@ -82,7 +84,8 @@ namespace ClienteMusAPI.Ventanas.Menu
 
             //trench.ConfigurarUserControl();
             //ssi.ConfigurarUserControl();
-            //blurry.ConfigurarUserControl();
+            //blurry.ConfigurarUserControl();*/
+            CargarContenidoGuardado();
         }
 
         private void Click_MenuAdmin(object sender, RoutedEventArgs e)
@@ -124,7 +127,9 @@ namespace ClienteMusAPI.Ventanas.Menu
 
         private void Click_CrearListaDeReproduccion(object sender, RoutedEventArgs e)
         {
-            
+            vtCrearLista crearLista = new vtCrearLista();
+            NavigationService.Navigate(crearLista);
+
         } 
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -138,6 +143,37 @@ namespace ClienteMusAPI.Ventanas.Menu
 
                 // Marcar el evento como manejado para evitar desplazamiento vertical predeterminado
                 e.Handled = true;
+            }
+        }
+
+        private async void CargarContenidoGuardado()
+        {
+            var servicio = new ContenidoGuardadoServicio();
+            int idUsuario = SesionUsuario.IdUsuario;
+            bool mostrarBotonGuardar = false;
+
+            var albumes = await servicio.ObtenerAlbumesGuardadosAsync(idUsuario);
+            foreach (var album in albumes)
+            {
+                ucContenido uc = new ucContenido(album, mostrarBotonGuardar);
+                uc.MostrarBotonGuardar = false;
+                sp_albumes.Children.Add(uc);
+            }
+
+            var listas = await servicio.ObtenerListasGuardadasAsync(idUsuario);
+            foreach (var lista in listas)
+            {
+                ucContenido uc = new ucContenido(lista, mostrarBotonGuardar);
+                uc.MostrarBotonGuardar = false;
+                sp_listas.Children.Add(uc);
+            }
+
+            var artistas = await servicio.ObtenerArtistasGuardadosAsync(idUsuario);
+            foreach (var artista in artistas)
+            {
+                ucContenido uc = new ucContenido(artista, mostrarBotonGuardar);
+                uc.MostrarBotonGuardar = false;
+                sp_Artistas.Children.Add(uc);
             }
         }
 
