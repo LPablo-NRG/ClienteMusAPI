@@ -121,7 +121,7 @@ namespace ClienteMusAPI.Servicios
                     var fileBytes = File.ReadAllBytes(perfil.foto);
                     var fileContent = new ByteArrayContent(fileBytes);
                     fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    form.Add(fileContent, "urlFoto", Path.GetFileName(perfil.foto)); 
+                    form.Add(fileContent, "foto", Path.GetFileName(perfil.foto)); 
                 }
 
                 Console.WriteLine($"Token enviado: {SesionUsuario.Token}"); // Verifica que no sea null o vacío
@@ -160,7 +160,7 @@ namespace ClienteMusAPI.Servicios
                     var fotoBytes = File.ReadAllBytes(perfil.FotoPath);
                     var byteArrayContent = new ByteArrayContent(fotoBytes);
                     byteArrayContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    form.Add(byteArrayContent, "urlFoto", Path.GetFileName(perfil.FotoPath));
+                    form.Add(byteArrayContent, "foto", Path.GetFileName(perfil.FotoPath));
                 }
 
                 HttpResponseMessage response = await ClienteAPI.HttpClient.PostAsync("usuarios/crear-perfilArtista", form);
