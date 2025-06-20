@@ -83,5 +83,30 @@ namespace ClienteMusAPI.Servicios
                 return null;
             }
         }
+
+        public async Task<bool> AgregarCancionAListaAsync(ListaDeReproduccion_CancionDTO dto)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(dto);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await ClienteAPI.HttpClient.PostAsync("listasDeReproduccion/agregar-cancion", content);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al agregar canción a la lista: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

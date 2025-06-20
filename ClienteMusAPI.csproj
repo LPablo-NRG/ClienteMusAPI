@@ -106,6 +106,7 @@
     <Compile Include="DTOs\EvaluacionDTO.cs" />
     <Compile Include="DTOs\InfoAlbumDTO.cs" />
     <Compile Include="DTOs\ListaDeReproduccionDTO.cs" />
+    <Compile Include="DTOs\ListaDeReproduccion_CancionDTO.cs" />
     <Compile Include="DTOs\ListaReproduccionDTO.cs" />
     <Compile Include="DTOs\LoginRequest.cs" />
     <Compile Include="DTOs\PerfilArtistaDTO.cs" />
@@ -125,6 +126,12 @@
     </Compile>
     <Compile Include="UserControls\ucEvaluarArtista.xaml.cs">
       <DependentUpon>ucEvaluarArtista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucSeleccionarLista.xaml.cs">
+      <DependentUpon>ucSeleccionarLista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucSeleccionarListaPopup.xaml.cs">
+      <DependentUpon>ucSeleccionarListaPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ucSubirContenido.xaml.cs">
       <DependentUpon>ucSubirContenido.xaml</DependentUpon>
@@ -177,6 +184,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ucEvaluarArtista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucSeleccionarLista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucSeleccionarListaPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

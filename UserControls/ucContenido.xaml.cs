@@ -215,44 +215,84 @@ namespace ClienteMusAPI.UserControls
 
         private async void Click_Guardar(object sender, RoutedEventArgs e)
         {
-            var servicio = new ContenidoGuardadoServicio();
-
-            var dto = new ContenidoGuardadoDTO
+            if (tipo == "Cancion")
             {
-                IdUsuario = SesionUsuario.IdUsuario,
-                TipoDeContenido = tipo.ToUpper() // Asegúrate de enviar Album, Cancion, Artista, etc.
-            };
+                var listaServicio = new ListaServicio();
+                var listas = await listaServicio.ObtenerListasPorUsuarioAsync(SesionUsuario.IdUsuario);
 
-            switch (tipo)
-            {
-                case "Album":
-                    dto.IdContenidoGuardado = album.idAlbum;
-                    break;
-                case "Cancion":
-                    dto.IdContenidoGuardado = cancion.idCancion;
-                    break;
-                case "Artista":
-                    dto.IdContenidoGuardado = artista.idArtista;
-                    break;
-                case "Lista":
-                    dto.IdContenidoGuardado = lista.IdListaDeReproduccion;
-                    break;
-                default:
-                    MessageBox.Show("Tipo de contenido no reconocido.");
-                    return;
-            }
-
-            var mensaje = await servicio.GuardarContenidoAsync(dto);
-
-            if (!string.IsNullOrEmpty(mensaje))
-            {
-                MessageBox.Show(mensaje);
-
-                if (mensaje == "Contenido guardado exitosamente")
+                if (listas == null || listas.Count == 0)
                 {
-                    btn_Guardar.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("No tienes listas de reproducción. Crea una para agregar canciones.");
+                    return;
+                }
+
+                // Obtener referencia a la ventana principal
+                DependencyObject parent = this;
+                while (parent != null && !(parent is Window))
+                {
+                    parent = VisualTreeHelper.GetParent(parent);
+                }
+
+                if (parent is Window window)
+                {
+                    var contenedor = (window as VentanaPrincipal)?.Contenido;
+                    if (contenedor != null)
+                    {
+                        var popup = new ucSeleccionarListaPopup(listas);
+
+                        popup.ListaSeleccionada += async (s, listaSeleccionada) =>
+                        {
+                            Console.WriteLine($"IdCancion: {cancion.idCancion}");
+                            Console.WriteLine($"IdListaDeReproduccion: {listaSeleccionada.IdListaDeReproduccion}");
+                            Console.WriteLine($"IdUsuario: {SesionUsuario.IdUsuario}");
+                            var exito = await listaServicio.AgregarCancionAListaAsync(new ListaDeReproduccion_CancionDTO
+                            {
+                                IdCancion = cancion.idCancion,
+                                IdListaDeReproduccion = listaSeleccionada.IdListaDeReproduccion,
+                                IdUsuario = SesionUsuario.IdUsuario
+                            });
+
+                            MessageBox.Show(exito ? "Canción agregada a la lista" : "Error al agregar la canción");
+                            contenedor.Children.Remove(popup);
+                        };
+
+                        if (!contenedor.Children.Contains(popup))
+                        {
+                            contenedor.Children.Add(popup); // se agrega por encima sin borrar nada
+                        }
+
+                    }
+                }
+
+            }
+            else
+            {
+                var servicio = new ContenidoGuardadoServicio();
+                var dto = new ContenidoGuardadoDTO
+                {
+                    IdUsuario = SesionUsuario.IdUsuario,
+                    TipoDeContenido = tipo.ToUpper()
+                };
+
+                switch (tipo)
+                {
+                    case "Album": dto.IdContenidoGuardado = album.idAlbum; break;
+                    case "Artista": dto.IdContenidoGuardado = artista.idArtista; break;
+                    case "Lista": dto.IdContenidoGuardado = lista.IdListaDeReproduccion; break;
+                    default: MessageBox.Show("Tipo de contenido no reconocido."); return;
+                }
+
+                var mensaje = await servicio.GuardarContenidoAsync(dto);
+                if (!string.IsNullOrEmpty(mensaje))
+                {
+                    MessageBox.Show(mensaje);
+                    if (mensaje == "Contenido guardado exitosamente")
+                    {
+                        btn_Guardar.Visibility = Visibility.Collapsed;
+                    }
                 }
             }
+            
         }
 
         private async void Click_Reproducir(object sender, RoutedEventArgs e)

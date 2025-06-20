@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ClienteMusAPI.UserControls.ucSeleccionarLista"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+
+    <Border x:Name="Contenido" CornerRadius="10" BorderThickness="0" Background="White" Opacity="0.95"
+            Padding="0" Margin="5" MouseLeftButtonUp="SeleccionarLista">
+        <Grid Margin="0,10,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="img_foto" Source="../Recursos/Iconos/iconoListaDeReproduccion.png" Width="64" Height="64" Margin="10,0"/>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" MaxWidth="250" HorizontalAlignment="Left">
+                <TextBlock x:Name="txb_Nombre" FontSize="18" FontWeight="Bold" TextTrimming="CharacterEllipsis"/>
+                <TextBlock x:Name="txb_Descripcion" FontSize="14" Foreground="Gray" TextTrimming="CharacterEllipsis"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

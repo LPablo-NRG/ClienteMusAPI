@@ -83,7 +83,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             txb_Usuario.Text = "@" + perfilArtista.nombreUsuario;
             txb_Descripcion.Text = perfilArtista.descripcion;
 
-            //cargar imagen
+            /*//cargar imagen
             if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
             {
                 var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
@@ -96,7 +96,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
                     image.EndInit();
                     img_foto.Source = image;
                 }
-            }
+            }*/
 
             CargarAlbumesAsync();
             CargarSencillosAsync();
