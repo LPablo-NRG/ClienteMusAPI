@@ -141,7 +141,7 @@ namespace ClienteMusAPI.UserControls
                     txb_Autor.Text = "@"+artista.nombreUsuario;
                     btn_Guardar.Content = "Seguir";
                     btn_Reproducir.Visibility = Visibility.Collapsed;
-                    CargarImagen(artista.urlFoto);
+                    //CargarImagen(artista.urlFoto);
                     break;
 
             }

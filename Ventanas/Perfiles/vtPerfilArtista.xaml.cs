@@ -192,7 +192,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         }
         private void Click_VerChat(object sender, RoutedEventArgs e)
         {
-            NavigationService?.Navigate(new vtChat(perfilArtista.idArtista, SesionUsuario.NombreUsuario));
+            NavigationService?.Navigate(new vtChat(perfilArtista, SesionUsuario.NombreUsuario));
         }
     }
 }

@@ -5,21 +5,92 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="Chat">
+      Title="MusAPI - Chat">
 
-    <Grid Background="White">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
-            <StackPanel x:Name="sp_Mensajes"/>
-        </ScrollViewer>
+        <!-- Encabezado del chat -->
+        <Border Grid.Row="0" CornerRadius="10" Margin="20,10,20,10" Padding="10"
+                Background="white">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
-            <TextBox x:Name="txtMensaje" Width="1000" Height="40" Margin="0,0,10,0"/>
-            <Button Content="Enviar" Width="100" Height="40" Click="EnviarMensaje_Click"/>
-        </StackPanel>
+                <!-- Botón de regresar -->
+                <Button Grid.Column="0"
+                        Width="40" Height="40"
+                        VerticalAlignment="Center" HorizontalAlignment="Left"
+                        Margin="10,0,20,0"
+                        Click="Click_Volver"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Cursor="Hand">
+                    <Image Source="\Recursos\Iconos\iconoRegresar.png"/>
+                </Button>
+
+                <!-- Información del chat -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image x:Name="img_PerfilChat" Width="50" Height="50" 
+                           Source="\Recursos\Iconos\iconoPerfil.png" 
+                           Margin="0,0,15,0"/>
+                    <TextBlock x:Name="txb_NombreChat" Text="Nombre del contacto" 
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource ColorLetrasHEX}" 
+                               FontFamily="{StaticResource FuentePrincipal}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Área de mensajes -->
+        <Border Grid.Row="1" CornerRadius="10" Margin="20,0,20,10"
+                Background="white">
+            <ScrollViewer x:Name="sv_Mensajes" VerticalScrollBarVisibility="Auto" Padding="15">
+                <StackPanel x:Name="sp_Mensajes"/>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Área de entrada de mensajes -->
+        <Border Grid.Row="2" CornerRadius="10" Margin="20,0,20,10" Padding="10"
+                Background="white" Opacity="{StaticResource OpacityConstante}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="txtMensaje" 
+                         VerticalContentAlignment="Center"
+                         FontSize="16" FontFamily="{StaticResource FuentePrincipal}"
+                         Foreground="{StaticResource ColorLetrasHEX}"
+                         Background="Transparent" BorderBrush="Transparent"
+                         Padding="10,5" Margin="5,0"/>
+
+                <Button Grid.Column="1" 
+                        Content="Enviar" 
+                        Width="100" Height="40" 
+                        Click="EnviarMensaje_Click"
+                        Background="white"
+                        Foreground="{StaticResource ColorLetrasHEX}"
+                        FontFamily="{StaticResource FuentePrincipal}"
+                        FontWeight="Bold"
+                        BorderBrush="{StaticResource ColorLetrasHEX}"
+                        BorderThickness="1"
+                        Cursor="Hand"
+                        Margin="10,0,5,0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

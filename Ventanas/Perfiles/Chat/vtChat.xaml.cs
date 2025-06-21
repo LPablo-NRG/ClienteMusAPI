@@ -1,7 +1,10 @@
-﻿using ClienteMusAPI.DTOs;
+﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Servicios;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
@@ -27,13 +30,40 @@ namespace ClienteMusAPI.Ventanas.Perfiles.Chat
         private ClientWebSocket _webSocket;
         private int _idPerfilArtista;
         private string _nombreUsuario;
+        private BusquedaArtistaDTO perfilArtista { get; set; }
 
-        public vtChat(int idPerfilArtista, string nombreUsuario)
+        public vtChat(BusquedaArtistaDTO perfilArtista, string nombreUsuario)
         {
             InitializeComponent();
-            _idPerfilArtista = idPerfilArtista;
+            _idPerfilArtista = perfilArtista.idArtista;
             _nombreUsuario = nombreUsuario;
+            this.perfilArtista = perfilArtista;
             ConectarWebSocket();
+            CargarDatosChat();
+        }
+
+        public void CargarDatosChat()
+        {
+            txb_NombreChat.Text = "Chat de artista: " + perfilArtista.nombreUsuario;
+            CargarImagen(perfilArtista.urlFoto);
+
+        }
+
+        private async void CargarImagen(string url)
+        {
+            if (!String.IsNullOrEmpty(url))
+            {
+                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + url);
+                using (var stream = new MemoryStream(bytes))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    img_PerfilChat.Source = image;
+                }
+            }
         }
 
         private async void ConectarWebSocket()
@@ -87,6 +117,11 @@ namespace ClienteMusAPI.Ventanas.Perfiles.Chat
                 await _webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
                 txtMensaje.Clear();
             }
+        }
+
+        private void Click_Volver(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
