@@ -25,8 +25,6 @@ namespace ClienteMusAPI.Clases
         public static event Action OnReproductorPausadoODetenido;
         public static int indiceActual = 0;
         private static float volumenActual = 1.0f;
-
-
         public static TimeSpan Duracion => audioFileReader?.TotalTime ?? TimeSpan.Zero;
         public static TimeSpan Posicion
         {
@@ -87,7 +85,6 @@ namespace ClienteMusAPI.Clases
             if (canciones == null || canciones.Count == 0 || indice < 0 || indice >= canciones.Count)
                 return;
             Console.WriteLine("indice: " + indice + "\ncanciones:" + canciones.Count);
-            // Guardar los datos globalmente si necesitas avanzar/siguiente
             listaCanciones = canciones;
             indiceActual = indice;
 

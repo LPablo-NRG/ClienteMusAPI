@@ -141,7 +141,7 @@ namespace ClienteMusAPI.UserControls
                     txb_Autor.Text = "@"+artista.nombreUsuario;
                     btn_Guardar.Content = "Seguir";
                     btn_Reproducir.Visibility = Visibility.Collapsed;
-                    //CargarImagen(artista.urlFoto);
+                    CargarImagen(artista.urlFoto);
                     break;
 
             }
@@ -153,8 +153,13 @@ namespace ClienteMusAPI.UserControls
 
         private async void CargarImagen(string url)
         {
+
             if (!String.IsNullOrEmpty(url))
             {
+                if (tipo == "Cancion")
+                {
+                    Console.WriteLine("cancion con foto en: " + url);
+                }
                 var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + url);
                 using (var stream = new MemoryStream(bytes))
                 {
@@ -164,6 +169,13 @@ namespace ClienteMusAPI.UserControls
                     image.CacheOption = BitmapCacheOption.OnLoad;
                     image.EndInit();
                     img_foto.Source = image;
+                }
+            }
+            else
+            {
+                if (tipo == "Cancion")
+                {
+                    Console.WriteLine("cancion con foto nula");
                 }
             }
         }

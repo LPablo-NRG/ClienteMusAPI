@@ -29,33 +29,6 @@ namespace ClienteMusAPI.Ventanas.Busqueda
         public vtBusqueda()
         {
             InitializeComponent();
-            /*ucContenido twenty = new ucContenido("Artista");
-            twenty.txb_Nombre.Text = "Twenty One Pilots";
-            ucContenido muse = new ucContenido("Artista");
-            muse.txb_Nombre.Text = "Muse";
-            ucContenido idkh = new ucContenido("Artista");
-            idkh.txb_Nombre.Text = "I Don't Know How But They Found Me";
-            idkh.txb_Nombre.MaxWidth = 800;
-            ucContenido ejemplolargo = new ucContenido("Artista");
-            ejemplolargo.txb_Nombre.Text = "Este es un ejemplo de un nombre de artista que es muy largo y debería ajustarse correctamente en la interfaz de usuario para no desbordar el diseño.";
-            //ejemplolargo.MaxWidth = sp_Resultados.MaxWidth;
-            ejemplolargo.sp_Texto.MaxWidth = 500;
-
-            ucContenido cancionlarga = new ucContenido("Cancion");
-            cancionlarga.txb_Nombre.Text = "Esta es una canción con un nombre muy largo que debería ajustarse correctamente en la interfaz de usuario para no desbordar el diseño.";
-            cancionlarga.txb_Autor.Text = "Artista muy exageradamente largo pero que no creo que baya a ocurrir en la base de datos real porque tiene un limite de caractereshacerato escribir baya muy mal";
-            cancionlarga.sp_Texto.MaxWidth = 500;
-
-            sp_Resultados.Children.Add(cancionlarga);
-            sp_Resultados.Children.Add(twenty);
-            sp_Resultados.Children.Add(muse);
-            sp_Resultados.Children.Add(idkh);
-            sp_Resultados.Children.Add(ejemplolargo);
-            sp_Resultados.Children.Add(new ucContenido());
-            sp_Resultados.Children.Add(new ucContenido("Cancion"));
-            sp_Resultados.Children.Add(new ucContenido("Lista"));
-            sp_Resultados.Children.Add(new ucContenido("Album"));
-            sp_Resultados.Children.Add(new ucContenido("Artista"));*/
 
         }
 

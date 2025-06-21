@@ -35,6 +35,7 @@ namespace ClienteMusAPI
             Reproductor.OnReproduccionIniciada += CargarDatosCancion;
 
             reproductor.Open(new Uri("pack://siteoforigin:,,,/Recursos/Sonidos/MusAPI.wav"));
+            reproductor.Volume = 0.3; 
             MarcoPrincipal.Navigate(new Uri("/Ventanas/Inicio/vtInicioSesion.xaml", UriKind.Relative));
             reproductor.Play();
 
