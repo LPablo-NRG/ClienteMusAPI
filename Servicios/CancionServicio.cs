@@ -182,5 +182,28 @@ namespace ClienteMusAPI.Servicios
                 return null;
             }
         }
+
+        public async Task RegistrarEscucha(EscuchaDTO escuchaDTO) {
+            try
+            {
+                var json = JsonConvert.SerializeObject(escuchaDTO);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await ClienteAPI.HttpClient.PostAsync("escucha/registrar", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Escucha registrada exitosamente.");
+                }
+                else
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error al registrar escucha: {response.StatusCode}\n{responseContent}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Excepción al registrar escucha: {ex.Message}");
+            }
+        }
     }
 }

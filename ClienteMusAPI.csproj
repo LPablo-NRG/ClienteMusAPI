@@ -103,6 +103,7 @@
     <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\ContenidoGuardadoDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
+    <Compile Include="DTOs\EscuchaDTO.cs" />
     <Compile Include="DTOs\EvaluacionDTO.cs" />
     <Compile Include="DTOs\InfoAlbumDTO.cs" />
     <Compile Include="DTOs\ListaDeReproduccionDTO.cs" />

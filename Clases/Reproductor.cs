@@ -22,7 +22,9 @@ namespace ClienteMusAPI.Clases
         private static IWavePlayer waveOutDevice;
         private static AudioFileReader audioFileReader;
         public static event Action OnReproduccionIniciada;
-        public static event Action OnReproductorPausadoODetenido;
+        public static event Action OnReproductorPausado;
+        public static event Action OnReproduccionReaunudada;
+        public static event Action OnReproduccionFinalizada;
         public static int indiceActual = 0;
         private static float volumenActual = 1.0f;
         public static TimeSpan Duracion => audioFileReader?.TotalTime ?? TimeSpan.Zero;
@@ -38,7 +40,7 @@ namespace ClienteMusAPI.Clases
 
         public static void Detener()
         {
-            OnReproductorPausadoODetenido?.Invoke();
+            OnReproductorPausado?.Invoke();
             waveOutDevice?.Stop();
             waveOutDevice?.Dispose();
             waveOutDevice = null;
@@ -55,11 +57,11 @@ namespace ClienteMusAPI.Clases
             {
                 case PlaybackState.Playing:
                     waveOutDevice.Pause();
-                    OnReproductorPausadoODetenido?.Invoke();
+                    OnReproductorPausado?.Invoke();
                     break;
                 case PlaybackState.Paused:
                     waveOutDevice.Play();
-                    OnReproduccionIniciada?.Invoke();
+                    OnReproduccionReaunudada?.Invoke();
                     break;
                 case PlaybackState.Stopped:
                     waveOutDevice.Play();
@@ -84,7 +86,6 @@ namespace ClienteMusAPI.Clases
         {
             if (canciones == null || canciones.Count == 0 || indice < 0 || indice >= canciones.Count)
                 return;
-            Console.WriteLine("indice: " + indice + "\ncanciones:" + canciones.Count);
             listaCanciones = canciones;
             indiceActual = indice;
 
@@ -114,11 +115,12 @@ namespace ClienteMusAPI.Clases
                     if (audioFileReader != null)
                     {
                         audioFileReader.Position = 0;
-                        OnReproductorPausadoODetenido?.Invoke();
-
+                        OnReproductorPausado?.Invoke();
+                        OnReproduccionFinalizada?.Invoke();
                         // Avanzar automáticamente a la siguiente si hay más
                         if (indiceActual + 1 < listaCanciones.Count)
                         {
+                            audioFileReader.Position = 0;
                             indiceActual++;
                             await ReproducirCancionAsync(listaCanciones, indiceActual);
                         }
@@ -135,6 +137,7 @@ namespace ClienteMusAPI.Clases
         {
             if (indiceActual + 1 < listaCanciones.Count)
             {
+                audioFileReader.Position = 0;
                 indiceActual++;
                 await ReproducirCancionAsync(listaCanciones, indiceActual);
             }
@@ -143,6 +146,7 @@ namespace ClienteMusAPI.Clases
         {
             if (indiceActual > 0)
             {
+                audioFileReader.Position = 0;
                 indiceActual--;
                 await ReproducirCancionAsync(listaCanciones, indiceActual);
             }

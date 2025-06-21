@@ -1,4 +1,5 @@
 ﻿using ClienteMusAPI.Clases;
+using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Servicios;
 using System;
 using System.Collections.Generic;
@@ -25,14 +26,22 @@ namespace ClienteMusAPI
     public partial class VentanaPrincipal : Window
     {
         public MediaPlayer reproductor = new MediaPlayer();
-        
+        private bool reproductorEstaActivo = false;
+        private bool escuchaEsRegistrable = false;
+        private int contador = 0;
+        private int segundosParaRegistrarEscucha = 10;
+        private int idCancionActual = 0;
+
         public VentanaPrincipal()
         {
             InitializeComponent();
-            Reproductor.OnReproductorPausadoODetenido += CambiarABotonPlay;
+            Reproductor.OnReproduccionFinalizada += RegistrarEscucha;
+            Reproductor.OnReproductorPausado += CambiarABotonPlay;
             Reproductor.OnReproduccionIniciada += CambiarABotonPause;
+            Reproductor.OnReproduccionReaunudada += CambiarABotonPause;
             Reproductor.OnReproduccionIniciada += IniciarTimer;
             Reproductor.OnReproduccionIniciada += CargarDatosCancion;
+            Reproductor.OnReproduccionFinalizada += CambiarABotonPlay;
 
             reproductor.Open(new Uri("pack://siteoforigin:,,,/Recursos/Sonidos/MusAPI.wav"));
             reproductor.Volume = 0.3; 
@@ -46,9 +55,20 @@ namespace ClienteMusAPI
 
         private void IniciarTimer()
         {
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Tick -= Timer_Tick;
+            }
+            RegistrarEscucha();
+            idCancionActual = Reproductor.listaCanciones[Reproductor.indiceActual].idCancion;
+            sld_Tiempo.Value = 0;
+            txb_TiempoActual.Text = "00:00";
+            txb_Duracion.Text = Reproductor.listaCanciones[Reproductor.indiceActual].duracion;
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+            contador = 0;
             timer.Start();
         }
 
@@ -85,6 +105,32 @@ namespace ClienteMusAPI
                 txb_TiempoActual.Text = FormatearTiempo(Reproductor.Posicion);
                 txb_Duracion.Text = FormatearTiempo(Reproductor.Duracion);
             }
+            if (reproductorEstaActivo)
+            {
+                contador++;
+                if (contador == segundosParaRegistrarEscucha || contador == ((int)Reproductor.Duracion.TotalSeconds))
+                {
+                    escuchaEsRegistrable = true;
+                }
+            }
+        }
+
+        private async void RegistrarEscucha()
+        {
+            if (escuchaEsRegistrable)
+            {
+                escuchaEsRegistrable = false;
+                CancionServicio cancionServicio = new CancionServicio();
+
+                EscuchaDTO escucha = new EscuchaDTO
+                {
+                    idUsuario = SesionUsuario.IdUsuario,
+                    idCancion = idCancionActual,
+                    segundosEscucha = contador
+                };
+                await cancionServicio.RegistrarEscucha(escucha);
+            }
+            
         }
 
         private string FormatearTiempo(TimeSpan tiempo)
@@ -112,16 +158,18 @@ namespace ClienteMusAPI
         private void CambiarABotonPlay()
         {
             img_PausarReaunudar.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/Iconos/iconoReproducir.png"));
-            
+            reproductorEstaActivo = false;
         }
 
         private void CambiarABotonPause()
         {
             img_PausarReaunudar.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/Iconos/iconoPausa.png"));
+            reproductorEstaActivo = true;
         }
 
         public void LimpiarInterfazReproductor()
         {
+            RegistrarEscucha();
             txb_Artista.Text = "...";
             txb_Cancion.Text = "Reproduce una Canción!";
             img_Cancion.Source = new BitmapImage(new Uri("pack://application:,,,/Recursos/Iconos/iconoDisco.png"));
@@ -130,6 +178,7 @@ namespace ClienteMusAPI
             txb_TiempoActual.Text = "00:00";
             txb_Duracion.Text = "00:00";
         }
+
 
         private void Click_PausarReaunudar(object sender, RoutedEventArgs e)
         {
