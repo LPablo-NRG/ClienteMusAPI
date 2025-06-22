@@ -83,7 +83,8 @@ Grid.Column="1" Margin="0,20,0,0" Foreground="{StaticResource ColorLetrasHEX}" F
                                                     Click="Click_EditarPerfil"
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
-                                                    Cursor="Hand">
+                                                    Cursor="Hand"
+                                                    Visibility="Collapsed">
                                                 <Image Source="..\..\Recursos\Iconos\iconoEditar.png"/>
                                             </Button>
                                         </StackPanel>

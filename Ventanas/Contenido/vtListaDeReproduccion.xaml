@@ -62,16 +62,6 @@ Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" Te
                                                     Width="40" Height="40"
                                                     VerticalAlignment="Top" HorizontalAlignment="Right"
                                                     Margin="10,0,10,0"
-                                                    Click="Click_VerEstadisticas"
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    Cursor="Hand">
-                                                <Image Source="..\..\Recursos\Iconos\iconoEstadisticas.png" Width="30"/>
-                                            </Button>
-                                            <Button Grid.Column="0"
-                                                    Width="40" Height="40"
-                                                    VerticalAlignment="Top" HorizontalAlignment="Right"
-                                                    Margin="10,0,10,0"
                                                     Click="Click_EditarListaDeReproduccion"
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"

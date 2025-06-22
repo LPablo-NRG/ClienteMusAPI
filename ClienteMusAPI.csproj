@@ -95,15 +95,20 @@
     <Compile Include="Clases\Reproductor.cs" />
     <Compile Include="Clases\SesionUsuario.cs" />
     <Compile Include="DTOs\AlbumDTO.cs" />
+    <Compile Include="DTOs\ArtistaMasEscuchadoDTO.cs" />
     <Compile Include="DTOs\BusquedaAlbumDTO.cs" />
     <Compile Include="DTOs\BusquedaCancionDTO.cs" />
     <Compile Include="DTOs\BusquedaArtistaDTO.cs" />
     <Compile Include="DTOs\CancionDTO.cs" />
+    <Compile Include="DTOs\CancionMasEscuchadaDTO.cs" />
     <Compile Include="DTOs\CategoriaMusicalDTO.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\ContenidoGuardadoDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
     <Compile Include="DTOs\EscuchaDTO.cs" />
+    <Compile Include="DTOs\EstadisticasContenidoSubidoDTO.cs" />
+    <Compile Include="DTOs\EstadisticasNumeroUsuariosDTO.cs" />
+    <Compile Include="DTOs\EstadisticasPersonalesDTO.cs" />
     <Compile Include="DTOs\EvaluacionDTO.cs" />
     <Compile Include="DTOs\InfoAlbumDTO.cs" />
     <Compile Include="DTOs\ListaDeReproduccionDTO.cs" />
@@ -117,6 +122,7 @@
     <Compile Include="Servicios\ClienteAPI.cs" />
     <Compile Include="Servicios\CancionServicio.cs" />
     <Compile Include="Servicios\ContenidoGuardadoServicio.cs" />
+    <Compile Include="Servicios\EstadisticasServicio.cs" />
     <Compile Include="Servicios\ListaServicio.cs" />
     <Compile Include="Servicios\UsuarioServicio.cs" />
     <Compile Include="UserControls\ucCategoriaMusical.xaml.cs">
@@ -161,8 +167,17 @@
     <Compile Include="Ventanas\Menu\vtCategoriasMusicales.xaml.cs">
       <DependentUpon>vtCategoriasMusicales.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\Menu\vtReportes.xaml.cs">
+      <DependentUpon>vtReportes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Perfiles\Chat\vtChat.xaml.cs">
       <DependentUpon>vtChat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfiles\Estadisticas\vtEstadisticasConsumoPersonal.xaml.cs">
+      <DependentUpon>vtEstadisticasConsumoPersonal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfiles\Estadisticas\vtEstadisticasContenidoSubido.xaml.cs">
+      <DependentUpon>vtEstadisticasContenidoSubido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Perfiles\vtCrearPerfilArtista.xaml.cs">
       <DependentUpon>vtCrearPerfilArtista.xaml</DependentUpon>
@@ -264,7 +279,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ventanas\Menu\vtReportes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\Perfiles\Chat\vtChat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfiles\Estadisticas\vtEstadisticasConsumoPersonal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfiles\Estadisticas\vtEstadisticasContenidoSubido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

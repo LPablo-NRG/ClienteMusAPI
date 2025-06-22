@@ -60,16 +60,22 @@ namespace ClienteMusAPI.Ventanas.Contenido
         {
             txb_Nombre.Text = lista.Nombre;
             txb_Descripcion.Text = "Descripción: " + lista.Descripcion;
-            txb_Autor.Text = "Autor: "; // Aquí puedes agregar el nombre si lo tienes
+            txb_Autor.Text = "Autor: "+SesionUsuario.Nombre;
             CargarImagen(lista.UrlFoto);
 
             if (lista.Canciones != null)
             {
+                int indice = 0;
+                TimeSpan duracionTotal = TimeSpan.Zero;
                 sp_Canciones.Children.Clear();
                 foreach (var cancion in lista.Canciones)
                 {
-                    sp_Canciones.Children.Add(new ucContenido(new List<BusquedaCancionDTO> { cancion }, 0));
+                    sp_Canciones.Children.Add(new ucContenido(lista.Canciones, indice));
+                    indice++;
+                    TimeSpan duracionRecuperada = TimeSpan.ParseExact(cancion.duracion, @"mm\:ss", null);
+                    duracionTotal += duracionRecuperada;
                 }
+                txb_Duracion.Text = duracionTotal.ToString(@"hh\:mm\:ss");
             }
         }
 

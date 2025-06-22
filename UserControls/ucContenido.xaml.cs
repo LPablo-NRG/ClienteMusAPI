@@ -315,8 +315,9 @@ namespace ClienteMusAPI.UserControls
                     await Reproductor.ReproducirCancionAsync(album.canciones, 0);
                     break;
                 case "Lista":
-                    //TODO
-                    
+                    await Reproductor.ReproducirCancionAsync(lista.Canciones, 0);
+                    break;
+
                     break;
                 case "Cancion":
                     await Reproductor.ReproducirCancionAsync(listaCanciones, indice);

@@ -3,6 +3,7 @@ using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Servicios;
 using ClienteMusAPI.UserControls;
 using ClienteMusAPI.Ventanas.Perfiles.Chat;
+using ClienteMusAPI.Ventanas.Perfiles.Estadisticas;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,12 +38,6 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         public vtPerfilArtista()
         {
             InitializeComponent();
-            /*sp_Albumes.Children.Add(new ucContenido("Album"));
-            sp_Albumes.Children.Add(new ucContenido("Album"));
-            sp_Albumes.Children.Add(new ucContenido("Album"));
-
-
-            sp_Sencillos.Children.Add(new ucContenido("Cancion"));*/
         }
 
         public vtPerfilArtista(int idUsuario)
@@ -142,7 +137,8 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_VerEstadisticas(object sender, RoutedEventArgs e)
         {
-
+            vtEstadisticasContenidoSubido estadisticas = new vtEstadisticasContenidoSubido(perfilArtista.idArtista);
+            NavigationService.Navigate(estadisticas);
         }
 
         private void Click_EditarPerfil(object sender, RoutedEventArgs e)

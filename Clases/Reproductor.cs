@@ -135,7 +135,7 @@ namespace ClienteMusAPI.Clases
 
         public static async Task SiguienteCancionAsync()
         {
-            if (indiceActual + 1 < listaCanciones.Count)
+            if (listaCanciones != null && indiceActual + 1 < listaCanciones.Count)
             {
                 audioFileReader.Position = 0;
                 indiceActual++;
@@ -144,7 +144,7 @@ namespace ClienteMusAPI.Clases
         }
         public static async Task CancionAnteriorAsync()
         {
-            if (indiceActual > 0)
+            if (listaCanciones != null && indiceActual > 0)
             {
                 audioFileReader.Position = 0;
                 indiceActual--;

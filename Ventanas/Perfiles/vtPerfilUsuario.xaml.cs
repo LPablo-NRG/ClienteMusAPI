@@ -1,5 +1,6 @@
 ﻿using ClienteMusAPI.Servicios;
 using ClienteMusAPI.UserControls;
+using ClienteMusAPI.Ventanas.Perfiles.Estadisticas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
                 btn_VerPerfilArtista.Visibility = Visibility.Visible;
 
             }
-            else //TODO: if (si el id del usuario es el id de nuestra sesion)
+            else 
             {
                 btn_CrearPerfilArtista.Visibility = Visibility.Visible;
             }
@@ -76,7 +77,8 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_VerEstadisticas(object sender, RoutedEventArgs e)
         {
-
+            vtEstadisticasConsumoPersonal vtEstadisticasConsumoPersonal = new vtEstadisticasConsumoPersonal(Clases.SesionUsuario.IdUsuario);
+            NavigationService.Navigate(vtEstadisticasConsumoPersonal);
         }
 
         private void Click_EditarPerfil(object sender, RoutedEventArgs e)

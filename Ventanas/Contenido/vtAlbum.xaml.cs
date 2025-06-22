@@ -128,6 +128,8 @@ namespace ClienteMusAPI.Ventanas.Contenido
                 foreach (var cancion in canciones)
                 {
                     ucContenido contenido = new ucContenido(canciones, indice);
+                    if (albumPublico == null)
+                        contenido.btn_Guardar.Visibility = Visibility.Collapsed;
                     sp_Canciones.Children.Add(contenido);
                     indice++;
                     TimeSpan duracionRecuperada = TimeSpan.ParseExact(cancion.duracion, @"mm\:ss", null);

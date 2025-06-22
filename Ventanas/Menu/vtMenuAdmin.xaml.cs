@@ -35,5 +35,11 @@ namespace ClienteMusAPI.Ventanas.Menu
             vtCategoriasMusicales vtCategoriasMusicales = new vtCategoriasMusicales();
             NavigationService.Navigate(vtCategoriasMusicales);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            vtReportes vtReportes = new vtReportes();
+            NavigationService.Navigate(vtReportes);
+        }
     }
 }
