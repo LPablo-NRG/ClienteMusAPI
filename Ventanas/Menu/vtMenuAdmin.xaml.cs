@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClienteMusAPI.Ventanas.Busqueda;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,22 @@ namespace ClienteMusAPI.Ventanas.Menu
         public vtMenuAdmin()
         {
             InitializeComponent();
+            txb_Busqueda.GotFocus += txb_Busqueda_GotFocus;
+            txb_Busqueda.LostFocus += txb_Busqueda_LostFocus;
         }
 
+        private void txb_Busqueda_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtPlaceholder.Visibility = Visibility.Collapsed;
+        }
+
+        private void txb_Busqueda_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txb_Busqueda.Text))
+            {
+                txtPlaceholder.Visibility = Visibility.Visible;
+            }
+        }
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -34,6 +49,22 @@ namespace ClienteMusAPI.Ventanas.Menu
         {
             vtCategoriasMusicales vtCategoriasMusicales = new vtCategoriasMusicales();
             NavigationService.Navigate(vtCategoriasMusicales);
+        }
+
+        private void Click_BuscarUsuarios(object sender, RoutedEventArgs e)
+        {
+            vtBusqueda busquedaUsuarios = new vtBusqueda(txb_Busqueda.Text, buscarUsuarios: true);
+            NavigationService.Navigate(busquedaUsuarios);
+        }
+
+        private void Click_Reportes(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Click_AdministrarUsuarios(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

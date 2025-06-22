@@ -108,5 +108,42 @@ namespace ClienteMusAPI.Servicios
                 return false;
             }
         }
+
+        public async Task<bool> EditarListaAsync(ListaReproduccionDTO lista)
+        {
+            try
+            {
+                using (var form = new MultipartFormDataContent())
+                {
+                    form.Add(new StringContent(lista.Nombre), "nombre");
+                    form.Add(new StringContent(lista.Descripcion), "descripcion");
+                    form.Add(new StringContent(lista.IdUsuario.ToString()), "idUsuario");
+
+                    if (!string.IsNullOrEmpty(lista.FotoPath))
+                    {
+                        var fileStream = new FileStream(lista.FotoPath, FileMode.Open, FileAccess.Read);
+                        var fileContent = new StreamContent(fileStream);
+                        fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                        form.Add(fileContent, "foto", Path.GetFileName(lista.FotoPath));
+                    }
+
+                    HttpResponseMessage response = await ClienteAPI.HttpClient.PutAsync("listasDeReproduccion/editar", form);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al editar la lista: " + ex.Message);
+                return false;
+            }
+        }
     }
 }

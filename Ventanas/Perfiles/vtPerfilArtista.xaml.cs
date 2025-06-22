@@ -35,6 +35,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
         private BusquedaArtistaDTO perfilArtista;
         private int idUsuario = -1;
         bool mostrarBotonGuardar = true;
+        bool mostrarBotonEliminar = false;
         public vtPerfilArtista()
         {
             InitializeComponent();
@@ -68,17 +69,18 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             if (perfilArtista.nombreUsuario == SesionUsuario.NombreUsuario)
             {
                 sp_MenuOyente.Visibility = Visibility.Collapsed;
+                mostrarBotonEliminar = true;
             } 
             else
             {
                 sp_MenuArtista.Visibility = Visibility.Collapsed;
+                mostrarBotonEliminar = false;
             }
 
             txb_Nombre.Text = perfilArtista.nombre;
             txb_Usuario.Text = "@" + perfilArtista.nombreUsuario;
             txb_Descripcion.Text = perfilArtista.descripcion;
 
-            /*//cargar imagen
             if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
             {
                 var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
@@ -91,7 +93,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
                     image.EndInit();
                     img_foto.Source = image;
                 }
-            }*/
+            }
 
             CargarAlbumesAsync();
             CargarSencillosAsync();
@@ -107,7 +109,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 foreach (var album in albumesDelUsuario)
                 {
-                    ucContenido contenido = new ucContenido(album, mostrarBotonGuardar);
+                    ucContenido contenido = new ucContenido(album, mostrarBotonGuardar, mostrarBotonEliminar);
                     sp_Albumes.Children.Add(contenido);
                 }
             }
@@ -123,7 +125,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 foreach (var sencillo in sencillos)
                 {
-                    ucContenido contenido = new ucContenido(new List<BusquedaCancionDTO> { sencillo }, 0);
+                    ucContenido contenido = new ucContenido(new List<BusquedaCancionDTO> { sencillo }, 0, mostrarBotonGuardar, mostrarBotonEliminar);
                     sp_Sencillos.Children.Add(contenido);
                 }
             }
@@ -132,7 +134,8 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            vtPerfilUsuario vtPerfilUsuario = new vtPerfilUsuario();
+            NavigationService.GetNavigationService(this).Navigate(vtPerfilUsuario);
         }
 
         private void Click_VerEstadisticas(object sender, RoutedEventArgs e)

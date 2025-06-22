@@ -28,6 +28,8 @@ namespace ClienteMusAPI.UserControls
     {
         private int idPerfilArtista;
         private List<InfoAlbumDTO> albumesDelUsuario = new List<InfoAlbumDTO>();
+        bool mostrarBotonGuardar = false;
+        bool mostrarBotonEliminar = false;
         public ucSubirContenido(int idPerfilArtista)
         {
             InitializeComponent();
@@ -49,7 +51,7 @@ namespace ClienteMusAPI.UserControls
             {
                 foreach (var album in albumesDelUsuario)
                 {
-                    ucContenido contenido = new ucContenido(album, idPerfilArtista);
+                    ucContenido contenido = new ucContenido(album, idPerfilArtista, mostrarBotonGuardar, mostrarBotonEliminar);
                     sp_Albumes.Children.Add(contenido);
                 }
             }

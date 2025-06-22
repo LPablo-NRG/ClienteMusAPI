@@ -26,6 +26,9 @@ namespace ClienteMusAPI.Ventanas.Menu
     /// </summary>
     public partial class vtMenuPrincipal : Page
     {
+
+        bool mostrarBotonGuardar = false;
+        bool mostrarBotonEliminar = false;
         public vtMenuPrincipal()
         {
             InitializeComponent();
@@ -94,12 +97,11 @@ namespace ClienteMusAPI.Ventanas.Menu
         {
             var servicio = new ContenidoGuardadoServicio();
             int idUsuario = SesionUsuario.IdUsuario;
-            bool mostrarBotonGuardar = false;
 
             var albumes = await servicio.ObtenerAlbumesGuardadosAsync(idUsuario);
             foreach (var album in albumes)
             {
-                ucContenido uc = new ucContenido(album, mostrarBotonGuardar);
+                ucContenido uc = new ucContenido(album, mostrarBotonGuardar, mostrarBotonEliminar);
                 uc.MostrarBotonGuardar = false;
                 sp_albumes.Children.Add(uc);
             }
@@ -107,7 +109,7 @@ namespace ClienteMusAPI.Ventanas.Menu
             var listas = await servicio.ObtenerListasGuardadasAsync(idUsuario);
             foreach (var lista in listas)
             {
-                ucContenido uc = new ucContenido(lista, mostrarBotonGuardar);
+                ucContenido uc = new ucContenido(lista, mostrarBotonGuardar, mostrarBotonEliminar);
                 uc.MostrarBotonGuardar = false;
                 sp_listas.Children.Add(uc);
             }
@@ -115,7 +117,7 @@ namespace ClienteMusAPI.Ventanas.Menu
             var artistas = await servicio.ObtenerArtistasGuardadosAsync(idUsuario);
             foreach (var artista in artistas)
             {
-                ucContenido uc = new ucContenido(artista, mostrarBotonGuardar);
+                ucContenido uc = new ucContenido(artista, mostrarBotonGuardar, mostrarBotonEliminar);
                 uc.MostrarBotonGuardar = false;
                 sp_Artistas.Children.Add(uc);
             }

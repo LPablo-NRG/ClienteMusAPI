@@ -26,11 +26,19 @@ namespace ClienteMusAPI.UserControls
     public partial class ucVentanaDetalles : UserControl
     {
         BusquedaCancionDTO busquedaCancionDTO;
+        BusquedaUsuarioDTO busquedaUsuarioDTO;
         public ucVentanaDetalles(BusquedaCancionDTO busquedaCancionDTO)
         {
             InitializeComponent();
             this.busquedaCancionDTO = busquedaCancionDTO;
             CargarDatos();
+        }
+
+        public ucVentanaDetalles(BusquedaUsuarioDTO usuario)
+        {
+            InitializeComponent();
+            this.busquedaUsuarioDTO = usuario;
+            CargarDatosUsuario();
         }
 
         private async void CargarDatos()
@@ -64,6 +72,25 @@ namespace ClienteMusAPI.UserControls
                         img_foto.Source = image;
                     }
                 }
+            }
+        }
+
+        private void CargarDatosUsuario()
+        {
+            if (busquedaUsuarioDTO != null)
+            {
+                txb_TituloName.Text = "Nombre: ";
+                txb_AutorName.Text = "Nombre de usuario: ";
+                txb_AlbumName.Text = "Correo: ";
+                txb_FechaName.Text = "País: ";
+                txb_DuracionName.Text = "Es artista: ";
+
+                txb_Nombre.Text = busquedaUsuarioDTO.nombre;
+                txb_Autor.Text = busquedaUsuarioDTO.nombreUsuario;
+                txb_Album.Text = busquedaUsuarioDTO.correo;
+                txb_Fecha.Text = busquedaUsuarioDTO.pais;
+                txb_Duracion.Text = busquedaUsuarioDTO.esArtista ? "Sí" : "No";
+                img_foto.Source = new BitmapImage(new Uri("/Recursos/Iconos/iconoPerfil.png", UriKind.Relative));
             }
         }
 

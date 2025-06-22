@@ -36,7 +36,7 @@
                                             Cursor="Hand">
                                         <Image Source="..\..\Recursos\Iconos\iconoRegresar.png"/>
                                     </Button>
-                                    <Label Content="Crear Nuevo Álbum" HorizontalAlignment="Center" 
+                                    <Label Name="lb_Titulo" Content="Crear Nuevo Álbum" HorizontalAlignment="Center" 
                                            FontSize="{StaticResource TamanoFuenteTitulo}" Foreground="{StaticResource ColorLetrasHEX}"
                                            FontFamily="{StaticResource FuentePrincipal}" FontWeight="Bold"/>
                                 </Grid>
@@ -89,7 +89,7 @@
 
                                     <!-- Botones de acción -->
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,20">
-                                        <Button Style="{StaticResource BotonGenerico}" Content="Guardar"
+                                        <Button Style="{StaticResource BotonGenerico}" Content="Guardar" Name="btn_Guardar"
                                                 Margin="10,0,10,0" 
                                                 Click="Click_Guardar"
                                                 Width="120"/>

@@ -2,6 +2,7 @@
 using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Servicios;
 using ClienteMusAPI.UserControls;
+using ClienteMusAPI.Ventanas.Perfiles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,8 @@ namespace ClienteMusAPI.Ventanas.Contenido
     public partial class vtListaDeReproduccion : Page
     {
         private ListaDeReproduccionDTO lista;
+        bool mostrarBotonGuardar = true;
+        bool mostrarBotonEliminar = false;
 
         public vtListaDeReproduccion(ListaDeReproduccionDTO lista)
         {
@@ -70,6 +73,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
                 sp_Canciones.Children.Clear();
                 foreach (var cancion in lista.Canciones)
                 {
+                    sp_Canciones.Children.Add(new ucContenido(new List<BusquedaCancionDTO> { cancion }, 0, mostrarBotonGuardar, mostrarBotonEliminar));
                     sp_Canciones.Children.Add(new ucContenido(lista.Canciones, indice));
                     indice++;
                     TimeSpan duracionRecuperada = TimeSpan.ParseExact(cancion.duracion, @"mm\:ss", null);
@@ -81,12 +85,30 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            vtPerfilUsuario vtPerfilUsuario = new vtPerfilUsuario();
+            NavigationService.GetNavigationService(this).Navigate(vtPerfilUsuario);
         }
 
-        private void Click_GuardarListaDeReproduccion(object sender, RoutedEventArgs e)
+        private async void Click_GuardarListaDeReproduccion(object sender, RoutedEventArgs e)
         {
-            // Aquí puedes reutilizar el servicio para guardar
+            var servicio = new ContenidoGuardadoServicio();
+            var dto = new ContenidoGuardadoDTO
+            {
+                IdUsuario = SesionUsuario.IdUsuario,
+                TipoDeContenido = "LISTA",
+                IdContenidoGuardado = lista.IdListaDeReproduccion
+            };
+
+            var mensaje = await servicio.GuardarContenidoAsync(dto);
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                MessageBox.Show(mensaje);
+                if (mensaje == "Contenido guardado exitosamente")
+                {
+                    btn_Seguir
+                        .Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void Click_VerEstadisticas(object sender, RoutedEventArgs e)
@@ -96,7 +118,8 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
         private void Click_EditarListaDeReproduccion(object sender, RoutedEventArgs e)
         {
-            // Navegar a vtEditarLista
+            vtCrearLista vtCrearLista = new vtCrearLista(lista);
+            NavigationService.GetNavigationService(this).Navigate(vtCrearLista);
         }
     }
 

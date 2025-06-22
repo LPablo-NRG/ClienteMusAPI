@@ -6,25 +6,109 @@
       xmlns:local="clr-namespace:ClienteMusAPI.Ventanas.Menu"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="MusAPI - Menú principal">
+      Title="MusAPI - Menú Admin">
 
-    <Grid Background="White" Margin="0,0,0,0">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
-            <!-- Label del título -->
-            <Label Content="Menú Admin" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                   FontSize="40"
-                   FontWeight="Bold"
-                   Margin="0,0,0,40"
-                   />
-            <!-- Descripcion de la ventana -->
-            <Label Content="Aquí sólo entran los administradores" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                   FontSize="26"
-                   Margin="0,0,0,40"
-                   />
-            <!-- Botones de navegación -->
-            <Button Content="Categorías musicales (CU 13 y 14)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_CategoriasMusicales"/>
-            <Button Content="Reportes (CU-15)" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Button_Click"/>
-            <Button Content="Volver" Width="250" Height="50" Margin="0,0,0,10" FontSize="14" Click="Click_Volver"/>
-        </StackPanel>
+    <Grid x:Name="Ventana" Background="Transparent">
+        <Grid x:Name="Contenido">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Barra superior con buscador -->
+            <Border Grid.Row="0" CornerRadius="10" BorderBrush="Black" BorderThickness="0"  
+                    Margin="20,10,20,10" VerticalAlignment="Center" Padding="10">
+                <Border.Background>
+                    <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
+                </Border.Background>
+                <Grid x:Name="BarraBusqueda" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Botón Volver -->
+                    <Grid Grid.Column="0">
+                        <Button Width="40" Height="40"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"
+                                Click="Click_Volver"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Cursor="Hand">
+                            <Image Source="..\..\Recursos\Iconos\iconoRegresar.png"/>
+                        </Button>
+                    </Grid>
+
+                    <!-- Buscador -->
+                    <Grid Grid.Column="1" VerticalAlignment="Center">
+                        <TextBox x:Name="txb_Busqueda" Text="" FontFamily="{StaticResource FuentePrincipal}" 
+                                 Style="{StaticResource TextBoxRedondeado}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" Command="{Binding BuscarCommand}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <TextBlock x:Name="txtPlaceholder" Text="Buscar usuarios..." 
+                                   Foreground="{StaticResource ColorPlaceholderHEX}"
+                                   Margin="15,0,0,0" VerticalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   Visibility="{Binding ElementName=txb_Busqueda, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                        <Button Background="Transparent" BorderBrush="Transparent" Cursor="Hand" 
+                                Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                Click="Click_BuscarUsuarios">
+                            <Image Source="..\..\Recursos\Iconos\iconoLupa.png"/>
+                        </Button>
+                    </Grid>
+
+                    <!-- Espacio derecho (puede usarse para otros controles) -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                        <!-- Puedes añadir más botones aquí si es necesario -->
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Contenido principal -->
+            <Border Grid.Row="1" CornerRadius="10" Margin="20,10,20,10">
+                <Border.Background>
+                    <SolidColorBrush Color="{StaticResource ColorFondoHEX}" Opacity="{StaticResource OpacityConstante}"/>
+                </Border.Background>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{StaticResource PlantillaScrollViewer}">
+                    <StackPanel Margin="20" HorizontalAlignment="Center">
+                        <!-- Título -->
+                        <Label Content="Menú Administrador" 
+                               FontSize="{StaticResource TamanoFuenteTitulo}" 
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource ColorLetrasHEX}" 
+                               FontFamily="{StaticResource FuentePrincipal}" 
+                               FontWeight="Bold" Margin="0,0,0,20"/>
+
+                        <!-- Descripción -->
+                        <Label Content="Herramientas exclusivas para administradores" 
+                               FontSize="{StaticResource TamanoFuenteCuerpo}" 
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource ColorLetrasHEX}" 
+                               FontFamily="{StaticResource FuentePrincipal}" 
+                               Margin="0,0,0,40"/>
+
+                        <!-- Botones de acciones -->
+                        <Button Content="Categorías musicales (CU 13 y 14)" 
+                                Style="{StaticResource BotonGenerico}"
+                                Width="300" Height="50" Margin="0,0,0,15" 
+                                FontSize="16" Click="Click_CategoriasMusicales"/>
+
+                        <Button Content="Reportes (CU-15)" 
+                                Style="{StaticResource BotonGenerico}"
+                                Width="300" Height="50" Margin="0,0,0,15" 
+                                FontSize="16" Click="Click_Reportes"/>
+
+                        <Button Content="Administrar usuarios" 
+                                Style="{StaticResource BotonGenerico}"
+                                Width="300" Height="50" Margin="0,0,0,15" 
+                                FontSize="16" Click="Click_AdministrarUsuarios"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

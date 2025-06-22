@@ -23,6 +23,8 @@ namespace ClienteMusAPI.Ventanas.Perfiles
     /// </summary>
     public partial class vtPerfilUsuario : Page
     {
+        bool mostrarBotonGuardar = true;
+        bool mostrarBotonEliminar = false;
         public vtPerfilUsuario()
         {
             InitializeComponent();
@@ -68,7 +70,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 foreach (var lista in listas)
                 {
-                    var uc = new ucContenido(lista, true);
+                    var uc = new ucContenido(lista, mostrarBotonGuardar, mostrarBotonEliminar);
                     sp_Listas.Children.Add(uc);
                 }
             }
@@ -105,7 +107,8 @@ namespace ClienteMusAPI.Ventanas.Perfiles
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            var vtMenuPrincipal = new vtMenuPrincipal();
+            NavigationService.GetNavigationService(this).Navigate(vtMenuPrincipal);
         }
     }
 }

@@ -168,5 +168,65 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
+        public async Task<bool> EliminarAlbumAsync(int idAlbum)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.DeleteAsync($"albumes/{idAlbum}/eliminar");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error al eliminar: {response.StatusCode}\n{responseContent}");
+                    return false;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                string mensaje = jsonObject?["mensajeDeApi"]?.ToString();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el album: " + ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> EditarAlbumAsync(AlbumDTO album)
+        {
+            try
+            {
+                using (var form = new MultipartFormDataContent())
+                {
+                    form.Add(new StringContent(album.Nombre), "nombre");
+                    form.Add(new StringContent(album.IdUsuario.ToString()), "idUsuario");
+
+                    if (!string.IsNullOrEmpty(album.FotoPath))
+                    {
+                        var fileStream = new FileStream(album.FotoPath, FileMode.Open, FileAccess.Read);
+                        var fileContent = new StreamContent(fileStream);
+                        fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                        form.Add(fileContent, "foto", Path.GetFileName(album.FotoPath));
+                    }
+
+                    HttpResponseMessage response = await ClienteAPI.HttpClient.PutAsync("albumes/editar", form);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al editar el álbum: " + ex.Message);
+                return false;
+            }
+        }
+
     }
 }

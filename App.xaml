@@ -12,6 +12,8 @@
         <SolidColorBrush x:Key="ColorLetrasAzulHEX">#205781</SolidColorBrush>
         <SolidColorBrush x:Key="ColorLetrasAmarilloHEX">#ffd166</SolidColorBrush>
         <SolidColorBrush x:Key="ColorBordeAzul">#4F959D</SolidColorBrush>
+        <SolidColorBrush x:Key="ColorPlaceholderHEX" Color="#888888"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <Color x:Key="ColorFondoHEX">white</Color>
         <Color x:Key="ColorFondoAmarillaHEX">#ffd166</Color>
@@ -341,5 +343,13 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-        </Application.Resources>
+
+        <!-- Estilo para botón de peligro -->
+        <Style x:Key="BotonGenericoDanger" TargetType="Button" BasedOn="{StaticResource BotonGenerico}">
+            <Setter Property="Background" Value="#FF4444"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+
+    </Application.Resources>
 </Application>

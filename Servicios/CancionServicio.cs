@@ -183,6 +183,31 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
+        public async Task<bool> EliminarCancionAsync(int idCancion)
+        {
+            try
+            {
+                HttpResponseMessage response = await ClienteAPI.HttpClient.DeleteAsync($"canciones/{idCancion}/eliminar");
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error al eliminar: {response.StatusCode}\n{responseContent}");
+                    return false;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                string mensaje = jsonObject?["mensaje"]?.ToString();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar la canción: " + ex.Message);
+                return false;
+            }
+        }
+
+
         public async Task RegistrarEscucha(EscuchaDTO escuchaDTO) {
             try
             {

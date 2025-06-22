@@ -99,6 +99,7 @@
     <Compile Include="DTOs\BusquedaAlbumDTO.cs" />
     <Compile Include="DTOs\BusquedaCancionDTO.cs" />
     <Compile Include="DTOs\BusquedaArtistaDTO.cs" />
+    <Compile Include="DTOs\BusquedaUsuarioDTO.cs" />
     <Compile Include="DTOs\CancionDTO.cs" />
     <Compile Include="DTOs\CancionMasEscuchadaDTO.cs" />
     <Compile Include="DTOs\CategoriaMusicalDTO.cs" />
@@ -154,6 +155,9 @@
     </Compile>
     <Compile Include="Ventanas\Contenido\vtCrearLista.xaml.cs">
       <DependentUpon>vtCrearLista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Contenido\vtEliminarUsuario.xaml.cs">
+      <DependentUpon>vtEliminarUsuario.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Contenido\vtListaDeReproduccion.xaml.cs">
       <DependentUpon>vtListaDeReproduccion.xaml</DependentUpon>
@@ -244,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Contenido\vtCrearLista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Contenido\vtEliminarUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -377,6 +385,7 @@
     <Resource Include="Recursos\Iconos\iconoFlecha.png" />
     <Resource Include="Recursos\Iconos\iconoMundo.png" />
     <Resource Include="Recursos\Iconos\iconoGuardar.png" />
+    <Resource Include="Recursos\Iconos\iconoEliminar.png" />
     <Content Include="Recursos\Sonidos\MusAPI.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,5 +1,6 @@
 ﻿using ClienteMusAPI.Clases;
 using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Modelo;
 using ClienteMusAPI.Servicios;
 using ClienteMusAPI.UserControls;
 using System;
@@ -26,11 +27,27 @@ namespace ClienteMusAPI.Ventanas.Busqueda
     public partial class vtBusqueda : Page
     {
         bool mostrarBotonGuardar = true;
+        bool mostrarBotonEliminar = false;
         public vtBusqueda()
         {
             InitializeComponent();
 
         }
+
+        public vtBusqueda(string textoBusqueda, bool buscarUsuarios)
+        {
+            InitializeComponent();
+            txb_Busqueda.Text = textoBusqueda;
+
+            if (buscarUsuarios)
+            {
+                cb_tipo.Visibility = Visibility.Collapsed;
+                btn_Buscar.Visibility = Visibility.Collapsed;
+
+                BuscarUsuarios(textoBusqueda);
+            }
+        }
+
 
         public vtBusqueda(string busqueda)
         {
@@ -43,6 +60,30 @@ namespace ClienteMusAPI.Ventanas.Busqueda
             Click_BuscarContenido(sender, e);
 
         }
+
+        private async void BuscarUsuarios(string texto)
+        {
+            sp_Resultados.Children.Clear();
+            mostrarBotonEliminar = true;
+            mostrarBotonGuardar = false;
+
+            UsuarioServicio usuarioServicio = new UsuarioServicio();
+            List<BusquedaUsuarioDTO> usuarios = await usuarioServicio.BuscarUsuarioAsync(texto, SesionUsuario.IdUsuario);
+
+            if (usuarios != null && usuarios.Count > 0)
+            {
+                foreach (var usuario in usuarios)
+                {
+                    ucContenido contenido = new ucContenido(usuario, mostrarBotonGuardar, mostrarBotonEliminar);
+                    sp_Resultados.Children.Add(contenido);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron usuarios llamados: " + texto);
+            }
+        }
+
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
@@ -72,7 +113,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                     {
                         foreach (var artista in artistas)
                         {
-                            ucContenido contenido = new ucContenido(artista, mostrarBotonGuardar);
+                            ucContenido contenido = new ucContenido(artista, mostrarBotonGuardar, mostrarBotonEliminar);
                             sp_Resultados.Children.Add(contenido);
                         }
                     }
@@ -92,7 +133,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                     {
                         foreach (var cancion in canciones)
                         {
-                            ucContenido contenido = new ucContenido(new List<BusquedaCancionDTO> { cancion }, 0);
+                            ucContenido contenido = new ucContenido(new List<BusquedaCancionDTO> { cancion }, 0, mostrarBotonGuardar, mostrarBotonEliminar);
                             sp_Resultados.Children.Add(contenido);
                         }
                     }
@@ -108,7 +149,7 @@ namespace ClienteMusAPI.Ventanas.Busqueda
                     {
                         foreach (var album in albumes)
                         {
-                            ucContenido contenido = new ucContenido(album, mostrarBotonGuardar);
+                            ucContenido contenido = new ucContenido(album, mostrarBotonGuardar, mostrarBotonEliminar);
                             sp_Resultados.Children.Add(contenido);
                         }
                     }else

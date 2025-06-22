@@ -1,5 +1,6 @@
 ﻿using ClienteMusAPI.Clases;
 using ClienteMusAPI.DTOs;
+using ClienteMusAPI.Modelo;
 using ClienteMusAPI.Servicios;
 using ClienteMusAPI.Ventanas.Contenido;
 using ClienteMusAPI.Ventanas.Perfiles;
@@ -35,7 +36,9 @@ namespace ClienteMusAPI.UserControls
         public List<BusquedaCancionDTO> listaCanciones { get; set; }
         public ListaDeReproduccionDTO lista { get; set; }
         public int indice { get; set; } = 0;
-        public bool MostrarBotonGuardar { get; set; } = true;
+        public bool MostrarBotonGuardar { get; set; } = false;
+        public bool MostrarBotonEliminar { get; set; } = false;
+        public BusquedaUsuarioDTO usuario { get; set; }
 
 
         public ucContenido()
@@ -44,37 +47,71 @@ namespace ClienteMusAPI.UserControls
             img_foto.Source = null;
         }
 
-        public ucContenido(ListaDeReproduccionDTO lista, bool mostrarBotonGuardar)
+        public ucContenido(BusquedaUsuarioDTO usuario, bool mostrarBotonGuardar, bool mostrarBotonEliminar)
+        {
+            InitializeComponent();
+            this.tipo = "Usuario";
+            this.usuario = usuario;
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = mostrarBotonEliminar;
+            ConfigurarUserControl();
+
+            txb_Nombre.Text = usuario.nombre;
+            txb_Autor.Text = usuario.nombreUsuario + " • " + usuario.pais;
+            img_foto.Source = new BitmapImage(new Uri("/Recursos/Iconos/iconoPerfil.png", UriKind.Relative));
+        }
+
+        public void CargarUsuario(BusquedaUsuarioDTO usuario, bool mostrarBotonGuardar, bool mostrarBotonEliminar)
+        {
+            InitializeComponent();
+            this.tipo = "Usuario";
+            this.usuario = usuario;
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = mostrarBotonEliminar;
+            ConfigurarUserControl();
+
+            txb_Nombre.Text = usuario.nombre;
+            txb_Autor.Text = usuario.nombreUsuario + " • " + usuario.pais;
+            img_foto.Source = new BitmapImage(new Uri("/Recursos/Iconos/iconoPerfil.png", UriKind.Relative));
+        }
+
+        public ucContenido(ListaDeReproduccionDTO lista, bool mostrarBotonGuardar, bool mostrarBotonEliminar)
         {
             InitializeComponent();
             this.tipo = "Lista";
             this.lista = lista;
             this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = mostrarBotonEliminar;
             ConfigurarUserControl();
         }
-        public ucContenido(List<BusquedaCancionDTO> canciones, int indice)
+        public ucContenido(List<BusquedaCancionDTO> canciones, int indice, bool mostrarBotonGuardar, bool mostrarBotonEliminar)
         {
             InitializeComponent();
             this.tipo = "Cancion";
             this.cancion = canciones[indice];
             this.listaCanciones = canciones;
             this.indice = indice;
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = mostrarBotonEliminar;
             ConfigurarUserControl();
         }
-        public ucContenido(BusquedaAlbumDTO album, bool mostrarBotonGuardar)
+        public ucContenido(BusquedaAlbumDTO album, bool mostrarBotonGuardar, bool MostrarBotonEliminar)
         {
             InitializeComponent();
             this.tipo = "Album";
             this.album = album;
             this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = MostrarBotonEliminar;
             ConfigurarUserControl();
         }
-        public ucContenido(InfoAlbumDTO albumPendiente, int idArtista)
+        public ucContenido(InfoAlbumDTO albumPendiente, int idArtista, bool mostrarBotonGuardar, bool mostrarBotonEliminar)
         {
             InitializeComponent();
             this.tipo = "Album Pendiente";
             this.albumPendiente = albumPendiente;
             this.idArtista = idArtista;
+            this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = mostrarBotonEliminar;
             ConfigurarUserControl();
         }
         public ucContenido(int lista) //gcahvbdskjlhvbjhaskdfhbsndajskkbhjkdsaljbnadskjdsbn TODO:
@@ -83,20 +120,22 @@ namespace ClienteMusAPI.UserControls
             this.tipo = "Lista";
             ConfigurarUserControl();
         }
-        public ucContenido(BusquedaArtistaDTO artista, bool mostrarBotonGuardar)
+        public ucContenido(BusquedaArtistaDTO artista, bool mostrarBotonGuardar, bool mostrarBotonEliminar)
         {
             InitializeComponent();
             this.tipo = "Artista";
             this.artista = artista;
             this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = mostrarBotonEliminar;
             ConfigurarUserControl();
         }
 
-        public ucContenido(String tipo, bool mostrarBotonGuardar)
+        public ucContenido(String tipo, bool mostrarBotonGuardar, bool mostrarBotonEliminar)
         {
             InitializeComponent();
             this.tipo = tipo;
             this.MostrarBotonGuardar = mostrarBotonGuardar;
+            this.MostrarBotonEliminar = mostrarBotonEliminar;
             ConfigurarUserControl();
         }
 
@@ -122,6 +161,7 @@ namespace ClienteMusAPI.UserControls
                     CargarImagen(cancion.urlFoto);
                     break;
                 case "Lista":
+                    btn_Eliminar.Visibility = Visibility.Collapsed;
                     if (lista != null)
                     {
                         txb_Nombre.Text = lista.Nombre;
@@ -148,6 +188,11 @@ namespace ClienteMusAPI.UserControls
             if (!MostrarBotonGuardar)
             {
                 btn_Guardar.Visibility = Visibility.Collapsed;
+            }
+
+            if (!MostrarBotonEliminar)
+            {
+                btn_Eliminar.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -213,6 +258,27 @@ namespace ClienteMusAPI.UserControls
                         }
                     }
                     break;
+                case "Usuario":
+                    DependencyObject parentUsuario = this;
+                    while (parentUsuario != null && !(parentUsuario is Window))
+                    {
+                        parentUsuario = VisualTreeHelper.GetParent(parentUsuario);
+                    }
+
+                    if (parentUsuario is Window windowUsuario)
+                    {
+                        var contenedor = (windowUsuario as VentanaPrincipal)?.Contenido;
+                        if (contenedor != null)
+                        {
+                            ucVentanaDetalles detallesUsuario = new ucVentanaDetalles(usuario);
+                            detallesUsuario.btn_Cerrar.Click += (object sender2, RoutedEventArgs e2) =>
+                            {
+                                contenedor.Children.Remove(detallesUsuario);
+                            };
+                            contenedor.Children.Add(detallesUsuario);
+                        }
+                    }
+                    break;
 
                 case "Lista":
                     NavigationService.GetNavigationService(this).Navigate(new vtListaDeReproduccion(lista));
@@ -238,7 +304,6 @@ namespace ClienteMusAPI.UserControls
                     return;
                 }
 
-                // Obtener referencia a la ventana principal
                 DependencyObject parent = this;
                 while (parent != null && !(parent is Window))
                 {
@@ -270,7 +335,7 @@ namespace ClienteMusAPI.UserControls
 
                         if (!contenedor.Children.Contains(popup))
                         {
-                            contenedor.Children.Add(popup); // se agrega por encima sin borrar nada
+                            contenedor.Children.Add(popup);
                         }
 
                     }
@@ -321,6 +386,51 @@ namespace ClienteMusAPI.UserControls
                     break;
                 case "Cancion":
                     await Reproductor.ReproducirCancionAsync(listaCanciones, indice);
+                    break;
+            }
+
+        }
+
+        private async void Click_Eliminar(object sender, RoutedEventArgs e)
+        {
+            switch (tipo) 
+            {
+                case "Album":
+                    var resultadoAlbum = MessageBox.Show("¿Estás seguro de que deseas eliminar este album?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (resultadoAlbum == MessageBoxResult.Yes)
+                    {
+                        AlbumServicio servicio = new AlbumServicio();
+                        bool exito = await servicio.EliminarAlbumAsync(album.idAlbum);
+                        if (exito)
+                        {
+                            MessageBox.Show("Album eliminado correctamente.");
+                            this.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                    break;
+                case "Album Pendiente":
+                    break;
+                case "Cancion":
+                    var resultadoCancion = MessageBox.Show("¿Estás seguro de que deseas eliminar esta canción?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (resultadoCancion == MessageBoxResult.Yes)
+                    {
+                        CancionServicio servicio = new CancionServicio();
+                        bool exito = await servicio.EliminarCancionAsync(cancion.idCancion);
+                        if (exito)
+                        {
+                            MessageBox.Show("Canción eliminada correctamente.");
+                            this.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                    break;
+                case "Lista":
+                    break;
+                case "Usuario":
+                    vtEliminarUsuario vtEliminarUsuario = new vtEliminarUsuario(usuario);
+                    NavigationService.GetNavigationService(this).Navigate(vtEliminarUsuario);
+                    break;
+                default:
+                    MessageBox.Show("Tipo de contenido no reconocido para eliminar.");
                     break;
             }
 

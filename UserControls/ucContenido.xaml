@@ -5,21 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMusAPI.UserControls"
              mc:Ignorable="d">
-    
+
     <Border x:Name="Contenido" CornerRadius="10" BorderThickness="0" HorizontalAlignment="Stretch"
-        Padding="0" Margin="5,5,5,5" >
+        Padding="0" Margin="5,5,5,5">
         <Border.Background>
             <SolidColorBrush Color="White" Opacity="{StaticResource OpacityConstante}" />
         </Border.Background>
-        <Grid   Margin="0,10,0,10"  >
+        <Grid Margin="0,10,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/> 
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+
             <Rectangle Fill="Black" Width="64" Height="64" Margin="10,0,10,0" Opacity=".1"/>
             <Image x:Name="img_foto" Source="..\Recursos\Iconos\iconoDisco.png" Grid.Column="0" Width="64" Height="64" Margin="10,0,10,0"/>
+
             <StackPanel x:Name="sp_Texto" Grid.Column="1" VerticalAlignment="Center" MaxWidth="250" HorizontalAlignment="Left">
                 <TextBlock x:Name="txb_Nombre" Text="Album/Cancion/Artista/Lista nombre de ejemplo" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,2"
                            TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Left"
@@ -29,18 +32,26 @@
                            Grid.Column="1" Margin="0,2,0,0" Foreground="{StaticResource ColorLetrasHEX}" />
             </StackPanel>
 
-            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="10,0,20,0">
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="10,0,10,0">
                 <Button x:Name="btn_Guardar" Style="{StaticResource BotonGenerico}" Content="Guardar" Grid.Column="2"
                         Width="100" Height="30" FontSize="14" Margin="0,0,0,10"
-                        Click="Click_Guardar"
-                        />
+                        Click="Click_Guardar"/>
                 <Button x:Name="btn_VerDetalles" Style="{StaticResource BotonGenerico}" Content="Ver Detalles" Grid.Column="3"
                         Width="100" Height="30" FontSize="14"
-                        Click="Click_VerDetalles"
-                        />
+                        Click="Click_VerDetalles"/>
             </StackPanel>
-            
-            <Button x:Name="btn_Reproducir" Grid.Column="3" Margin="0,0,10,0"
+
+            <Button x:Name="btn_Eliminar" Grid.Column="3" Margin="0,0,10,0"
+                    Width="40" Height="40"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Cursor="Hand"
+                    Click="Click_Eliminar">
+                <Image Source="..\Recursos\Iconos\iconoEliminar.png" />
+            </Button>
+
+            <Button x:Name="btn_Reproducir" Grid.Column="4" Margin="0,0,10,0"
                     Width="40" Height="40"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
                     Background="Transparent"

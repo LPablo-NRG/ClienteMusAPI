@@ -29,6 +29,8 @@ namespace ClienteMusAPI.Ventanas.Contenido
         private InfoAlbumDTO albumPendiente;
         private int idArtista;
         private BusquedaAlbumDTO albumPublico;
+        bool mostrarBotonGuardar = true;
+        bool mostrarBotonoEliminar = false;
         public vtAlbum()
         {
             InitializeComponent();
@@ -127,9 +129,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
                 TimeSpan duracionTotal = TimeSpan.Zero;
                 foreach (var cancion in canciones)
                 {
-                    ucContenido contenido = new ucContenido(canciones, indice);
-                    if (albumPublico == null)
-                        contenido.btn_Guardar.Visibility = Visibility.Collapsed;
+                    ucContenido contenido = new ucContenido(canciones, indice, mostrarBotonGuardar, mostrarBotonoEliminar);
                     sp_Canciones.Children.Add(contenido);
                     indice++;
                     TimeSpan duracionRecuperada = TimeSpan.ParseExact(cancion.duracion, @"mm\:ss", null);
@@ -143,7 +143,8 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
         private void Click_Volver(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            vtPerfilUsuario vtPerfilUsuario = new vtPerfilUsuario();
+            NavigationService.GetNavigationService(this).Navigate(vtPerfilUsuario);
         }
 
         private void Click_VerEstadisticas(object sender, RoutedEventArgs e)
@@ -153,12 +154,46 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
         private void Click_EditarAlbum(object sender, RoutedEventArgs e)
         {
-            //TODO
+            if (albumPublico != null)
+            {
+                vtCrearAlbum vtCrearAlbum = new vtCrearAlbum(albumPublico);
+                NavigationService.GetNavigationService(this).Navigate(vtCrearAlbum);
+            }
+            else if (albumPendiente != null)
+            {
+                var album = new BusquedaAlbumDTO();
+                album.idAlbum = albumPendiente.idAlbum;
+                album.nombreAlbum = albumPendiente.nombre;
+                album.urlFoto = albumPendiente.urlFoto;
+                vtCrearAlbum vtCrearAlbum = new vtCrearAlbum(album);
+                NavigationService.GetNavigationService(this).Navigate(vtCrearAlbum);
+            }
+
         }
 
-        private void Click_GuardarAlbum(object sender, RoutedEventArgs e)
+        private async void Click_GuardarAlbum(object sender, RoutedEventArgs e)
         {
-            //TODO
+            var servicio = new ContenidoGuardadoServicio();
+            var dto = new ContenidoGuardadoDTO
+            {
+                IdUsuario = SesionUsuario.IdUsuario,
+                TipoDeContenido = "ALBUM"
+            };
+            if(albumPublico != null)
+                dto.IdContenidoGuardado = albumPublico.idAlbum;
+            else if (albumPendiente != null)
+                dto.IdContenidoGuardado = albumPendiente.idAlbum;
+
+            var mensaje = await servicio.GuardarContenidoAsync(dto);
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                MessageBox.Show(mensaje);
+                if (mensaje == "Contenido guardado exitosamente")
+                {
+                    btn_Seguir
+                        .Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void Click_SubirCancion(object sender, RoutedEventArgs e)
@@ -189,5 +224,45 @@ namespace ClienteMusAPI.Ventanas.Contenido
                 }
             }
         }
+
+        private async void Click_EliminarAlbum(object sender, RoutedEventArgs e)
+        {
+            if(albumPublico != null)
+            {
+                Console.WriteLine("Eliminando album publico: IdAlbum: "+albumPublico.idAlbum);
+                var resultadoAlbum = MessageBox.Show("¿Estás seguro de que deseas eliminar este album?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (resultadoAlbum == MessageBoxResult.Yes)
+                {
+                    AlbumServicio servicio = new AlbumServicio();
+                    bool exito = await servicio.EliminarAlbumAsync(albumPublico.idAlbum);
+                    if (exito)
+                    {
+                        MessageBox.Show("Album eliminado correctamente.");
+                        this.Visibility = Visibility.Collapsed;
+                    }
+                }
+                return;
+            }
+
+            if(albumPendiente != null)
+            {
+                Console.WriteLine("Eliminando album pendiente: IdAlbum: " + albumPendiente.idAlbum);
+                var resultadoAlbum = MessageBox.Show("¿Estás seguro de que deseas eliminar este album?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (resultadoAlbum == MessageBoxResult.Yes)
+                {
+                    AlbumServicio servicio = new AlbumServicio();
+                    bool exito = await servicio.EliminarAlbumAsync(albumPendiente.idAlbum);
+                    if (exito)
+                    {
+                        MessageBox.Show("Album eliminado correctamente.");
+                        this.Visibility = Visibility.Collapsed;
+                    }
+                }
+                return;
+            }
+
+        }
+
+            
     }
 }

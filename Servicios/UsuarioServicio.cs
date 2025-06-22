@@ -294,6 +294,66 @@ namespace ClienteMusAPI.Servicios
                 return "Excepción: "+ex.Message;
             }
         }
+
+        public async Task<List<BusquedaUsuarioDTO>> BuscarUsuarioAsync(string nombreUsuario, int idUsuario)
+        {
+            try
+            {
+                string url = $"usuarios/buscar?texto={nombreUsuario}&idUsuario={idUsuario}";
+                HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync(url);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                    return null;
+                }
+
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+
+                var datos = jsonObject?["datos"];
+                if (datos == null)
+                {
+                    Console.WriteLine("No se encontró el objeto 'datos' en la respuesta.");
+                    return null;
+                }
+
+                var usuarios = datos.ToObject<List<BusquedaUsuarioDTO>>();
+                return usuarios ?? new List<BusquedaUsuarioDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al buscar usuarios: {ex.Message}");
+                return null;
+            }
+        }
+
+
+        public async Task<bool> EliminarUsuarioAsync(int idUsuario, string motivo)
+        {
+            try
+            {
+                string url = $"usuarios/{idUsuario}/eliminar?motivo={Uri.EscapeDataString(motivo)}";
+
+                HttpResponseMessage response = await ClienteAPI.HttpClient.DeleteAsync(url);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Error al eliminar usuario: {response.StatusCode}\n{responseContent}");
+                    return false;
+                }
+
+                MessageBox.Show("Usuario eliminado con éxito.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al eliminar usuario: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }
 

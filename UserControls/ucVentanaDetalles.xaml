@@ -36,7 +36,7 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                     </Border>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="Título: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
+                            <TextBlock Text="Título: " Name="txb_TituloName" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
                                TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
                                FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
                             <TextBlock x:Name="txb_Nombre" Text="cancion, album, lista" FontSize="18" VerticalAlignment="Center" 
@@ -44,7 +44,7 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Autor: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
+                            <TextBlock Text="Autor: " Name="txb_AutorName" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
                                TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
                                FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
                             <TextBlock x:Name="txb_Autor" Text="cancion, album, lista" FontSize="18" VerticalAlignment="Center" 
@@ -52,7 +52,7 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                         </StackPanel>
 
                         <StackPanel x:Name="sp_Album" Orientation="Horizontal">
-                            <TextBlock Text="Álbum: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
+                            <TextBlock Text="Álbum: " Name="txb_AlbumName" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
                                TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
                                FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
                             <TextBlock x:Name="txb_Album" Text="lista" FontSize="18" VerticalAlignment="Center" 
@@ -60,7 +60,7 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Fecha de publicacion: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
+                            <TextBlock Text="Fecha de publicacion: " Name="txb_FechaName" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
                                TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
                                FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
                             <TextBlock x:Name="txb_Fecha" Text="cancion, album" FontSize="18" VerticalAlignment="Center" 
@@ -68,7 +68,7 @@ Padding="5" Margin="5,5,5,5" Width="500" MaxHeight="300">
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Duración: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
+                            <TextBlock Text="Duración: " Name="txb_DuracionName" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"
                                TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Stretch"
                                FontWeight="Bold" Foreground="{StaticResource ColorLetrasHEX}"/>
                             <TextBlock x:Name="txb_Duracion" Text="cancion, lista" FontSize="18" VerticalAlignment="Center" 
