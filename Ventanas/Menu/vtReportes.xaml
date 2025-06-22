@@ -37,7 +37,7 @@ BorderBrush="Transparent"
 Cursor="Hand">
                                         <Image Source="..\..\Recursos\Iconos\iconoRegresar.png"/>
                                     </Button>
-                                    <Label Content="Estadísticas de contenido" HorizontalAlignment="Center" 
+                                    <Label Content="Reporte de uso de MusAPI" HorizontalAlignment="Center" 
                                        FontSize="36" FontWeight="Bold"
                                        Foreground="{StaticResource ColorLetrasHEX}"/>
                                     <ComboBox x:Name="cb_tipo"
