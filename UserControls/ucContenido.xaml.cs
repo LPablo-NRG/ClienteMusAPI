@@ -301,6 +301,8 @@ namespace ClienteMusAPI.UserControls
                 if (listas == null || listas.Count == 0)
                 {
                     MessageBox.Show("No tienes listas de reproducción. Crea una para agregar canciones.");
+                    vtCrearLista vtCrearLista = new vtCrearLista();
+                    NavigationService.GetNavigationService(this).Navigate(vtCrearLista);
                     return;
                 }
 
@@ -329,7 +331,7 @@ namespace ClienteMusAPI.UserControls
                                 IdUsuario = SesionUsuario.IdUsuario
                             });
 
-                            MessageBox.Show(exito ? "Canción agregada a la lista" : "Error al agregar la canción");
+                            MessageBox.Show(exito ? "Canción agregada a la lista." : "Error al agregar la canción");
                             contenedor.Children.Remove(popup);
                         };
 

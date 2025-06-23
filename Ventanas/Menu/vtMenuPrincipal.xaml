@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1280"
       Title="MusAPI - Menú principal">
-    
+
 
     <Grid x:Name="Ventana">
         <Grid x:Name="Contenido">
@@ -68,11 +68,16 @@
         Cursor="Hand">
                             <Image Source="..\..\Recursos\Iconos\iconoConfiguracion.png"  />
                         </Button>
+                        <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent" Click="Click_VerNotificaciones"
+    VerticalAlignment="Center" HorizontalAlignment="Right"
+    Margin="10,0,0,0" Cursor="Hand">
+                            <Image Source="..\..\Recursos\Iconos\iconoSinNotificaciones.png" />
+                        </Button>
                         <Button Width="40" Height="40" Background="Transparent" BorderBrush="Transparent"
     VerticalAlignment="Center" HorizontalAlignment="Right"
     Margin="10,0,10,0" Cursor="Hand"
     Click="Click_VerPerfilUsuario">
-                            <Image  Source="..\..\Recursos\Iconos\iconoPerfil.png" />
+                            <Image Source="..\..\Recursos\Iconos\iconoPerfil.png" />
                         </Button>
                     </StackPanel>
 
@@ -135,7 +140,7 @@ FontWeight="Bold" Margin="0,5,0,0" Grid.Row="0"/>
                                 <Image Source="..\..\Recursos\Iconos\iconoMas.png" Width="30"/>
                             </Button>
                         </Grid>
-                        
+
                         <Border CornerRadius="10" Grid.Column="2" Margin="40,00,40,10" Grid.Row="1">
                             <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="20,5,20,20" FlowDirection="RightToLeft" Style="{StaticResource PlantillaScrollViewer}">
                                 <StackPanel x:Name="sp_listas" HorizontalAlignment="Stretch"  VerticalAlignment="Top" FlowDirection="LeftToRight">

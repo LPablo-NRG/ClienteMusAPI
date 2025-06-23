@@ -123,5 +123,12 @@ namespace ClienteMusAPI.Ventanas.Menu
             }
         }
 
+        private void Click_VerNotificaciones(object sender, RoutedEventArgs e)
+        {
+            vtNotificaciones vtNotificaciones = new vtNotificaciones();
+            NavigationService.Navigate(vtNotificaciones);
+
+        }
+
     }
 }

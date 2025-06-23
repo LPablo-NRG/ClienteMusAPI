@@ -116,6 +116,7 @@
     <Compile Include="DTOs\ListaDeReproduccion_CancionDTO.cs" />
     <Compile Include="DTOs\ListaReproduccionDTO.cs" />
     <Compile Include="DTOs\LoginRequest.cs" />
+    <Compile Include="DTOs\NotificacionDTO.cs" />
     <Compile Include="DTOs\PerfilArtistaDTO.cs" />
     <Compile Include="DTOs\UsuarioDTO.cs" />
     <Compile Include="Servicios\AlbumServicio.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Servicios\ContenidoGuardadoServicio.cs" />
     <Compile Include="Servicios\EstadisticasServicio.cs" />
     <Compile Include="Servicios\ListaServicio.cs" />
+    <Compile Include="Servicios\NotificacionServicio.cs" />
     <Compile Include="Servicios\UsuarioServicio.cs" />
     <Compile Include="UserControls\ucCategoriaMusical.xaml.cs">
       <DependentUpon>ucCategoriaMusical.xaml</DependentUpon>
@@ -134,6 +136,9 @@
     </Compile>
     <Compile Include="UserControls\ucEvaluarArtista.xaml.cs">
       <DependentUpon>ucEvaluarArtista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucNotificacion.xaml.cs">
+      <DependentUpon>ucNotificacion.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ucSeleccionarLista.xaml.cs">
       <DependentUpon>ucSeleccionarLista.xaml</DependentUpon>
@@ -171,6 +176,9 @@
     <Compile Include="Ventanas\Menu\vtCategoriasMusicales.xaml.cs">
       <DependentUpon>vtCategoriasMusicales.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\Menu\vtNotificaciones.xaml.cs">
+      <DependentUpon>vtNotificaciones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Menu\vtReportes.xaml.cs">
       <DependentUpon>vtReportes.xaml</DependentUpon>
     </Compile>
@@ -204,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ucEvaluarArtista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucNotificacion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Menu\vtMenuPrincipal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Menu\vtNotificaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -386,6 +402,8 @@
     <Resource Include="Recursos\Iconos\iconoMundo.png" />
     <Resource Include="Recursos\Iconos\iconoGuardar.png" />
     <Resource Include="Recursos\Iconos\iconoEliminar.png" />
+    <Resource Include="Recursos\Iconos\iconoSinNotificaciones.png" />
+    <Resource Include="Recursos\Iconos\iconoVisto.png" />
     <Content Include="Recursos\Sonidos\MusAPI.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

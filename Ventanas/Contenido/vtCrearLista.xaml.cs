@@ -80,9 +80,24 @@ namespace ClienteMusAPI.Ventanas.Contenido
 
             if (dlg.ShowDialog() == true)
             {
-                rutaImagen = dlg.FileName;
-                img_PortadaLista.Source = new BitmapImage(new Uri(rutaImagen));
+                try
+                {
+                    rutaImagen = dlg.FileName;
+
+                    var imagen = new BitmapImage();
+                    imagen.BeginInit();
+                    imagen.UriSource = new Uri(rutaImagen);
+                    imagen.CacheOption = BitmapCacheOption.OnLoad;
+                    imagen.EndInit();
+
+                    img_PortadaLista.Source = imagen;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un error al cargar la imagen.");
+                }
             }
+
         }
 
         private async void Click_Guardar(object sender, RoutedEventArgs e)
@@ -106,7 +121,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo crear el álbum.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No se pudo crear la lista.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else

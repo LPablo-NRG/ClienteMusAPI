@@ -66,6 +66,8 @@ namespace ClienteMusAPI.Ventanas.Menu
             bool exito = false;
             if (categoriaMusical != null)
             {
+                txb_Nombre.Text = categoriaMusical.nombre;
+                txb_Descipcion.Text = categoriaMusical.descripcion;
                 categoriaMusicalDTO.idCategoriaMusical = categoriaMusical.idCategoriaMusical;
                 exito = await categoriaMusicalServicio.EditarCategoriaMusicalAsync(categoriaMusicalDTO);
             }
