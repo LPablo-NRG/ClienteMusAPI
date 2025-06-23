@@ -73,8 +73,8 @@ namespace ClienteMusAPI.Ventanas.Contenido
                 sp_Canciones.Children.Clear();
                 foreach (var cancion in lista.Canciones)
                 {
-                    sp_Canciones.Children.Add(new ucContenido(new List<BusquedaCancionDTO> { cancion }, 0, mostrarBotonGuardar, mostrarBotonEliminar));
-                    sp_Canciones.Children.Add(new ucContenido(lista.Canciones, indice));
+                    sp_Canciones.Children.Add(new ucContenido(lista.Canciones, indice, mostrarBotonGuardar, mostrarBotonEliminar));
+                    //sp_Canciones.Children.Add(new ucContenido(lista.Canciones, indice));
                     indice++;
                     TimeSpan duracionRecuperada = TimeSpan.ParseExact(cancion.duracion, @"mm\:ss", null);
                     duracionTotal += duracionRecuperada;

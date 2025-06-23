@@ -1,5 +1,6 @@
 ﻿using ClienteMusAPI.Servicios;
 using ClienteMusAPI.UserControls;
+using ClienteMusAPI.Ventanas.Menu;
 using ClienteMusAPI.Ventanas.Perfiles.Estadisticas;
 using System;
 using System.Collections.Generic;
