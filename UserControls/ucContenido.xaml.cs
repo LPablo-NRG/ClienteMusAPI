@@ -144,21 +144,33 @@ namespace ClienteMusAPI.UserControls
             switch (tipo)
             {
                 case "Album":
-                    txb_Nombre.Text = album.nombreAlbum;
-                    txb_Autor.Text = album.nombreArtista;
-                    CargarImagen(album.urlFoto);
+                    if(album != null)
+                    {
+                        txb_Nombre.Text = album.nombreAlbum;
+                        txb_Autor.Text = album.nombreArtista;
+                        CargarImagen(album.urlFoto);
+                    }
+                    
                     break;
                 case "Album Pendiente":
-                    txb_Nombre.Text = albumPendiente.nombre;
-                    txb_Autor.Visibility = Visibility.Collapsed;
-                    btn_Guardar.Visibility = Visibility.Collapsed;
-                    btn_Reproducir.Visibility = Visibility.Collapsed;
-                    CargarImagen(albumPendiente.urlFoto);
+                    if(cancion != null)
+                    {
+                        txb_Nombre.Text = albumPendiente.nombre;
+                        txb_Autor.Visibility = Visibility.Collapsed;
+                        btn_Guardar.Visibility = Visibility.Collapsed;
+                        btn_Reproducir.Visibility = Visibility.Collapsed;
+                        CargarImagen(albumPendiente.urlFoto);
+                    }
+                    
                     break;
                 case "Cancion":
-                    txb_Nombre.Text = cancion.nombre; 
-                    txb_Autor.Text = cancion.nombreArtista;
-                    CargarImagen(cancion.urlFoto);
+                    if(cancion != null)
+                    {
+                        txb_Nombre.Text = cancion.nombre;
+                        txb_Autor.Text = cancion.nombreArtista;
+                        CargarImagen(cancion.urlFoto);
+                    }
+                    
                     break;
                 case "Lista":
                     btn_Eliminar.Visibility = Visibility.Collapsed;
@@ -177,11 +189,15 @@ namespace ClienteMusAPI.UserControls
 
                     break;
                 case "Artista":
-                    txb_Nombre.Text = artista.nombre;
-                    txb_Autor.Text = "@"+artista.nombreUsuario;
-                    btn_Guardar.Content = "Seguir";
-                    btn_Reproducir.Visibility = Visibility.Collapsed;
-                    CargarImagen(artista.urlFoto);
+                    if(artista != null)
+                    {
+                        txb_Nombre.Text = artista.nombre;
+                        txb_Autor.Text = "@" + artista.nombreUsuario;
+                        btn_Guardar.Content = "Seguir";
+                        btn_Reproducir.Visibility = Visibility.Collapsed;
+                        CargarImagen(artista.urlFoto);
+                    }
+                    
                     break;
 
             }
