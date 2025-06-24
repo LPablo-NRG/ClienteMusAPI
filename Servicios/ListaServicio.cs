@@ -173,7 +173,7 @@ namespace ClienteMusAPI.Servicios
                         }
                         else
                         {
-                            MessageBox.Show($"Error: {msj}");
+                            MessageBox.Show(msj);
                         }
                     }
                     catch
