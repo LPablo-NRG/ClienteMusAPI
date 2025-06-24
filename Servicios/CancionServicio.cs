@@ -50,23 +50,50 @@ namespace ClienteMusAPI.Servicios
                     }
 
                     var response = await ClienteAPI.HttpClient.PostAsync("canciones/subir", form);
-                    bool exito = response.IsSuccessStatusCode;
-                    if (exito)
+                    string responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Canción subida exitosamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-                        
+                        try
+                        {
+                            var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                            string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                            if (msj == "ERROR_BD")
+                            {
+                                MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                            }
+                            else if (msj == "ERROR_GENERAL")
+                            {
+                                MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error: {msj}");
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Error inesperado. Intenta más tarde.");
+                        }
+                        return false;
                     }
-                    else
-                    {
-                        string responseContent = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
-                    }
-                    return exito;
+                    return true;
                 }
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al subir la canción: " + ex.Message);
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return false;
             }
         }
@@ -80,7 +107,28 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    Console.Write($"Error: {response.StatusCode}\n{responseContent}");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
                     return null;
                 }
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
@@ -102,9 +150,19 @@ namespace ClienteMusAPI.Servicios
                 var albumes = datos.ToObject<List<BusquedaCancionDTO>>();
                 return albumes ?? new List<BusquedaCancionDTO>();
             }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return null;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return null;
+            }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al obtener las canciones: " + ex.Message);
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return null;
             }
 
@@ -119,7 +177,28 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    //MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
                     return null;
                 }
 
@@ -142,9 +221,19 @@ namespace ClienteMusAPI.Servicios
                 var sencillos = datos.ToObject<List<BusquedaCancionDTO>>();
                 return sencillos ?? new List<BusquedaCancionDTO>();
             }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return null;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return null;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Excepción al obtener sencillos: {ex.Message}");
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return null;
             }
         }
@@ -158,7 +247,28 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"Error: {response.StatusCode}\n{responseContent}");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
                     return null;
                 }
 
@@ -176,9 +286,19 @@ namespace ClienteMusAPI.Servicios
 
                 return canciones ?? new List<BusquedaCancionDTO>();
             }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return null;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return null;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Excepción al buscar canciones: {ex.Message}");
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return null;
             }
         }
@@ -192,7 +312,28 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Error al eliminar: {response.StatusCode}\n{responseContent}");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
                     return false;
                 }
 
@@ -200,9 +341,19 @@ namespace ClienteMusAPI.Servicios
                 string mensaje = jsonObject?["mensaje"]?.ToString();
                 return true;
             }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return false;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al eliminar la canción: " + ex.Message);
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return false;
             }
         }
@@ -215,19 +366,45 @@ namespace ClienteMusAPI.Servicios
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await ClienteAPI.HttpClient.PostAsync("escucha/registrar", content);
-                if (response.IsSuccessStatusCode)
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Escucha registrada exitosamente.");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
                 }
-                else
-                {
-                    string responseContent = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Error al registrar escucha: {response.StatusCode}\n{responseContent}");
-                }
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Excepción al registrar escucha: {ex.Message}");
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
             }
         }
     }

@@ -36,7 +36,20 @@ namespace ClienteMusAPI.Ventanas.Menu
 
             sp_Notificaciones.Children.Clear();
 
-            if (notificaciones == null || notificaciones.Count == 0)
+            if (notificaciones == null)
+            {
+                TextBlock sinNotif = new TextBlock
+                {
+                    Text = "No se pudieron obtener tus notificaciones.",
+                    FontSize = 18,
+                    Margin = new Thickness(10),
+                    Foreground = Brushes.Gray
+                };
+                sp_Notificaciones.Children.Add(sinNotif);
+                return;
+            }
+
+            if (notificaciones.Count == 0)
             {
                 TextBlock sinNotif = new TextBlock
                 {

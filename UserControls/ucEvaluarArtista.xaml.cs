@@ -47,7 +47,9 @@ namespace ClienteMusAPI.UserControls
                 calificacion = calificacion
             };
             string repuesta = await usuarioServicio.EvaluarArtista(evaluacion);
-            MessageBox.Show(repuesta);
+
+            if(repuesta != null)
+                MessageBox.Show(repuesta);
             return true;
         }
 

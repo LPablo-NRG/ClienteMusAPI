@@ -33,6 +33,10 @@ namespace ClienteMusAPI.Ventanas.Menu
         {
             InitializeComponent();
             CargarContenidoGuardado();
+            if (!SesionUsuario.EsAdmin)
+            {
+                btnMenuAdmin.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Click_MenuAdmin(object sender, RoutedEventArgs e)
@@ -99,28 +103,40 @@ namespace ClienteMusAPI.Ventanas.Menu
             int idUsuario = SesionUsuario.IdUsuario;
 
             var albumes = await servicio.ObtenerAlbumesGuardadosAsync(idUsuario);
-            foreach (var album in albumes)
+            if(albumes != null)
             {
-                ucContenido uc = new ucContenido(album, mostrarBotonGuardar, mostrarBotonEliminar);
-                uc.MostrarBotonGuardar = false;
-                sp_albumes.Children.Add(uc);
+                foreach (var album in albumes)
+                {
+                    ucContenido uc = new ucContenido(album, mostrarBotonGuardar, mostrarBotonEliminar);
+                    uc.MostrarBotonGuardar = false;
+                    sp_albumes.Children.Add(uc);
+                }
             }
+            
 
             var listas = await servicio.ObtenerListasGuardadasAsync(idUsuario);
-            foreach (var lista in listas)
+            if(listas != null)
             {
-                ucContenido uc = new ucContenido(lista, mostrarBotonGuardar, mostrarBotonEliminar);
-                uc.MostrarBotonGuardar = false;
-                sp_listas.Children.Add(uc);
+                foreach (var lista in listas)
+                {
+                    ucContenido uc = new ucContenido(lista, mostrarBotonGuardar, mostrarBotonEliminar);
+                    uc.MostrarBotonGuardar = false;
+                    sp_listas.Children.Add(uc);
+                }
             }
 
             var artistas = await servicio.ObtenerArtistasGuardadosAsync(idUsuario);
-            foreach (var artista in artistas)
+
+            if(artistas != null)
             {
-                ucContenido uc = new ucContenido(artista, mostrarBotonGuardar, mostrarBotonEliminar);
-                uc.MostrarBotonGuardar = false;
-                sp_Artistas.Children.Add(uc);
+                foreach (var artista in artistas)
+                {
+                    ucContenido uc = new ucContenido(artista, mostrarBotonGuardar, mostrarBotonEliminar);
+                    uc.MostrarBotonGuardar = false;
+                    sp_Artistas.Children.Add(uc);
+                }
             }
+            
         }
 
         private void Click_VerNotificaciones(object sender, RoutedEventArgs e)

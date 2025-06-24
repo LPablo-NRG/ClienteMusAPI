@@ -40,38 +40,37 @@ namespace ClienteMusAPI.Ventanas.Perfiles.Estadisticas
             string fechaFin = dp_FechaFin.SelectedDate.Value.ToString("yyyy-MM-dd");
             EstadisticasServicio servicio = new EstadisticasServicio();
             EstadisticasPersonalesDTO estadisticas = await servicio.obtenerEstadisticasPersonales(idUsuario, fechaInicio, fechaFin);
-            if (estadisticas.topArtistas.Count != 0)
+            if (estadisticas != null)
             {
-                var textoArtistas = new StringBuilder();
-                int posicionArtistas = 1;
-                foreach (var artista in estadisticas.topArtistas)
+                if (estadisticas.topArtistas.Count != 0)
                 {
-                    textoArtistas.AppendLine($"{posicionArtistas}. {artista}");
-                    posicionArtistas++;
+                    var textoArtistas = new StringBuilder();
+                    int posicionArtistas = 1;
+                    foreach (var artista in estadisticas.topArtistas)
+                    {
+                        textoArtistas.AppendLine($"{posicionArtistas}. {artista}");
+                        posicionArtistas++;
+                    }
+                    tbc_Artistas.Text = textoArtistas.ToString();
                 }
-                tbc_Artistas.Text = textoArtistas.ToString();
-            }
-            if (estadisticas.topCanciones.Count != 0)
-            {
-                var textoCanciones = new StringBuilder();
-                int posicionCanciones = 1;
-                foreach (var cancion in estadisticas.topCanciones)
+                if (estadisticas.topCanciones.Count != 0)
                 {
-                    textoCanciones.AppendLine($"{posicionCanciones}. {cancion}");
-                    posicionCanciones++;
+                    var textoCanciones = new StringBuilder();
+                    int posicionCanciones = 1;
+                    foreach (var cancion in estadisticas.topCanciones)
+                    {
+                        textoCanciones.AppendLine($"{posicionCanciones}. {cancion}");
+                        posicionCanciones++;
+                    }
+                    tbc_Canciones.Text = textoCanciones.ToString();
+
                 }
-                tbc_Canciones.Text = textoCanciones.ToString();
-
             }
-
-
-            // Convertir segundos a minutos (redondeando hacia abajo)
+            
             long minutos = estadisticas.segundosEscuchados / 60;
 
-            // Crear el string resultante
             string tiempoEnMinutos = $"{minutos} minutos";
 
-            // Si quieres mostrar también los segundos restantes (opcional):
             long segundosRestantes = estadisticas.segundosEscuchados % 60;
             string tiempoConSegundos = $"{minutos} minutos y {segundosRestantes} segundos";
             lbl_tiempo.Content = tiempoConSegundos;

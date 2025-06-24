@@ -59,9 +59,14 @@ namespace ClienteMusAPI.Ventanas.Menu
         { 
             EstadisticasServicio servicio = new EstadisticasServicio();
             EstadisticasNumeroUsuariosDTO estadisticas = await servicio.obtenerEstadisticasUsuarios();
-            lbl_totalArtistas.Content = estadisticas.totalArtistas;
-            lbl_totalUsuarios.Content = estadisticas.totalUsuarios + estadisticas.totalArtistas;
-            lbl_totalOyentes.Content = estadisticas.totalUsuarios;
+
+            if(estadisticas != null)
+            {
+                lbl_totalArtistas.Content = estadisticas.totalArtistas;
+                lbl_totalUsuarios.Content = estadisticas.totalUsuarios + estadisticas.totalArtistas;
+                lbl_totalOyentes.Content = estadisticas.totalUsuarios;
+            }
+            
         }
 
         private async void CargarArtistas()
@@ -77,7 +82,7 @@ namespace ClienteMusAPI.Ventanas.Menu
             List<ArtistaMasEscuchadoDTO> estadisticas = await servicio.obtenerEstadisticasArtistas(fechaInicio, fechaFin);
             
 
-            if (estadisticas.Count != 0)
+            if (estadisticas.Count != 0 && estadisticas != null)
             {
                 var top = new StringBuilder();
                 int posicion = 1;
@@ -110,7 +115,7 @@ namespace ClienteMusAPI.Ventanas.Menu
             List<CancionMasEscuchadaDTO> estadisticas = await servicio.obtenerEstadisticasCanciones(fechaInicio, fechaFin);
 
 
-            if (estadisticas.Count != 0)
+            if (estadisticas.Count != 0 && estadisticas != null)
             {
                 var top = new StringBuilder();
                 int posicion = 1;

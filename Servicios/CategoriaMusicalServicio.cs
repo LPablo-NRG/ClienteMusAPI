@@ -23,7 +23,28 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
                     return null;
                 }
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
@@ -40,9 +61,19 @@ namespace ClienteMusAPI.Servicios
                 var categorias = datos.ToObject<List<CategoriaMusicalDTO>>();
                 return categorias ?? new List<CategoriaMusicalDTO>();
             }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return null;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return null;
+            }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al obtener las categorias: " + ex.Message);
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return null;
             }
         }
@@ -60,14 +91,46 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
+                    return false;
                 }
 
                 return response.IsSuccessStatusCode;
             }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return false;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Excepción: {ex.Message}");
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return false;
             }
         }
@@ -88,14 +151,46 @@ namespace ClienteMusAPI.Servicios
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Error: {response.StatusCode}\n{responseContent}");
+                    try
+                    {
+                        var jasonObject = JsonConvert.DeserializeObject<JObject>(responseContent);
+                        string msj = jasonObject?["mensaje"]?.ToString() ?? "Error desconocido.";
+
+                        if (msj == "ERROR_BD")
+                        {
+                            MessageBox.Show("El sistema falló al conectarse a la base de datos, favor de intentar más tarde.");
+                        }
+                        else if (msj == "ERROR_GENERAL")
+                        {
+                            MessageBox.Show("Ocurrió un error en el sistema, favor de intentar más tarde.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error: {msj}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error inesperado. Intenta más tarde.");
+                    }
+                    return false;
                 }
 
                 return response.IsSuccessStatusCode;
             }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("El sistema falló al conectarse con el servidor, favor de intentar más tarde.");
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show("La solicitud tardó demasiado. Verifica tu conexión e intenta más tarde.");
+                return false;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Excepción: {ex.Message}");
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return false;
             }
         }

@@ -46,8 +46,13 @@ namespace ClienteMusAPI.Ventanas.Perfiles.Estadisticas
                     return;
             }
             EstadisticasContenidoSubidoDTO estadisticas = await servicio.obtenerEstadisticasContenidoSubido(idArtista, tipo);
-            lbl_totalEscuchas.Content = estadisticas.numeroOyentes;
-            lbl_totalGuardados.Content = estadisticas.numeroGuardados;
+
+            if(estadisticas != null)
+            {
+                lbl_totalEscuchas.Content = estadisticas.numeroOyentes;
+                lbl_totalGuardados.Content = estadisticas.numeroGuardados;
+            }
+            
         }
 
         private void cb_tipo_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -66,11 +66,18 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 perfilArtista = await usuarioServicio.ObtenerPerfilArtistaAsync(idUsuario);
             }
+
+            if (perfilArtista == null)
+            {
+                MessageBox.Show("No se pudo obtener el perfil del artista.");
+                return;
+            }
+
             if (perfilArtista.nombreUsuario == SesionUsuario.NombreUsuario)
             {
                 sp_MenuOyente.Visibility = Visibility.Collapsed;
                 mostrarBotonEliminar = true;
-            } 
+            }
             else
             {
                 sp_MenuArtista.Visibility = Visibility.Collapsed;
@@ -81,25 +88,33 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             txb_Usuario.Text = "@" + perfilArtista.nombreUsuario;
             txb_Descripcion.Text = perfilArtista.descripcion;
 
-            if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
+            if (!string.IsNullOrEmpty(perfilArtista.urlFoto))
             {
-                var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
-                using (var stream = new MemoryStream(bytes))
+                try
                 {
-                    var image = new BitmapImage();
-                    image.BeginInit();
-                    image.StreamSource = stream;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.EndInit();
-                    img_foto.Source = image;
+                    var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
+                    using (var stream = new MemoryStream(bytes))
+                    {
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.StreamSource = stream;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.EndInit();
+                        img_foto.Source = image;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se pudo cargar la imagen del perfil: " + ex.Message);
                 }
             }
 
-            CargarAlbumesAsync();
-            CargarSencillosAsync();
+            await CargarAlbumesAsync();
+            await CargarSencillosAsync();
         }
 
-        private async void CargarAlbumesAsync()
+
+        private async Task CargarAlbumesAsync()
         {
             sp_Albumes.Children.Clear();
             AlbumServicio albumServicio = new AlbumServicio();
@@ -115,7 +130,7 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             }
             
         }
-        private async void CargarSencillosAsync()
+        private async Task CargarSencillosAsync()
         {
             sp_Sencillos.Children.Clear();
             CancionServicio cancionServicio = new CancionServicio();

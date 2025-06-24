@@ -51,21 +51,26 @@ namespace ClienteMusAPI.Ventanas.Perfiles
             {
                 BusquedaArtistaDTO perfilArtista = await usuarioServicio.ObtenerPerfilArtistaAsync(SesionUsuario.IdUsuario);
 
-                txb_Descripcion.Text = perfilArtista.descripcion;
-                //cargar imagen
-                if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
+                if(perfilArtista != null)
                 {
-                    var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
-                    using (var stream = new MemoryStream(bytes))
+                    txb_Descripcion.Text = perfilArtista.descripcion;
+                    //cargar imagen
+                    if (!String.IsNullOrEmpty(perfilArtista.urlFoto))
                     {
-                        var image = new BitmapImage();
-                        image.BeginInit();
-                        image.StreamSource = stream;
-                        image.CacheOption = BitmapCacheOption.OnLoad;
-                        image.EndInit();
-                        img_foto.Source = image;
+                        var bytes = await ClienteAPI.HttpClient.GetByteArrayAsync(Constantes.URL_BASE + perfilArtista.urlFoto);
+                        using (var stream = new MemoryStream(bytes))
+                        {
+                            var image = new BitmapImage();
+                            image.BeginInit();
+                            image.StreamSource = stream;
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+                            image.EndInit();
+                            img_foto.Source = image;
+                        }
                     }
                 }
+
+                
             }
             
         }
