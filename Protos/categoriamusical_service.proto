@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package musapi.grpc;
+
+option csharp_namespace = "Musapi.Grpc";
+
+service CategoriaMusicalService {
+  rpc RegistrarCategoriaMusical (CategoriaMusicalRequest) returns (CategoriaMusicalResponse);
+}
+
+message CategoriaMusicalRequest {
+  string nombre = 1;
+  string descripcion = 2;
+}
+
+message CategoriaMusicalResponse {
+  int32 idCategoriaMusical = 1;
+  string nombre = 2;
+  string descripcion = 3;
+}
+

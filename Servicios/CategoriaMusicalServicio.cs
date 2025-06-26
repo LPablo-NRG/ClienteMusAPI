@@ -1,5 +1,6 @@
 ﻿using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Ventanas.Contenido;
+using Grpc.Net.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,11 +10,48 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Musapi.Grpc;
 
 namespace ClienteMusAPI.Servicios
 {
     public class CategoriaMusicalServicio
     {
+        private CategoriaMusicalService.CategoriaMusicalServiceClient grpcClient;
+        public CategoriaMusicalServicio()
+        {
+            var channel = GrpcChannel.ForAddress("http://localhost:9090"); // Usa la dirección de tu API gRPC
+            grpcClient = new CategoriaMusicalService.CategoriaMusicalServiceClient(channel);
+        }
+
+        public async Task<bool> RegistrarCategoriaMusicalAsync(CategoriaMusicalDTO categoria)
+        {
+            try
+            {
+                var request = new CategoriaMusicalRequest
+                {
+                    Nombre = categoria.nombre,
+                    Descripcion = categoria.descripcion
+                };
+
+                var response = await grpcClient.RegistrarCategoriaMusicalAsync(request);
+
+                if (string.IsNullOrWhiteSpace(response.Nombre))
+                {
+                    MessageBox.Show("No se pudo registrar la categoría. Verifica los datos.");
+                    return false;
+                }
+
+                // Puedes usar los datos si deseas
+                MessageBox.Show($"Categoría '{response.Nombre}' registrada con éxito.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de comunicación gRPC: " + ex.Message);
+                return false;
+            }
+        }
+
         public async Task<List<CategoriaMusicalDTO>> ObtenerCategoriasMusicalesAsync()
         {
             try
@@ -78,7 +116,7 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
-        public async Task<bool> RegistrarCategoriaMusicalAsync(CategoriaMusicalDTO categoria)
+        /*public async Task<bool> RegistrarCategoriaMusicalAsync(CategoriaMusicalDTO categoria)
         {
             try
             {
@@ -133,7 +171,7 @@ namespace ClienteMusAPI.Servicios
                 MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return false;
             }
-        }
+        }*/
 
         public async Task<bool> EditarCategoriaMusicalAsync(CategoriaMusicalDTO categoria)
         {
@@ -143,8 +181,8 @@ namespace ClienteMusAPI.Servicios
                 categoria.idCategoriaMusical = null;
                 var json = JsonConvert.SerializeObject(categoria);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                Console.Write("id primero: "+idCategoria);
-                Console.Write("id despues: "+categoria.idCategoriaMusical);
+                Console.Write("id primero: " + idCategoria);
+                Console.Write("id despues: " + categoria.idCategoriaMusical);
                 HttpResponseMessage response = await ClienteAPI.HttpClient.PutAsync($"categoriasMusicales/{idCategoria}", content);
 
                 string responseContent = await response.Content.ReadAsStringAsync();

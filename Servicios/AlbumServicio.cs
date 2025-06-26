@@ -11,12 +11,14 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ClienteMusAPI.Clases;
 using System.Windows;
+using AlbumDTOCliente = ClienteMusAPI.DTOs.AlbumDTO;
+
 
 namespace ClienteMusAPI.Servicios
 {
     public class AlbumServicio
     {
-        public async Task<bool> CrearAlbumAsync(AlbumDTO album)
+        public async Task<bool> CrearAlbumAsync(AlbumDTOCliente album)
         {
             try
             {
@@ -385,7 +387,7 @@ namespace ClienteMusAPI.Servicios
             }
         }
 
-        public async Task<bool> EditarAlbumAsync(AlbumDTO album)
+        public async Task<bool> EditarAlbumAsync(AlbumDTOCliente album)
         {
             try
             {

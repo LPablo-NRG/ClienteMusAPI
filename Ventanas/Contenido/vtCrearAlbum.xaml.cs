@@ -17,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AlbumDTOCliente = ClienteMusAPI.DTOs.AlbumDTO;
+
 
 namespace ClienteMusAPI.Ventanas.Contenido
 {
@@ -25,7 +27,7 @@ namespace ClienteMusAPI.Ventanas.Contenido
     /// </summary>
     public partial class vtCrearAlbum : Page
     {
-        private AlbumDTO albumDTO = new AlbumDTO();
+        AlbumDTOCliente albumDTO = new AlbumDTOCliente();
         private AlbumServicio albumServicio = new AlbumServicio();
         private BusquedaAlbumDTO album = new BusquedaAlbumDTO();
         private bool esEdicion = false;

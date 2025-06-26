@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ClienteMusAPI.DTOs
 {
     public class CategoriaMusicalDTO
-    { 
+    {
         public string nombre { get; set; }
         public string descripcion { get; set; }
 
