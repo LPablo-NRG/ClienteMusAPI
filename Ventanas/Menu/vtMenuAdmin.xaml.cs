@@ -59,12 +59,13 @@ namespace ClienteMusAPI.Ventanas.Menu
 
         private void Click_Reportes(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            vtReportes reportes = new vtReportes();
+            NavigationService.Navigate(reportes);
         }
 
         private void Click_AdministrarUsuarios(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
