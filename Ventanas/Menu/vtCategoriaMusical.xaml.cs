@@ -75,7 +75,7 @@ namespace ClienteMusAPI.Ventanas.Menu
             {
                 exito = await categoriaMusicalServicio.RegistrarCategoriaMusicalAsync(categoriaMusicalDTO);
             }
-            
+
 
             if (exito)
             {

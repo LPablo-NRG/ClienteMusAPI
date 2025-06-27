@@ -1,6 +1,6 @@
 ﻿using ClienteMusAPI.DTOs;
 using ClienteMusAPI.Ventanas.Contenido;
-using Grpc.Net.Client;
+using Grpc.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -17,9 +17,11 @@ namespace ClienteMusAPI.Servicios
     public class CategoriaMusicalServicio
     {
         private CategoriaMusicalService.CategoriaMusicalServiceClient grpcClient;
+
         public CategoriaMusicalServicio()
         {
-            var channel = GrpcChannel.ForAddress("http://localhost:9090"); // Usa la dirección de tu API gRPC
+            // Crea un canal sin TLS (inseguro)
+            Channel channel = new Channel("localhost:9090", ChannelCredentials.Insecure);
             grpcClient = new CategoriaMusicalService.CategoriaMusicalServiceClient(channel);
         }
 
@@ -41,7 +43,6 @@ namespace ClienteMusAPI.Servicios
                     return false;
                 }
 
-                // Puedes usar los datos si deseas
                 MessageBox.Show($"Categoría '{response.Nombre}' registrada con éxito.");
                 return true;
             }
