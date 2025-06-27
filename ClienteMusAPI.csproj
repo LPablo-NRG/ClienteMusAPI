@@ -146,6 +146,8 @@
     <Compile Include="DTOs\CancionDTO.cs" />
     <Compile Include="DTOs\CancionMasEscuchadaDTO.cs" />
     <Compile Include="DTOs\CategoriaMusicalDTO.cs" />
+    <Compile Include="DTOs\CategoriamusicalService.cs" />
+    <Compile Include="DTOs\CategoriamusicalServiceGrpc.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\ContenidoGuardadoDTO.cs" />
     <Compile Include="DTOs\EdicionPerfilDTO.cs" />
@@ -464,7 +466,5 @@
     <Error Condition="!Exists('packages\Grpc.Tools.2.72.0\build\Grpc.Tools.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Grpc.Tools.2.72.0\build\Grpc.Tools.targets'))" />
   </Target>
   <Import Project="packages\Grpc.Tools.2.72.0\build\Grpc.Tools.targets" Condition="Exists('packages\Grpc.Tools.2.72.0\build\Grpc.Tools.targets')" />
-  <ItemGroup>
-    <Protobuf Include="Protos\categoriamusical_service.proto" GrpcServices="Client" />
-  </ItemGroup>
+  
 </Project>
