@@ -57,6 +57,51 @@ namespace ClienteMusAPI.Servicios
         {
             try
             {
+                var response = await grpcClient.ObtenerCategoriasMusicalesAsync(new Empty());
+
+                return response.Categorias
+                    .Select(cat => new CategoriaMusicalDTO
+                    {
+                        idCategoriaMusical = cat.IdCategoriaMusical,
+                        nombre = cat.Nombre,
+                        descripcion = cat.Descripcion
+                    })
+                    .ToList();
+            }
+            catch (RpcException ex)
+            {
+                MessageBox.Show($"Error gRPC: {ex.Status.Detail}");
+                return new List<CategoriaMusicalDTO>();
+            }
+        }
+
+        public async Task<bool> EditarCategoriaMusicalAsync(CategoriaMusicalDTO categoria)
+        {
+            try
+            {
+                var request = new CategoriaMusicalEditRequest
+                {
+                    IdCategoriaMusical = categoria.idCategoriaMusical ?? 0,
+                    Nombre = categoria.nombre,
+                    Descripcion = categoria.descripcion
+                };
+
+                var response = await grpcClient.EditarCategoriaMusicalAsync(request);
+
+                MessageBox.Show($"Categoría actualizada: {response.Nombre}");
+                return true;
+            }
+            catch (RpcException ex)
+            {
+                MessageBox.Show($"Error al editar categoría: {ex.Status.Detail}");
+                return false;
+            }
+        }
+
+        /*public async Task<List<CategoriaMusicalDTO>> ObtenerCategoriasMusicalesAsync()
+        {
+            try
+            {
                 HttpResponseMessage response = await ClienteAPI.HttpClient.GetAsync("categoriasMusicales");
                 string responseContent = await response.Content.ReadAsStringAsync();
 
@@ -172,7 +217,7 @@ namespace ClienteMusAPI.Servicios
                 MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return false;
             }
-        }*/
+        }
 
         public async Task<bool> EditarCategoriaMusicalAsync(CategoriaMusicalDTO categoria)
         {
@@ -232,6 +277,6 @@ namespace ClienteMusAPI.Servicios
                 MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}");
                 return false;
             }
-        }
+        }*/
     }
 }
